@@ -1,0 +1,53 @@
+#navbar {
+	position: relative !important;
+}
+.navbar .brand {
+	margin-left:20px !important;
+}
+.hero-unit {
+	padding: 30px !important;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px !important;
+	clear: both;
+}
+#guest-header {
+	font-family: 'Marcellus SC', serif;
+	font-size: 250%;
+	margin-top: 5px;
+	margin-left: 10px;
+	padding: 13px;
+}
+#guest-left {
+	text-align: center;
+}
+.img-size {
+	height: 200px;
+}
+#guestnfo {
+	margin-bottom: 20px;
+}
+.colleagues-header {
+	text-align: center;
+}
+.img-smaller {
+	height: 80px;
+}
+.img-gray-border {
+	border: 1px solid #ddd;
+}
+.colleague-image {
+	width: 86px;
+}
+.header-four-bottom-margin {
+	margin-bottom: 0px !important;
+}
+.colleague{
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #bbb;
+}
+#guest-timeline-input {
+	width: 300px;
+	margin-bottom: 0px !important
+}
