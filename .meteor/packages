@@ -5,11 +5,6 @@
 
 insecure
 preserve-inputs
-accounts-base
 accounts-password
-accounts-ui
-email
 jquery
-underscore
-backbone
 bootstrap
