@@ -1,18 +1,23 @@
 <head>
   	<title>Mosaic</title>
 	<link href='http://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+	<link href='/css/jquery.nailthumb.1.1.min.css' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 </head>
 <body>
-	 {{> navbar}}
-	 <div id="guest-header">
-		 Concierge
-	 </div>
-	 <div class="hero-unit">
-		 {{> guestnfo}}
-		 {{> guestadd}}
-	</div>
+	{{> content}}
 </body>
 
+<template name="content">
+	{{#if is_concierge}}
+		{{> concierge}}
+	{{else}}
+		{{> timelineContainer}}
+	{{/if}}
+</template>
+
+<!-- Navbar - not being used this phase -->
 <template name="navbar">
 	<div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="navbar-inner">
@@ -24,6 +29,645 @@
 			  </ul>
 		  </div>
 	  </div>
+</template>
+
+<template name="timelineContainer">
+	<div class="row-fluid">
+		<div id="timeline-header" class="span6 noSelectText">
+			Mosaic Timeline
+			<!--: <span class="timeline-subtext">A 24 hour window into your hotel</span>-->
+		</div>
+		<div id="clock" class="span6 pull-right noSelectText">
+			<div id="theTimelineDate" class="pull-right noSelectText">
+				<!-- the date -->
+			</div>
+			<input type="text" class="dial clockFonts" id="hrsClock"/>
+			<input type="text" class="dial clockFonts" id="minsClock"/>
+			<input type="text" class="dial clockFonts" id="secondsClock"/>
+		</div>
+	</div>
+	<div id="timeLineHero" class="hero-unit timeline-hero-unit noSelectText">
+		{{> timeline}}
+	</div>
+	<div class="row-fluid">
+		<div class="span1 offset1 noSelectText">
+			<i class="icon-chevron-left icon-white"></i>
+		</div>
+		<div class="span4 offset2 lighterTextTimelineHint noSelectText">
+			<center>
+				Slide to view earlier or later arriving guests
+			</center>
+		</div>
+		<div class="span1 offset2 noSelectText">
+			<i class="icon-chevron-right icon-white"></i>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<center>
+				<button class="btn btn-primary" id="resetButtonBoy" type="button" onClick="buttonReset()">
+					Reset
+				</button>
+			</center>
+		</div>
+	</div>
+</template>
+
+<template name="timeline">
+	<div id="scrollTimeline" class="noSelectText">
+		<div id="scrollyMcScrolls" class="clearfix">
+			<div class="centerText timeLineGuestRow"> <!-- 12am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 00}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 1am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 01}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 2am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 02}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 3am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 03}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 4am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 04}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 5am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 05}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 6am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 06}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 7am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 07}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 8am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 08}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 9am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 09}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 10am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 10}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 11am -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 11}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 12pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 12}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 1pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 13}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 2pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 14}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 3pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 15}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 4pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 16}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 5pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 17}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 6pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 18}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 7pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 19}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 8pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 20}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 9pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 21}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 10pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 22}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+			<div class="centerText timeLineGuestRow"> <!-- 11pm -->
+				<center>
+					{{#each guests}}
+						{{#ifTimeMatches 23}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+						{{/ifTimeMatches}}
+					{{/each}}
+				</center>
+			</div>
+		</div>
+		<div class="whatHourRow clearfix">
+			<div id="timelineHour0" class="centerText rightBorderTimeRow"> <!-- 12am -->
+				00:00
+			</div>
+			<div id="timelineHour1" class="centerText rightBorderTimeRow"> <!-- 1am -->
+				01:00
+			</div>
+			<div id="timelineHour2" class="centerText rightBorderTimeRow"> <!-- 2am -->
+				02:00
+			</div>
+			<div id="timelineHour3" class="centerText rightBorderTimeRow"> <!-- 3am -->
+				03:00
+			</div>
+			<div id="timelineHour4" class="centerText rightBorderTimeRow"> <!-- 4am -->
+				04:00
+			</div>
+			<div id="timelineHour5" class="centerText rightBorderTimeRow"> <!-- 5am -->
+				05:00
+			</div>
+			<div id="timelineHour6" class="centerText rightBorderTimeRow"> <!-- 6am -->
+				06:00
+			</div>
+			<div id="timelineHour7" class="centerText rightBorderTimeRow"> <!-- 7am -->
+				07:00
+			</div>
+			<div id="timelineHour8" class="centerText rightBorderTimeRow"> <!-- 8am -->
+				08:00
+			</div>
+			<div id="timelineHour9" class="centerText rightBorderTimeRow"> <!-- 9am -->
+				09:00
+			</div>
+			<div id="timelineHour10" class="centerText rightBorderTimeRow"> <!-- 10am -->
+				10:00
+			</div>
+			<div id="timelineHour11" class="centerText rightBorderTimeRow"> <!-- 11am -->
+				11:00
+			</div>
+			<div id="timelineHour12" class="centerText rightBorderTimeRow"> <!-- 12pm -->
+				12:00
+			</div>
+			<div id="timelineHour13" class="centerText rightBorderTimeRow"> <!-- 1pm -->
+				13:00
+			</div>
+			<div id="timelineHour14" class="centerText rightBorderTimeRow"> <!-- 2pm -->
+				14:00
+			</div>
+			<div id="timelineHour15" class="centerText rightBorderTimeRow"> <!-- 3pm -->
+				15:00
+			</div>
+			<div id="timelineHour16" class="centerText rightBorderTimeRow"> <!-- 4pm -->
+				16:00
+			</div>
+			<div id="timelineHour17" class="centerText rightBorderTimeRow"> <!-- 5pm -->
+				17:00
+			</div>
+			<div id="timelineHour18" class="centerText rightBorderTimeRow"> <!-- 6pm -->
+				18:00
+			</div>
+			<div id="timelineHour19" class="centerText rightBorderTimeRow"> <!-- 7pm -->
+				19:00
+			</div>
+			<div id="timelineHour20" class="centerText rightBorderTimeRow"> <!-- 8pm -->
+				20:00
+			</div>
+			<div id="timelineHour21" class="centerText rightBorderTimeRow"> <!-- 9pm -->
+				21:00
+			</div>
+			<div id="timelineHour22" class="centerText rightBorderTimeRow"> <!-- 10pm -->
+				22:00
+			</div>
+			<div id="timelineHour23" class="centerText"> <!-- 11pm -->
+				23:00
+			</div>
+		</div>
+	</div>
+</template>
+
+<!-- Below here is view for concierge view : NOT BEING USED -->
+<template name="concierge">
+	{{> navbar}}
+	<div id="guest-header">
+		Concierge
+	</div>
+	<div class="hero-unit">
+		{{> guestnfo}}
+		{{> guestadd}}
+	</div>
 </template>
 
 <template name="guestnfo">

@@ -1,54 +1,119 @@
-// if the database is empty on server start, create some sample data.
-Meteor.startup(function () {
-  if (Lists.find().count() === 0) {
-    var data = [
-      {name: "Meteor Principles",
-       contents: [
-         ["Data on the Wire", "Simplicity", "Better UX", "Fun"],
-         ["One Language", "Simplicity", "Fun"],
-         ["Database Everywhere", "Simplicity"],
-         ["Latency Compensation", "Better UX"],
-         ["Full Stack Reactivity", "Better UX", "Fun"],
-         ["Embrace the Ecosystem", "Fun"],
-         ["Simplicity Equals Productivity", "Simplicity", "Fun"]
-       ]
-      },
-      {name: "Languages",
-       contents: [
-         ["Lisp", "GC"],
-         ["C", "Linked"],
-         ["C++", "Objects", "Linked"],
-         ["Python", "GC", "Objects"],
-         ["Ruby", "GC", "Objects"],
-         ["JavaScript", "GC", "Objects"],
-         ["Scala", "GC", "Objects"],
-         ["Erlang", "GC"],
-         ["6502 Assembly", "Linked"]
-         ]
-      },
-      {name: "Favorite Scientists",
-       contents: [
-         ["Ada Lovelace", "Computer Science"],
-         ["Grace Hopper", "Computer Science"],
-         ["Marie Curie", "Physics", "Chemistry"],
-         ["Carl Friedrich Gauss", "Math", "Physics"],
-         ["Nikola Tesla", "Physics"],
-         ["Claude Shannon", "Math", "Computer Science"]
-       ]
-      }
-    ];
-
-    var timestamp = (new Date()).getTime();
-    for (var i = 0; i < data.length; i++) {
-      var list_id = Lists.insert({name: data[i].name});
-      for (var j = 0; j < data[i].contents.length; j++) {
-        var info = data[i].contents[j];
-        Todos.insert({list_id: list_id,
-                      text: info[0],
-                      timestamp: timestamp,
-                      tags: info.slice(1)});
-        timestamp += 1; // ensure unique timestamp.
-      }
-    }
-  }
-});
+// Shouldn't need this...
+if (Meteor.isServer) {
+	Meteor.startup(function () {
+		if (Guests.find().count() === 0) {
+			var guests = 
+				[
+					{"fname" : "Joe", 
+					"lname" : "Blo", 
+					"pcr" : "908127821", 
+					"arrived" : false, 
+					"notes" : 
+						["cars", 
+						"software", 
+						"ihg employee" 
+						], 
+					"arrivaltime" : "15:00", 
+					"arrivaldate" : "2012-11-14", 
+					"sex" : "m"},
+					
+					{"fname": "Ryan",
+					"lname": "Esparza",
+					"pcr": "908126320",
+					"arrived": false,
+					"notes": 
+						["Texas",
+						"football",
+						"mustangs"],
+					"arrivaltime": "13:30",
+					"arrivaldate": "2012-11-14",
+					"sex": "m" },
+					
+					{"fname": "Scott",
+					"lname": "Wolfson",
+					"pcr": "908126300",
+					"arrived": false,
+					"notes": 
+						["Texas",
+						"Tupperware",
+						"Running"],
+					"arrivaltime": "09:30",
+					"arrivaldate": "2012-11-14",
+					"sex": "m" },
+					
+					{"fname": "Chris",
+					"lname": "Kelner",
+					"pcr": "908122320",
+					"arrived": false,
+					"notes": 
+						["cars",
+						"development",
+						"space"],
+					"arrivaltime": "10:30",
+					"arrivaldate": "2012-11-14",
+					"sex": "m" },
+					
+					{"fname": "Carolina",
+					"lname": "Kelner",
+					"pcr": "988126320",
+					"arrived": false,
+					"notes": 
+						["shoes",
+						"purses",
+						"photography"],
+					"arrivaltime": "11:30",
+					"arrivaldate": "2012-11-14",
+					"sex": "f" },
+					
+					{"fname": "David",
+					"lname": "Black",
+					"pcr": "9081200020",
+					"arrived": false,
+					"notes": 
+						["cars",
+						"startups",
+						"cheese&crackers"],
+					"arrivaltime": "14:00",
+					"arrivaldate": "2012-11-14",
+					"sex": "m" },
+					
+					{"fname": "Brian",
+					"lname": "DeWitt",
+					"pcr": "999926320",
+					"arrived": false,
+					"notes": 
+						["no idea",
+						"no idea",
+						"no idea"],
+					"arrivaltime": "11:15",
+					"arrivaldate": "2012-11-14",
+					"sex": "m" },
+					
+					{"fname": "Peter",
+					"lname": "Pan",
+					"pcr": "911126320",
+					"arrived": false,
+					"notes": 
+						["magic",
+						"flying",
+						"lost boys"],
+					"arrivaltime": "18:30",
+					"arrivaldate": "2012-11-14",
+					"sex": "m" },
+					
+					{"fname": "Jax",
+					"lname": "Teller",
+					"pcr": "908333330",
+					"arrived": false,
+					"notes": 
+						["harleys",
+						"guns",
+						"charming"],
+					"arrivaltime": "20:45",
+					"arrivaldate": "2012-11-14",
+					"sex": "m" },
+				];
+			Guests.insert(guests);
+		}
+	});
+}
