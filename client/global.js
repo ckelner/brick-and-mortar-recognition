@@ -89,7 +89,7 @@ function buttonReset(){
 }
 
 function cssHacks(){
-	if(navigator.userAgent.match(/Android/)) {
+	if(navigator.userAgent.contains("Android")) {
    		$("timeline-header").html("Droid me baby");
 	}
 }
