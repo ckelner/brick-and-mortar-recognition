@@ -1,6 +1,11 @@
 html, body {
 	background-color: #111310;
 	height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.container-fluid{ 
+	height: inherit;
 }
 #navbar {
 	position: relative !important;
@@ -44,7 +49,7 @@ html, body {
 	background-color: #363932 !important;
 	color: #fff !important;
 	overflow: hidden;
-	height: auto;
+	height: 79.6%;
 	padding: 20px !important;
 }
 #guest-left {
@@ -89,6 +94,8 @@ html, body {
 	border-top: 1px solid #232521;
 	font-family: 'Ubuntu', sans-serif;
 	width: 3480px;
+	margin-top: 10px;
+	padding-left: 1px;
 }
 .rightBorderTimeRow {
 	border-right: 1px solid #232521;
@@ -100,10 +107,20 @@ html, body {
 	font-family: 'Ubuntu', sans-serif;
 	text-align: center;
 	float: left;
-	width: 145px;
+	width: 144px;
+	height: 100%;
+	border-left: 1px solid #232521;
+}
+.currentHour{
+	background-color: #008db3;
 }
 #scrollyMcScrolls{
 	width: 3480px;
+	height: 100%;
+	margin-top: -20px;
+}
+#scrollTimeline{
+	height: 99.8%;
 }
 .lighterTextTimelineHint{
 	font-family: 'Ubuntu', sans-serif;

@@ -4,11 +4,12 @@ function setupTimeline(){
 	$('#scrollTimeline').draggable({ axis: "x" });
 	watchDraggable();
 	//window width minus padding
-	var ww=$('#scrollTimeline').parent().parent().width()/2;
+	var ww=$('#scrollTimeline').parent().width()/2;
 	// set up current time
-	$('#scrollTimeline').css("left", -1*global_userClockTime*144+ww);
+	// not sure why 148.5 works well...
+	$('#scrollTimeline').css("left", -1*global_userClockTime*148.5+ww);
 	//debug
-	console.log(ww);
+	//console.log(ww);
 }
 
 function watchDraggable(){

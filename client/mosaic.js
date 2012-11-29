@@ -35,3 +35,11 @@ Handlebars.registerHelper('ifTimeMatches', function(gTime, guestTime) {
 		return false;
 	}
 });
+//helper function to see if guest time matches the column time
+Handlebars.registerHelper('ifTimeMatchesCurrentHr', function(gTime) {
+	if(gTime===moment().format('HH')) {
+		return true;
+	}else{
+		return false;
+	}
+});
