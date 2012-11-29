@@ -93,7 +93,7 @@ html, body {
 .rightBorderTimeRow {
 	border-right: 1px solid #232521;
 	float: left;
-	width: 145px;
+	width: 144px; /*due to border*/
 }
 .timeLineGuestRow {
 	padding-bottom: 10px;
@@ -135,4 +135,5 @@ html, body {
 }
 #timelineHour23{
 	float: left;
+	border-right: 0px !important;
 }
