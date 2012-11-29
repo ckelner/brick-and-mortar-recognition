@@ -88,6 +88,12 @@ function buttonReset(){
 	location.reload();
 }
 
+function cssHacks(){
+	if(navigator.userAgent.match(/Android/)) {
+   		$("timeline-header").html("Droid me baby");
+	}
+}
+
 Meteor.startup(function(){
 	//global
 	getDOMHandlers();
@@ -111,4 +117,7 @@ Meteor.startup(function(){
 	//guest photos
 	jQuery('.guestThumbTimeline').nailthumb();
 	//end-guest photos
+	cssHacks();
+	//css...hacks
+
 });
