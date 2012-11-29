@@ -2,8 +2,8 @@
   	<title>Super Secret M Project</title>
 	<link href='http://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-	<link href='/css/jquery.nailthumb.1.1.min.css' rel='stylesheet' type='text/css'>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
 </head>
 <body>
 	{{> content}}
@@ -87,7 +87,7 @@
 									<div class="guestThumbEnclosure">
 										<center>
 											<div class="guestThumbTimeline">
-												<img src="http://static.ihginnovation.net/guests_photos/{{this.fname}}_{{this.lname}}.jpeg" 
+												<img src="{{this.img}}" 
 													class="img-rounded img-PadBottom"/>
 											</div>
 										</center>
@@ -162,29 +162,88 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="checkbox inline">
-						<input type="checkbox" id="addGuestSexM" value="Male"> Male
+					<label class="radio inline">
+						<input type="radio" name="guestAddSexRadio" id="guestAddSexMale" value="male" checked>
+						Male
 					</label>
-					<label class="checkbox inline">
-						<input type="checkbox" id="addGuestSexF" value="Female"> Female
+					<label class="radio inline">
+						<input type="radio" name="guestAddSexRadio" id="guestAddSexFemale" value="female">
+						Female
 					</label>
-					<label class="checkbox inline">
-						<input type="checkbox" id="addGuestSexU" value="Unknown"> Unknown
+					<label class="radio inline">
+						<input type="radio" name="guestAddSexRadio" id="guestAddSexUnknown" value="unknown">
+						Unknown
 					</label>
-				</div>
-				<br/>
-				<div class="control-group">
-					<div class="controls">
-						<button type="submit" class="btn btn-primary">
-							Add Guest
-						</button>
-					</div>
 				</div>
 			</div>
 			<div id="addGuestRight" class="pull-left">
-				Right...
+				<div class="control-group">
+					<label class="control-label" for="addGuestPhoto">
+						Guest Photo
+					</label>
+					<div class="fileupload fileupload-new" data-provides="fileupload">
+						<div class="fileupload-preview thumbnail" id="addGuestPhoto" 
+							style="width: 200px; height: 150px;">
+							<img src="/guests_photos/no_image.gif" />
+						</div>
+						<div>
+							<span class="btn btn-file">
+								<span class="fileupload-new">
+									Select image
+								</span>
+							<span class="fileupload-exists">
+								Change
+							</span>
+							<input type="file" id="guestPhotoInput" /></span>
+							<a href="#" class="btn fileupload-exists" data-dismiss="fileupload" 
+								onClick="setTimeout(setNoGuestImg,500)">
+								Remove
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="addGuestNotes">
+						Guest Notes (Comma seperated)
+					</label>
+					<textarea id="addGuestNotes" rows="3"
+						placeholder="Travel Blogger, Loves Scotch, Dislikes seafood"></textarea>
+				</div>
+				<br/>
+				<div class="control-group pull-right">
+					<div class="controls">
+						<a class="btn btn-primary" onClick="guestPhotoUpload()">
+							Add Guest
+						</a>
+					</div>
+				</div>
 			</div>
 		</form>
+		<!-- guest modal -->
+		{{> addGuestModal}}
+	</div>
+</template>
+
+<template name="addGuestModal">
+	<div class="modal hide fade" id="addGuestModalDiv" tabindex="-1" 
+		role="dialog" aria-labelledby="addGuestModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="addGuestModalLabel">Adding Guest</h3>
+		</div>
+		<div class="modal-body">
+			<div id="guestAddPhotoUploadPlsWait">
+				<p>Please wait while we upload the guest's photo and save to the database</p>
+			</div>
+			<div id="guestAddPhotoUploadBadMsg" class="alert alert-block alert-error hide"></div>
+			<div id="guestAddPhotoUploadGoodMsg" class="alert alert-block alert-success hide"></div>
+			<div class="progress progress-striped active">
+				<div id="guestAddPhotoUploadProgressBar" class="bar" style="width: 0%;"></div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
 	</div>
 </template>
 

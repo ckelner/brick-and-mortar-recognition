@@ -121,4 +121,7 @@ Meteor.startup(function(){
 
 	//css...hacks
 	cssHacks();
+
+	//Seting up Filepicker.io with your api key
+    filepicker.setKey('AcQbwQS8TU6hk8ebqsR2Uz');
 });
