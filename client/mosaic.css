@@ -29,21 +29,42 @@ html, body {
 }
 #timeline-header {
 	color: #B5A46E;
+	font-size: 150% !important;
+	padding: 0px;
+	padding-left: 15px;
 }
 .timeline-subtext {
 	font-family: 'Ubuntu', sans-serif;
 	font-size: 50%;
 }
 #clock {
-	margin-top: 0px;
-	padding-right: 13px;
-	padding-top: 5px;
-	color: #B8B9BD;
-	text-align: right;
-	max-height: 60px;
+	font-family: 'Marcellus SC', serif;
+	text-align: center;
+	color: #B5A46E;
+	font-size: 150% !important;
+	margin-top: 5px;
+	position: absolute;
+	width: 100%;
 }
-.clockFonts {
-	font-size: 1em !important;
+#clockWrapper{
+	margin-left: auto;
+	margin-right: 49.6%;
+	float: right;
+}
+#hrsClock{
+	float: left;
+	padding-left: 5px;
+}
+#minsClock{
+	float: left;
+}
+#colonClock{
+	float: left;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+#secondsClock{
+	float: left;
 }
 .timeline-hero-unit {
 	background-color: #363932 !important;
@@ -140,10 +161,12 @@ html, body {
 	-webkit-user-select: none;
 	user-select: none;
 }
+/* removed in favor of header
 #theTimelineDate {
 	padding-top: 13px;
 	padding-left: 5px;
 }
+*/
 .guestThumbTimeline {
 	width: 50px;
 }

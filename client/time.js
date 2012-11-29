@@ -16,13 +16,13 @@ function setTime(){
 	}
 }
 
-function buildSecs(){
+/*function buildSecs(){
 	var sec=global_Secs;
 	if(global_Secs<10){
 		sec="0"+global_Secs;
 	}
 	return sec;
-}
+}*/
 
 function buildMins(){
 	var min=global_Mins;
@@ -35,7 +35,7 @@ function buildMins(){
 function buildHrs(){
 	var hr=global_Hours;
 	if(global_Hours===0){
-		hr="00";
+		hr="00:";
 	}else{
 		if(global_Hours<10){
 			hr="0"+global_Hours;
@@ -45,9 +45,9 @@ function buildHrs(){
 }
 
 function showTime(){
-	global_secsClockInput.val(buildSecs).trigger('change');
-	global_minsClockInput.val(buildMins).trigger('change');
-	global_hrsClockInput.val(buildHrs).trigger('change');
+	//global_secsClockInput.html(buildSecs);
+	global_minsClockInput.html(buildMins);
+	global_hrsClockInput.html(buildHrs);
 }
 
 function updateTime(){
@@ -64,31 +64,4 @@ function updateTime(){
 			}
 		}
 	}
-}
-
-function setupVisuals(){
-	global_secsClockInput.knob({
-		'min':0,
-		'max':60,
-		'readOnly':true,
-		'thickness':.2,
-		'width':45,
-		'fgColor':'#B5A46E'
-	});
-	global_minsClockInput.knob({
-		'min':0,
-		'max':60,
-		'readOnly':true,
-		'thickness':.2,
-		'width':45,
-		'fgColor':'#B5A46E'
-	});
-	global_hrsClockInput.knob({
-		'min':0,
-		'max':60,
-		'readOnly':true,
-		'thickness':.2,
-		'width':45,
-		'fgColor':'#B5A46E'
-	});
 }

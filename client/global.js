@@ -56,16 +56,16 @@ function getDOMHandlers(){
 	global_minsClockInput=$("#minsClock");
 	global_hrsClockInput=$("#hrsClock");
 	//timeline hours
-	global_timelineHr0=$("#timelineHour0");
-	global_timelineHr1=$("#timelineHour1");
-	global_timelineHr2=$("#timelineHour2");
-	global_timelineHr3=$("#timelineHour3");
-	global_timelineHr4=$("#timelineHour4");
-	global_timelineHr5=$("#timelineHour5");
-	global_timelineHr6=$("#timelineHour6");
-	global_timelineHr7=$("#timelineHour7");
-	global_timelineHr8=$("#timelineHour8");
-	global_timelineHr9=$("#timelineHour9");
+	global_timelineHr0=$("#timelineHour00");
+	global_timelineHr1=$("#timelineHour01");
+	global_timelineHr2=$("#timelineHour02");
+	global_timelineHr3=$("#timelineHour03");
+	global_timelineHr4=$("#timelineHour04");
+	global_timelineHr5=$("#timelineHour05");
+	global_timelineHr6=$("#timelineHour06");
+	global_timelineHr7=$("#timelineHour07");
+	global_timelineHr8=$("#timelineHour08");
+	global_timelineHr9=$("#timelineHour09");
 	global_timelineHr10=$("#timelineHour10");
 	global_timelineHr11=$("#timelineHour11");
 	global_timelineHr12=$("#timelineHour12");
@@ -81,7 +81,9 @@ function getDOMHandlers(){
 	global_timelineHr22=$("#timelineHour22");
 	global_timelineHr23=$("#timelineHour23");
 	//date
-	global_TimelineDateDiv=$("#theTimelineDate");
+	// global_TimelineDateDiv=$("#theTimelineDate");
+	// changed to header
+	global_TimelineDateDiv=$("#timeline-header");
 }
 
 function buttonReset(){
@@ -103,7 +105,6 @@ Meteor.startup(function(){
 	//time
 	setTime();
 	showTime();
-	setupVisuals();
 	//end-time
 	
 	//timeline time
