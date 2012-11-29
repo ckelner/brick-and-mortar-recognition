@@ -36,7 +36,7 @@
 <template name="timelineContainer">
 	<div class="row-fluid">
 		<div id="timeline-header" class="span6 noSelectText">
-			Mosaic Timeline
+			Guest Timeline
 			<!--: <span class="timeline-subtext">A 24 hour window into your hotel</span>-->
 		</div>
 		<div id="clock" class="span6 pull-right noSelectText">
@@ -80,9 +80,9 @@
 		<div id="scrollyMcScrolls" class="clearfix">
 			{{#each hours}}
 				{{#if ifTimeMatchesCurrentHr hour}}
-					<div class="centerText timeLineGuestRow currentHour"> <!-- {{hour}} -->
+					<div class="centerText timeLineGuestRow currentHour clearfix"> <!-- {{hour}} -->
 				{{else}}
-					<div class="centerText timeLineGuestRow"> <!-- {{hour}} -->
+					<div class="centerText timeLineGuestRow clearfix"> <!-- {{hour}} -->
 				{{/if}}
 					<center>
 						{{#each guests}}
@@ -102,13 +102,18 @@
 								</div>
 							{{/if}}
 						{{/each}}
+						&nbsp;
 					</center>
 				</div>
 			{{/each}}
 		</div>
 		<div class="whatHourRow clearfix">
 			{{#each hours}}
-				<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow"> <!-- {{hour}} -->
+				{{#if ifTimeMatchesCurrentHr hour}}
+					<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow currentHour"> <!-- {{hour}} -->
+				{{else}}
+					<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow"> <!-- {{hour}} -->
+				{{/if}}
 					{{hour}}:00
 				</div>
 			{{/each}}

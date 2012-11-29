@@ -49,8 +49,11 @@ html, body {
 	background-color: #363932 !important;
 	color: #fff !important;
 	overflow: hidden;
-	height: 79.6%;
+	/*height: 79.6%;*/
 	padding: 20px !important;
+	top: 0;
+	bottom: 0;
+	position: relative;
 }
 #guest-left {
 	text-align: center;
@@ -96,6 +99,8 @@ html, body {
 	width: 3480px;
 	margin-top: 10px;
 	padding-left: 1px;
+	bottom: -20px;
+	position: absolute;
 }
 .rightBorderTimeRow {
 	border-right: 1px solid #232521;
@@ -103,12 +108,12 @@ html, body {
 	width: 144px; /*due to border*/
 }
 .timeLineGuestRow {
-	padding-bottom: 10px;
 	font-family: 'Ubuntu', sans-serif;
 	text-align: center;
 	float: left;
 	width: 144px;
-	height: 100%;
+	padding-bottom: 2000px !important;
+	margin-bottom: -2000px  !important;
 	border-left: 1px solid #232521;
 }
 .currentHour{
@@ -116,7 +121,9 @@ html, body {
 }
 #scrollyMcScrolls{
 	width: 3480px;
-	height: 100%;
+	/*top: -20px;
+	bottom: 0;
+	position: absolute;*/
 	margin-top: -20px;
 }
 #scrollTimeline{
