@@ -115,8 +115,10 @@ Meteor.startup(function(){
 	updateTimelineDate();
 	//end-date
 	
+	// didn't need it for some reason...
+	// odd, the API said we did.
 	//guest photos
-	jQuery('.guestThumbTimeline').nailthumb();
+	//setImgThumbNail();
 	//end-guest photos
 
 	//css...hacks
