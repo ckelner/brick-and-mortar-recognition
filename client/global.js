@@ -90,7 +90,7 @@ function buttonReset(){
 
 function cssHacks(){
 	if(navigator.userAgent.indexOf("Android")!==-1){
-   		$("#timeline-header").html("Droid me baby");
+   		$('body').append("<link href='/css/droid.css' rel='stylesheet' type='text/css'>");
 	}
 }
 
