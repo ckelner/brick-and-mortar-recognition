@@ -16,6 +16,14 @@ Template.content.is_concierge = function () {
 		return false;
 	}
 }
+//determine if concierge view or not
+Template.content.is_admin = function () {
+	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
+		return true;
+	}else{
+		return false;
+	}
+}
 function getURLParameter(name) {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }

@@ -6,33 +6,26 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 </head>
 <body>
-	<div id="container" class="container-fluid">
-		{{> content}}
-	</div>
+	{{> content}}
 </body>
 
 <template name="content">
 	{{#if is_concierge}}
-		{{> concierge}}
+		<div id="container" class="container-fluid">
+			{{> concierge}}
+		</div>
 	{{else}}
-		{{> timelineContainer}}
+		{{#if is_admin}}
+			<div id="adminContainer">
+				{{> adminAddGuest}}
+			</div>
+		{{else}}
+			{{> timelineContainer}}
+		{{/if}}
 	{{/if}}
 </template>
 
-<!-- Navbar - not being used this phase -->
-<template name="navbar">
-	<div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
-		  <div class="navbar-inner">
-			  <a class="brand" href="#">Mosaic</a>
-			  <ul class="nav">
-				  <li><a href="#">Home</a></li>
-				  <li class="active"><a href="#">Concierge</a></li>
-				  <li><a href="#">Timeline</a></li>
-			  </ul>
-		  </div>
-	  </div>
-</template>
-
+<!-- START: GUEST TIMELINE -->
 <template name="timelineContainer">
 	<div class="row-fluid">
 		<div id="timeline-header" class="span6 noSelectText">
@@ -120,8 +113,97 @@
 		</div>
 	</div>
 </template>
+<!-- END: GUREST TIMELINE -->
+
+<!-- START: ADMIN VIEW -->
+<template name="adminAddGuest">
+	{{> navbar}}
+	<div id="adminAddGuest" class="hero-unit clearfix">
+		<form class="form">
+			<div id="addGuestLeft" class="pull-left">
+				<div class="control-group">
+					<label class="control-label" for="addGuestFname">
+						First Name
+					</label>
+					<div class="controls">
+						<input type="text" id="addGuestFname" placeholder="First">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="addGuestLname">
+						Last Name
+					</label>
+					<div class="controls">
+						<input type="text" id="addGuestLname" placeholder="Last">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="addGuestPCR">
+						PCR # (9 digits, starts with 9)
+					</label>
+					<div class="controls">
+						<input type="text" id="addGuestPCR" placeholder="900000000">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="addGuestATime">
+						Arrival Time (HH:MM) - 24hr format
+					</label>
+					<div class="controls">
+						<input type="text" id="addGuestATime" placeholder="13:30">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="addGuestADate">
+						Arrival Date (YYYY-MM-DD)
+					</label>
+					<div class="controls">
+						<input type="text" id="addGuestADate" placeholder="2012-12-15">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="checkbox inline">
+						<input type="checkbox" id="addGuestSexM" value="Male"> Male
+					</label>
+					<label class="checkbox inline">
+						<input type="checkbox" id="addGuestSexF" value="Female"> Female
+					</label>
+					<label class="checkbox inline">
+						<input type="checkbox" id="addGuestSexU" value="Unknown"> Unknown
+					</label>
+				</div>
+				<br/>
+				<div class="control-group">
+					<div class="controls">
+						<button type="submit" class="btn btn-primary">
+							Add Guest
+						</button>
+					</div>
+				</div>
+			</div>
+			<div id="addGuestRight" class="pull-left">
+				Right...
+			</div>
+		</form>
+	</div>
+</template>
+
+<template name="navbar">
+	<div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
+		  <div class="navbar-inner">
+			  <a class="brand" href="#">Super Secret M Project</a>
+			  <ul class="nav">
+				  <li class="active"><a href="#">Add Guest</a></li>
+				  <li><a href="#">Find Guest(s)</a></li>
+				  <li><a href="#">View Guest(s)</a></li>
+			  </ul>
+		  </div>
+	  </div>
+</template>
+<!-- END: ADMIN VIEW -->
 
 <!-- Below here is view for concierge view : NOT BEING USED -->
+<!-- START: CONCIERGE VIEW -->
 <template name="concierge">
 	{{> navbar}}
 	<div id="guest-header">
@@ -286,3 +368,4 @@
 		</div>
 	</div>
 </template>
+<!-- END: CONCIERGE VIEW -->
