@@ -89,8 +89,8 @@ function buttonReset(){
 }
 
 function cssHacks(){
-	if(navigator.userAgent.contains("Android")) {
-   		$("timeline-header").html("Droid me baby");
+	if(navigator.userAgent.indexOf("Android")!==-1){
+   		$("#timeline-header").html("Droid me baby");
 	}
 }
 
@@ -117,7 +117,7 @@ Meteor.startup(function(){
 	//guest photos
 	jQuery('.guestThumbTimeline').nailthumb();
 	//end-guest photos
-	cssHacks();
-	//css...hacks
 
+	//css...hacks
+	cssHacks();
 });
