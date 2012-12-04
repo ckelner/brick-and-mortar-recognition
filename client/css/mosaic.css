@@ -32,6 +32,7 @@ html, body {
 	font-size: 150% !important;
 	padding: 0px;
 	padding-left: 15px;
+	float: left;
 }
 .timeline-subtext {
 	font-family: 'Ubuntu', sans-serif;
@@ -43,13 +44,13 @@ html, body {
 	color: #B5A46E;
 	font-size: 150% !important;
 	margin-top: 5px;
-	position: absolute;
-	width: 98.8%;
+	float: left;
+	margin-left: 15px;
 }
 #clockWrapper{
-	margin-left: auto;
+	/*margin-left: auto;
 	margin-right: 49%;
-	float: right;
+	float: right;*/
 }
 #hrsClock{
 	float: left;
@@ -196,4 +197,10 @@ html, body {
 }
 #addGuestRight{
 	margin-left: 40px;
+}
+.control-group{
+	margin-bottom: 30px;
+}
+#addGuestButton{
+	margin-left: -60px;
 }

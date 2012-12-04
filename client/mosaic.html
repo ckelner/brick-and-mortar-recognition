@@ -2,8 +2,8 @@
   	<title>Super Secret M Project</title>
 	<link href='http://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 </head>
 <body>
 	{{> content}}
@@ -28,7 +28,7 @@
 <!-- START: GUEST TIMELINE -->
 <template name="timelineContainer">
 	<div class="row-fluid">
-		<div id="timeline-header" class="span6 noSelectText">
+		<div id="timeline-header" class="noSelectText">
 			Guest Timeline
 			<!--: <span class="timeline-subtext">A 24 hour window into your hotel</span>-->
 		</div>
@@ -146,6 +146,19 @@
 					</div>
 				</div>
 				<div class="control-group">
+					<label class="control-label" for="addGuestPCR">
+						PCR Status (Club, Gold, Platinum...)
+					</label>
+					<div class="controls">
+						<select id="addGuestPCRStatusSelect">
+							<option>Club</option>
+							<option>Gold</option>
+							<option>Platinum</option>
+							<option>Ambassador</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
 					<label class="control-label" for="addGuestATime">
 						Arrival Time (HH:MM) - 24hr format
 					</label>
@@ -160,20 +173,6 @@
 					<div class="controls">
 						<input type="text" id="addGuestADate" placeholder="2012-12-15">
 					</div>
-				</div>
-				<div class="control-group">
-					<label class="radio inline">
-						<input type="radio" name="guestAddSexRadio" id="guestAddSexMale" value="male" checked>
-						Male
-					</label>
-					<label class="radio inline">
-						<input type="radio" name="guestAddSexRadio" id="guestAddSexFemale" value="female">
-						Female
-					</label>
-					<label class="radio inline">
-						<input type="radio" name="guestAddSexRadio" id="guestAddSexUnknown" value="unknown">
-						Unknown
-					</label>
 				</div>
 			</div>
 			<div id="addGuestRight" class="pull-left">
@@ -202,6 +201,28 @@
 						</div>
 					</div>
 				</div>
+				<br/>
+				<div class="control-group">
+					<label class="radio inline">
+						<input type="radio" name="guestAddSexRadio" id="guestAddSexMale" value="male" checked>
+						Male
+					</label>
+					<label class="radio inline">
+						<input type="radio" name="guestAddSexRadio" id="guestAddSexFemale" value="female">
+						Female
+					</label>
+					<label class="radio inline">
+						<input type="radio" name="guestAddSexRadio" id="guestAddSexUnknown" value="unknown">
+						Unknown
+					</label>
+				</div>
+				<br/>
+				<div class="control-group">
+					<label class="checkbox">
+						<input id="addGuestImportantCheck" type="checkbox" value="">
+						Is this an important guest? (note why below)
+					</label>
+				</div>
 				<div class="control-group">
 					<label class="control-label" for="addGuestNotes">
 						Guest Notes (Comma seperated)
@@ -210,7 +231,7 @@
 						placeholder="Travel Blogger, Loves Scotch, Dislikes seafood"></textarea>
 				</div>
 				<br/>
-				<div class="control-group pull-right">
+				<div id="addGuestButton" class="control-group pull-left">
 					<div class="controls">
 						<a class="btn btn-primary" onClick="guestPhotoUpload()">
 							Add Guest

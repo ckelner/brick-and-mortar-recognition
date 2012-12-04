@@ -29,19 +29,23 @@ function guestDBSave(photoUrl){
 	var firstname=$("#addGuestFname").val();
 	var lastname=$("#addGuestLname").val();
 	var pcrNum=$("#addGuestPCR").val();
+	var pcStat=$("#addGuestPCRStatusSelect").val();
 	var aTime=$("#addGuestATime").val();
 	var aDate=$("#addGuestADate").val();
-	var sexY=getSex();
+	var sexY=getGuestSex();
+	var imp=getGuestImportant();
 	var photo=photoUrl;
 	var note=$("#addGuestNotes").val().split(', ');
 	Guests.insert({
 		fname: firstname,
 		lname: lastname,
 		pcr: pcrNum,
+		pctStatus: pcStat,
 		arrivaltime: aTime,
 		arrivaldate: aDate,
 		sex: sexY,
 		arrive: false,
+		important: imp,
 		notes: note ? [note] : [],
 		img: photo,
 		timestamp: (new Date()).getTime()
@@ -50,12 +54,17 @@ function guestDBSave(photoUrl){
 	$("#guestAddPhotoUploadGoodMsg").show();
 	$("#guestAddPhotoUploadGoodMsg").html("Upload & save successful!");
 }
-function getSex(){
+function getGuestSex(){
 	if($("#guestAddSexMale").is(':checked')){
 		return "m";
 	}else if($("#guestAddSexFemale").is(':checked')){
 		return "f";
 	}else{
 		return "u";
+	}
+}
+function getGuestImportant(){
+	if($("#addGuestImportantCheck").is(':checked')){
+		return true;
 	}
 }
