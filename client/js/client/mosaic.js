@@ -44,6 +44,14 @@ Handlebars.registerHelper('ifTimeMatches', function(gTime, guestTime) {
 	}
 });
 //helper function to see if guest time matches the column time
+Handlebars.registerHelper('ifNumMatches', function(num1, num2) {
+	if(num1===num2) {
+		return true;
+	}else{
+		return false;
+	}
+});
+//helper function to see if guest time matches the column time
 Handlebars.registerHelper('ifTimeMatchesCurrentHr', function(gTime) {
 	if(gTime===moment().format('HH')) {
 		return true;

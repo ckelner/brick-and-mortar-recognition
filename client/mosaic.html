@@ -75,7 +75,11 @@
 				{{#if ifTimeMatchesCurrentHr hour}}
 					<div class="centerText timeLineGuestRow currentHour clearfix"> <!-- {{hour}} -->
 				{{else}}
-					<div class="centerText timeLineGuestRow clearfix"> <!-- {{hour}} -->
+					{{#if ifNumMatches 00 hour}}
+						<div class="centerText timeLineGuestRow clearfix zeroZero"> <!-- {{hour}} -->
+					{{else}}
+						<div class="centerText timeLineGuestRow clearfix"> <!-- {{hour}} -->
+					{{/if}}
 				{{/if}}
 					<center>
 						{{#each guests}}

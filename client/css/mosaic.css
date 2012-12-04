@@ -139,6 +139,10 @@ html, body {
 	margin-bottom: -2000px  !important;
 	border-left: 1px solid #232521;
 }
+.zeroZero{
+	border-left: 0px !important;
+	width: 145px !important;
+}
 .currentHour{
 	background-color: #50524c;
 }
