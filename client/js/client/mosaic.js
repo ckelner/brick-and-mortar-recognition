@@ -33,7 +33,7 @@ Template.timeline.hours = function() {
 }
 
 Template.timeline.guests = function() {
-	return Guests.find({"arrivaldate": moment().format('YYYY-MM-D')});
+	return Guests.find({"arrivaldate": moment().format('YYYY-MM-DD')});
 }
 //helper function to see if guest time matches the column time
 Handlebars.registerHelper('ifTimeMatches', function(gTime, guestTime) {

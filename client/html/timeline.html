@@ -1,0 +1,101 @@
+<!-- START: GUEST TIMELINE -->
+<template name="timelineContainer">
+	<div class="row-fluid">
+		<div id="timeline-header" class="noSelectText">
+			Guest Timeline
+			<!--: <span class="timeline-subtext">A 24 hour window into your hotel</span>-->
+		</div>
+		<div id="clock" class="noSelectText">
+			<div id="clockWrapper">
+				<div id="hrsClock"/>
+				<div id="colonClock">:</div>
+				<div id="minsClock"/>
+				<!-- <div id="secondsClock"/> -->
+			</div>
+		</div>
+	</div>
+	<div id="timeLineHero" class="hero-unit timeline-hero-unit noSelectText">
+		{{> timeline}}
+	</div>
+	<div class="row-fluid">
+		<div class="span1 offset1 noSelectText">
+			<i class="icon-chevron-left icon-white"></i>
+		</div>
+		<div class="span4 offset2 lighterTextTimelineHint noSelectText">
+			<center>
+				Slide to view earlier or later arriving guests
+			</center>
+		</div>
+		<div class="span1 offset2 noSelectText">
+			<i class="icon-chevron-right icon-white"></i>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<center>
+				<button class="btn btn-primary" id="resetButtonBoy" type="button" onClick="buttonReset()">
+					Reset
+				</button>
+			</center>
+		</div>
+	</div>
+</template>
+
+<template name="timeline">
+	<div id="scrollTimeline" class="noSelectText">
+		<div id="scrollyMcScrolls" class="clearfix">
+			{{#each hours}}
+				{{#if ifTimeMatchesCurrentHr hour}}
+					{{#if ifNumMatches 00 hour}}
+						<div id="timelineGuestHour{{hour}}"
+						class="centerText timeLineGuestRow currentHour clearfix zeroZero">
+					{{else}}
+						<div id="timelineGuestHour{{hour}}"
+						class="centerText timeLineGuestRow currentHour clearfix">
+					{{/if}}
+				{{else}}
+					{{#if ifNumMatches 00 hour}}
+						<div id="timelineGuestHour{{hour}}"
+						class="centerText timeLineGuestRow clearfix zeroZero">
+					{{else}}
+						<div id="timelineGuestHour{{hour}}"
+						class="centerText timeLineGuestRow clearfix">
+					{{/if}}
+				{{/if}}
+					<center>
+						{{#each guests}}
+							{{#if ifTimeMatches ...hour this.arrivaltime}}
+								<div class="guestTimelineEnclosure img-rounded">
+									<div>
+										{{this.lname}}
+									</div>
+									<div class="guestThumbEnclosure">
+										<center>
+											<div class="guestThumbTimeline">
+												<img src="{{this.img}}" 
+													class="img-rounded img-PadBottom"/>
+											</div>
+										</center>
+									</div>
+								</div>
+							{{/if}}
+						{{/each}}
+						&nbsp;
+					</center>
+				</div>
+			{{/each}}
+		</div>
+		<div class="whatHourRow clearfix">
+			{{#each hours}}
+				{{#if ifTimeMatchesCurrentHr hour}}
+					<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow currentHour"> <!-- {{hour}} -->
+				{{else}}
+					<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow"> <!-- {{hour}} -->
+				{{/if}}
+					{{hour}}:00
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</template>
+<!-- END: GUREST TIMELINE -->

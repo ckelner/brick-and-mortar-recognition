@@ -1,0 +1,167 @@
+<!-- Below here is view for concierge view : NOT BEING USED -->
+<!-- START: CONCIERGE VIEW -->
+<template name="concierge">
+	{{> navbar}}
+	<div id="guest-header">
+		Concierge
+	</div>
+	<div class="hero-unit">
+		{{> guestnfo}}
+		{{> guestadd}}
+	</div>
+</template>
+
+<template name="guestnfo">
+	<div class="row-fluid" id="guestnfo">
+		<div class="span5" id="guest-left">
+			{{> guestleft}}
+		</div>
+		<div  class="span7" id="guest-right">
+			{{> guestright}}
+		</div>
+	</div>
+</template>
+
+<template name="guestleft">
+	<!--TODO: Needs to derive from server-->
+	<img src="/mustache_man.jpeg" class="img-rounded img-size">
+	<br>
+	<span>
+		<!--TODO: Needs to derive from server-->
+		Joshua Movember
+	</span>
+</template>
+
+<template name="guestright">
+	<!--TODO: Needs to derive from server-->
+	<h1>Mr. Movember</h1>
+	<p>
+		<strong>Occupation:</strong>
+		<br>
+		<!--TODO: Needs to derive from server-->
+		Official Barista
+	</p>
+	<p>
+		<strong>Topics:</strong>
+		<br>
+		<!--TODO: Needs to derive from server-->
+		Fixed gear bicycles, PBR, obscure indie bands
+	</p>
+</template>
+
+<template name="guestadd">
+	<div class="row-fluid">
+		<div class="span5 colleagues-header">
+			<!--TODO: Needs to derive from server-->
+			<h4 class="header-four-bottom-margin">Joshua's Colleagues</h4>
+			(Who used Mosaic)
+		</div>
+		<div class="span7">
+			<form>
+				<fieldset>
+				<label>Timeline</label>
+				<input type="text" id="guest-timeline-input"
+					placeholder="Notes about guest…">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span5">
+			<div class="colleague clearfix row-fluid">
+				<div class="colleague-image span3">
+					<!--TODO: Needs to derive from server-->
+					<img src="/joeblair.jpeg" class="img-smaller img-gray-border">
+				</div>
+				<div class="span9">
+					<span>
+						<!--TODO: Needs to derive from server-->
+						<strong>Joe Blair</strong>
+					</span>
+					<br>
+					<span>
+						<!--TODO: Needs to derive from server-->
+						July 20 2012
+					</span>
+					<br>
+					<span>
+						<!--TODO: Needs to derive from server-->
+						Recommendation: Food - Bones
+					</span>
+					<br>
+					<span>
+						<!--TODO: Needs to derive from server-->
+						Feedback: "Loved It!"
+					</span>
+				</div>
+			</div>
+			<div class="colleague clearfix row-fluid">
+				<div class="colleague-image span3">
+					<!--TODO: Needs to derive from server-->
+					<img src="/momoney.jpeg" class="img-smaller img-gray-border">
+				</div>
+				<div class="span9">
+					<span>
+						<!--TODO: Needs to derive from server-->
+						<strong>Mo' Money</strong>
+					</span>
+					<br>
+					<span>
+						<!--TODO: Needs to derive from server-->
+						February 03 2012
+					</span>
+					<br>
+					<span>
+						<!--TODO: Needs to derive from server-->
+						Recommendation: Club/Lounge - HALO
+					</span>
+					<br>
+					<span>
+						<!--TODO: Needs to derive from server-->
+						Feedback: "Amazing Drinks, business partners loved it!"
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="span7">
+			<!--TODO: Needs to derive from server-->
+			<div class="alert alert-info">
+				<span>
+					Guest feedback for Kevin Rathbun Steak: “Great”
+				</span>
+				<span class="pull-right">
+					[ August 05 2012 ]
+				</span>
+			</div>
+			<!--TODO: Needs to derive from server-->
+			<div class="alert alert-info">
+				<span>
+					Recommended: Kevin Rathbun Steak
+				</span>
+				<span class="pull-right">
+					[ August 04 2012 ]
+				</span>
+			</div>
+			<!--TODO: Needs to derive from server-->
+			<div class="alert alert-info">
+				<span>
+					Note: Attending EduWorld conference
+				</span>
+				<span class="pull-right">
+					[ August 04 2012 ]
+				</span>
+			</div>
+			<!--TODO: Needs to derive from server-->
+			<div class="alert alert-info">
+				<span>
+					Checked In
+				</span>
+				<span class="pull-right">
+					[ August 03 2012 ]
+				</span>
+			</div>
+		</div>
+	</div>
+</template>
+<!-- END: CONCIERGE VIEW -->
