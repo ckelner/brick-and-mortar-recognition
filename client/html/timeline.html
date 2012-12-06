@@ -48,20 +48,44 @@
 				{{#if ifTimeMatchesCurrentHr hour}}
 					{{#if ifNumMatches 00 hour}}
 						<div id="timelineGuestHour{{hour}}"
-						class="centerText timeLineGuestRow currentHour clearfix zeroZero">
+						class="centerText timeLineGuestRow currentHour zeroZero">
 					{{else}}
 						<div id="timelineGuestHour{{hour}}"
-						class="centerText timeLineGuestRow currentHour clearfix">
+						class="centerText timeLineGuestRow currentHour">
 					{{/if}}
 				{{else}}
 					{{#if ifNumMatches 00 hour}}
 						<div id="timelineGuestHour{{hour}}"
-						class="centerText timeLineGuestRow clearfix zeroZero">
+						class="centerText timeLineGuestRow zeroZero">
 					{{else}}
 						<div id="timelineGuestHour{{hour}}"
-						class="centerText timeLineGuestRow clearfix">
+						class="centerText timeLineGuestRow">
 					{{/if}}
 				{{/if}}
+				{{#each guests hour}}
+					{{#if ifTimeMatches ...hour this.arrivaltime}}
+						<div class="guestTimelineEnclosure img-rounded">
+							<div>
+								{{this.lname}}
+							</div>
+							<div class="guestThumbEnclosure">
+								<center>
+									<div class="guestThumbTimeline">
+										<img src="{{this.img}}" 
+											class="img-rounded img-PadBottom"/>
+									</div>
+								</center>
+							</div>
+						</div>
+					{{/if}}
+				{{/each}}
+				{{#if ifTimeMatchesCurrentHr hour}}
+					<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow currentHour"> <!-- {{hour}} -->
+				{{else}}
+					<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow"> <!-- {{hour}} -->
+				{{/if}}
+					{{hour}}:00
+					</div>
 				</div>
 			{{/each}}
 		</div>

@@ -5,9 +5,7 @@ function setupTimeline(){
 	centerTimelineOnCurrentHr();
 }
 function watchDraggable(){
-	$("#scrollTimeline").bind("dragstop",function(event, ui){
-		//alert("worked");
-	});
+	$("#scrollTimeline").bind("dragstop",function(event, ui){});
 }
 function centerTimelineOnCurrentHr(newHr){
 	var hr=(newHr)?newHr:global_Hours;
@@ -16,7 +14,9 @@ function centerTimelineOnCurrentHr(newHr){
 	// set up current time
 	$('#scrollTimeline').css("left", (-1*((hr)*144)+(ww-144/2)-20));
 }
+// Chris Kelner - THIS BREAK FUCKING METEOR'S COOL SHIT (DB BINDING)
 //for each hour in the day need to build out the guests in the view...
+/*
 function loadGuestInView(){
 	var guestsArr=_.toArray(Guests.find({"arrivaldate": 
 		moment().format('YYYY-MM-DD')}).collection.docs);
@@ -81,4 +81,41 @@ function loadGuestInView(){
 		$("#timelineHour"+hr).css("width",widthCount*144);
 	}
 	$("#scrollyMcScrolls").css("width",totalWidth*144);
+}
+*/
+//checks after guests are loaded to re-arrange some shizzle
+function reArrangeGuestsTimeline(){
+	var scrollyDivKids=$("#scrollyMcScrolls").children();
+	var totallyWide=0;
+	for(var x=0,numOfKiddos=scrollyDivKids.length; x<numOfKiddos; x++){
+		//remember one child is the hour div
+		var grandKids=_.toArray(scrollyDivKids[x].children);
+		var numOfGrandKids=grandKids.length;
+		var theHTMLShizzle="";
+		//use this to restore later... maybe?
+		var hourChild=grandKids.splice(grandKids.length-1,grandKids.length);
+		var trimGrandKids=grandKids;
+		var howWide=1;
+		while(numOfGrandKids>7){
+			trimGrandKids=grandKids.splice(0,6);
+			theHTMLShizzle+=buildGrandBabyHTML(trimGrandKids);
+			numOfGrandKids=grandKids.length;
+			howWide++;
+		}
+		theHTMLShizzle+=buildGrandBabyHTML(grandKids);
+		//last
+		theHTMLShizzle+=$(hourChild).prop('outerHTML');
+		$(scrollyDivKids[x]).html(theHTMLShizzle);
+		$(scrollyDivKids[x]).css("width",(howWide*144)+"px");
+		$("#timelineHour"+x).css("width",(howWide*144)+"px");
+		totallyWide+=(howWide*144)+1;
+	}
+	$("#scrollyMcScrolls").css("width",totallyWide+"px");
+}
+function buildGrandBabyHTML(kids){
+	var retHTML="<div class='guestTimelineWrapCol'>";
+	for(var i=0,kidLen=kids.length; i<kidLen; i++){
+		retHTML+=$(kids[i]).prop('outerHTML');
+	}
+	return retHTML+="</div>";
 }

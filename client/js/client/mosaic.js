@@ -5,11 +5,11 @@ G_HoursInDay = [{ "hour": "00" },{ "hour": "01" },{ "hour": "02" },{ "hour": "03
 	{ "hour": "12" },{ "hour": "13" },{ "hour": "14" },{ "hour": "15" },{ "hour": "16" },{ "hour": "17" },
 	{ "hour": "18" },{ "hour": "19" },{ "hour": "20" },{ "hour": "21" },{ "hour": "22" },{ "hour": "23" }];
 // Subscribe to 'guests'
-Meteor.subscribe('guests', function () {});
+Meteor.subscribe('guests', function(){});
 // Subscribe to 'time'
-Meteor.subscribe('time', function () {});
+Meteor.subscribe('time', function(){});
 //determine if concierge view or not
-Template.content.is_concierge = function () {
+Template.content.is_concierge=function(){
 	if(getURLParameter("concierge")==="true"){
 		return true;
 	}else{
@@ -17,22 +17,41 @@ Template.content.is_concierge = function () {
 	}
 }
 //determine if concierge view or not
-Template.content.is_admin = function () {
+Template.content.is_admin=function(){
 	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
 		return true;
 	}else{
 		return false;
 	}
 }
-function getURLParameter(name) {
+function getURLParameter(name){
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
 //hours & guests in the day
-Template.timeline.hours = function() {
+Template.timeline.hours=function(){
 	return G_HoursInDay;
 }
+var lastGuestFindExecuteCount=0;
+Template.timeline.guests=function(gHour){
+	gHour=gHour+":";
+	var col=Guests.find({"arrivaldate": moment().format('YYYY-MM-DD'),
+		"arrivaltime":{$regex: gHour}});
+	lastGuestFindExecuteCount=col.count();
+	return col;
+}
+Handlebars.registerHelper('areThereAnyGuests',function(){
+	return lastGuestFindExecuteCount;
+});
 //helper function to see if guest time matches the column time
-Handlebars.registerHelper('ifNumMatches', function(num1, num2) {
+Handlebars.registerHelper('ifTimeMatches',function(gTime, guestTime){
+	if(gTime===guestTime.substring(0,2)) {
+		return true;
+	}else{
+		return false;
+	}
+});
+//helper function to see if guest time matches the column time
+Handlebars.registerHelper('ifNumMatches',function(num1, num2){
 	if(num1===num2) {
 		return true;
 	}else{
@@ -40,7 +59,7 @@ Handlebars.registerHelper('ifNumMatches', function(num1, num2) {
 	}
 });
 //helper function to see if guest time matches the column time
-Handlebars.registerHelper('ifTimeMatchesCurrentHr', function(gTime) {
+Handlebars.registerHelper('ifTimeMatchesCurrentHr',function(gTime){
 	if(gTime===moment().format('HH')) {
 		return true;
 	}else{

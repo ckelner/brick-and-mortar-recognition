@@ -134,17 +134,17 @@ html, body {
 }
 .timeLineGuestRow {
 	font-family: 'Ubuntu', sans-serif;
-	text-align: center;
 	float: left;
 	width: 144px;
 	/* ckelner - this is a hack */
 	padding-bottom: 2000px !important;
 	margin-bottom: -2000px  !important;
 	border-left: 1px solid #232521;
+	max-height: 800px;
+	min-height: 800px;
 }
 .zeroZero{
 	border-left: 0px !important;
-	width: 145px !important;
 }
 .currentHour{
 	background-color: #50524c;

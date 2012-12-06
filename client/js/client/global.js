@@ -107,17 +107,17 @@ Meteor.startup(function(){
 	showTime();
 	//end-time
 	
-	//timeline time
-	setupTimeline();
-	//end-timeline time
+	//timeline shizzle
+	// chris kelner - had to be slowed down for page to load
+	// annoying...
+	setTimeout(setupTimeline,2000);
+	//re-arrange the timeline to make horizontal scroll work...
+    setTimeout(reArrangeGuestsTimeline,2000);
+	//end-timeline shizzle
 	
 	//date
 	updateDate();
 	//end-date
-
-	//load guests
-	// need to wait... why?
-	setTimeout(loadGuestInView,1000);
 
 	//css...hacks
 	cssHacks();
