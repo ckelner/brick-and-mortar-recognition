@@ -4,8 +4,9 @@
 var global_Secs="0";
 var global_Mins="0";
 var global_Hours="0";
+var global_dateSyncFrequency=600000; //10mins
 var global_syncFrequency=30000; //30seconds
-var global_showFrequency=1000; //1second
+var global_showFrequency=5000; //5seconds
 var global_updateFrequency=1000; //1second
 var global_secsClockInput=null;
 var global_minsClockInput=null;
@@ -37,17 +38,16 @@ var global_timelineHr21=null;
 var global_timelineHr22=null;
 var global_timelineHr23=null;
 
-//----
-//internal user clock (what "time" has the user set)
-var global_userClockTime=null;
 //-----
 //date
 var global_TimelineDateDiv=null;
+var global_Date=null;
 
 function setUpTimers(){
 	setInterval(setTime,global_syncFrequency);
 	setInterval(showTime,global_showFrequency);
 	setInterval(updateTime,global_updateFrequency);
+	setInterval(updateDate,global_dateSyncFrequency);
 }
 
 function getDOMHandlers(){
@@ -112,7 +112,7 @@ Meteor.startup(function(){
 	//end-timeline time
 	
 	//date
-	updateTimelineDate();
+	updateDate();
 	//end-date
 	
 	// didn't need it for some reason...

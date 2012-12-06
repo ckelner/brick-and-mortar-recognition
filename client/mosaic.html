@@ -73,12 +73,20 @@
 		<div id="scrollyMcScrolls" class="clearfix">
 			{{#each hours}}
 				{{#if ifTimeMatchesCurrentHr hour}}
-					<div class="centerText timeLineGuestRow currentHour clearfix"> <!-- {{hour}} -->
+					{{#if ifNumMatches 00 hour}}
+						<div id="timelineGuestHour{{hour}}"
+						class="centerText timeLineGuestRow currentHour clearfix zeroZero">
+					{{else}}
+						<div id="timelineGuestHour{{hour}}"
+						class="centerText timeLineGuestRow currentHour clearfix">
+					{{/if}}
 				{{else}}
 					{{#if ifNumMatches 00 hour}}
-						<div class="centerText timeLineGuestRow clearfix zeroZero"> <!-- {{hour}} -->
+						<div id="timelineGuestHour{{hour}}"
+						class="centerText timeLineGuestRow clearfix zeroZero">
 					{{else}}
-						<div class="centerText timeLineGuestRow clearfix"> <!-- {{hour}} -->
+						<div id="timelineGuestHour{{hour}}"
+						class="centerText timeLineGuestRow clearfix">
 					{{/if}}
 				{{/if}}
 					<center>

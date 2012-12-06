@@ -6,23 +6,10 @@ function setTime(){
 	global_Secs=secs;
 	global_Mins=minutes;
 	global_Hours=hours;
-	// just make sure that our time is right
-	// on the bottom rows... we may have been
-	// sitting here awhile
-	//setTimelineRowTime();
-	if(hours===0&&minutes===0&&seconds<30){
-		//reset
-		setTimeout(buttonReset,31-seconds);
+	if(hours===0&&minutes===0&&secs<2){
+		dateHasRolled();
 	}
 }
-
-/*function buildSecs(){
-	var sec=global_Secs;
-	if(global_Secs<10){
-		sec="0"+global_Secs;
-	}
-	return sec;
-}*/
 
 function buildMins(){
 	var min=global_Mins;
@@ -32,13 +19,13 @@ function buildMins(){
 	return min;
 }
 
-function buildHrs(){
-	var hr=global_Hours;
-	if(global_Hours===0){
-		hr="00:";
+function buildHrs(hourOpt){
+	var hr=(hourOpt)?hourOpt:global_Hours;
+	if(hr===0){
+		hr="00";
 	}else{
-		if(global_Hours<10){
-			hr="0"+global_Hours;
+		if(hr<10){
+			hr="0"+hr;
 		}
 	}
 	return hr;
@@ -57,11 +44,29 @@ function updateTime(){
 		global_Secs=0;
 		global_Mins++;
 		if(global_Mins>59){
+			var oldGlobalHrs=global_Hours;
 			global_Mins=0;
 			global_Hours++;
 			if(global_Hours>23){
 				global_Hours=0;
+				// the date has rolled
+				dateHasRolled();
 			}
+			// the hour has rolled
+			// let us do something about that!
+			theHourHasRolled(oldGlobalHrs, global_Hours);
 		}
 	}
+}
+function theHourHasRolled(oldHr, newHr){
+	swapAndHighlightNewHour(oldHr, newHr);
+	centerTimelineOnCurrentHr(newHr);
+}
+function swapAndHighlightNewHour(oldHr, newHr){
+	var oldie=buildHrs(oldHr);
+	var newie=buildHrs(newHr);
+	$("#timelineGuestHour"+oldie).removeClass("currentHour");
+	$("#timelineHour"+oldie).removeClass("currentHour");
+	$("#timelineGuestHour"+newie).addClass("currentHour");
+	$("#timelineHour"+newie).addClass("currentHour");
 }
