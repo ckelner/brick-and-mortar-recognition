@@ -24,7 +24,7 @@ function getGuests(){
 	var gHTMLzYo='<table id="guestListTableGrid" class="table table-striped">'+
 	'<thead><tr><th>First Name</th><th>Last Name</th><th>PCR#</th><th>PCR Status</th>'+
 	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Important</th>'+
-	'<th>Notes</th><tbody>';
+	'<th>Notes</th><th>Delete?</th><tbody>';
 	daGs.forEach(function(guest){
 		gHTMLzYo+='<tr><td>'+guest.fname+'</td>'+
 			'<td>'+guest.lname+'</td>'+
@@ -41,7 +41,8 @@ function getGuests(){
 			gHTMLzYo+=''+
 				notesArr[i]+','				
 		}
-		gHTMLzYo+="</td></tr>";
+		gHTMLzYo+='<td onClick="killGuest(\''+guest._id+'\')">'+
+			'<i class="icon-minus-sign"></i></td></td></tr>';
 	});
 	gHTMLzYo+='</tbody></table>';
 	gDiv.html(gHTMLzYo);
@@ -53,4 +54,12 @@ function adminSortTableGuest(){
 		striped: true,
 		sortable: true
 	});
+}
+function killGuest(gId){
+	if(gId!==undefined&&gId!==null){
+		var r=confirm("Are you sure you want to delete me?");
+		if (r==true){
+			Guests.remove({"_id": gId});
+		}
+	}
 }
