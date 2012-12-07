@@ -170,7 +170,8 @@ html, body {
 	user-select: none;
 }
 .guestThumbTimeline {
-	width: 50px;
+	width: 70px;
+	height: 70px;
 }
 .guestTimelineEnclosure{
 	border: 1px solid #232521;
@@ -210,4 +211,16 @@ html, body {
 }
 #addGuestButton{
 	margin-left: -60px;
+}
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+}
+.guestTimelineName{
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

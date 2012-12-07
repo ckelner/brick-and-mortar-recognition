@@ -1,8 +1,9 @@
 //ckelner setImgThumbNail defunct... not sure why we don't need it
 // timeline view... guest image rezie
-/*function setImgThumbNail(){
+function setImgThumbNail(){
+	jQuery.fn.nailthumb.defaults.method = 'resize';
 	jQuery('.guestThumbTimeline').nailthumb();
-}*/
+}
 //reset no guest image
 function setNoGuestImg(){
 	// timeout needed... thanks to default jasny bootstrap

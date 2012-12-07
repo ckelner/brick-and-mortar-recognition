@@ -16,23 +16,43 @@ function centerTimelineOnCurrentHr(newHr){
 }
 // Chris Kelner - THIS BREAK FUCKING METEOR'S COOL SHIT (DB BINDING)
 //for each hour in the day need to build out the guests in the view...
-/*
 function loadGuestInView(){
-	var guestsArr=_.toArray(Guests.find({"arrivaldate": 
-		moment().format('YYYY-MM-DD')}).collection.docs);
+	var todaysDate=moment().format('YYYY-MM-DD');
+	var guestsCursor=Guests.find({"arrivaldate":todaysDate});
 	var guestsByTimeArr=[[],[],[],[],[],[],[],[],[],
 		[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
-	for(var i=0,guests=guestsArr.length; i<guests; i++){
-		var time=guestsArr[0].arrivaltime.substring(0,2);
+	//for(var i=0,guests=guestsArr.length; i<guests; i++){
+	guestsCursor.forEach(function (guest){
+		var time=guest.arrivaltime.substring(0,2);
 		if(time.substring(0,1)==="0"){//trim leading 0
 			time=time.substring(1,2);
 		}
 		time=time*1;//make a #
-		guestsByTimeArr[time].push(guestsArr[i]);
-	}
+		guestsByTimeArr[time].push(guest);
+	});
 	var totalWidth=0;
+	var totalHTML="";
 	for(var x=0,guestyArr=guestsByTimeArr.length; x<guestyArr; x++){
 		var insideHTML="";
+		var beforeHTML="";
+		var hr=x;
+		if(hr<10){
+			hr="0"+hr;
+		}else{
+			hr+="";
+		}
+		if(hr===moment().format('HH')){
+			beforeHTML+='<div id="timelineGuestHour'+hr+'" class="centerText '+
+				'timeLineGuestRow currentHour ';
+		}else{
+			beforeHTML+='<div id="timelineGuestHour'+hr+'" class="centerText '+
+				'timeLineGuestRow ';
+		}
+		if(hr==="00"){
+			beforeHTML+='zeroZero"';
+		}else{
+			beforeHTML+='"';
+		}
 		var widthCount=1;
 		for(var i=0,gsts=guestsByTimeArr[x].length; i<gsts; i++){
 			if(i%6===0){
@@ -44,13 +64,13 @@ function loadGuestInView(){
 			}
 			insideHTML+='<div class="guestTimelineEnclosure img-rounded"><div>';
 			//mr, ms or none
-			var sexy="";
+			var sexy="<div class='guestTimelineName'>";
 			if(guestsByTimeArr[x][i].sex==="m"){
-				sexy="Mr. ";
+				sexy+="Mr. ";
 			}else if(guestsByTimeArr[x][i].sex==="f"){
-				sexy="Ms. ";
+				sexy+="Ms. ";
 			}
-			insideHTML+=sexy+guestsByTimeArr[x][i].lname+"</div>";
+			insideHTML+=sexy+guestsByTimeArr[x][i].lname+"</div></div>";
 			insideHTML+='<div class="guestThumbEnclosure"><center>'+
 				'<div class="guestThumbTimeline"><img src="';
 			insideHTML+=guestsByTimeArr[x][i].img;
@@ -58,64 +78,20 @@ function loadGuestInView(){
 				'</div></div>';
 		}
 		totalWidth+=(widthCount*144);
-		var hr=x;
-		if(hr<10){
-			hr="0"+hr;
-		}
-		if(guestsByTimeArr[x].length<1){
-			insideHTML="&nbsp;";
-		}else{
+		if(guestsByTimeArr[x].length>=1){
 			insideHTML+="</div>"
 		}
 		if(hr===moment().format('HH')){
 			insideHTML+='<div id="timelineHour'+hr+'" class="centerText '+
-				'rightBorderTimeRow currentHour">';
+				'rightBorderTimeRow currentHour" style="width:'+widthCount*144+'">';
 		}else{
 			insideHTML+='<div id="timelineHour'+hr+'" class="centerText '+
-				'rightBorderTimeRow">';
+				'rightBorderTimeRow" style="width:'+widthCount*144+'px">';
 		}
-		insideHTML+=hr+":00</div>";
-		var guestColHr=$("#timelineGuestHour"+hr);
-		guestColHr.html(insideHTML);
-		guestColHr.css("width",widthCount*144);
-		$("#timelineHour"+hr).css("width",widthCount*144);
+		insideHTML+=hr+":00</div></div>";
+		beforeHTML+="style='width:"+widthCount*144+"px'>";
+		totalHTML+=beforeHTML+insideHTML;
 	}
 	$("#scrollyMcScrolls").css("width",totalWidth*144);
-}
-*/
-//checks after guests are loaded to re-arrange some shizzle
-function reArrangeGuestsTimeline(){
-	var scrollyDivKids=$("#scrollyMcScrolls").children();
-	var totallyWide=0;
-	for(var x=0,numOfKiddos=scrollyDivKids.length; x<numOfKiddos; x++){
-		//remember one child is the hour div
-		var grandKids=_.toArray(scrollyDivKids[x].children);
-		var numOfGrandKids=grandKids.length;
-		var theHTMLShizzle="";
-		//use this to restore later... maybe?
-		var hourChild=grandKids.splice(grandKids.length-1,grandKids.length);
-		var trimGrandKids=grandKids;
-		var howWide=1;
-		while(numOfGrandKids>7){
-			trimGrandKids=grandKids.splice(0,6);
-			theHTMLShizzle+=buildGrandBabyHTML(trimGrandKids);
-			numOfGrandKids=grandKids.length;
-			howWide++;
-		}
-		theHTMLShizzle+=buildGrandBabyHTML(grandKids);
-		//last
-		theHTMLShizzle+=$(hourChild).prop('outerHTML');
-		$(scrollyDivKids[x]).html(theHTMLShizzle);
-		$(scrollyDivKids[x]).css("width",(howWide*144)+"px");
-		$("#timelineHour"+x).css("width",(howWide*144)+"px");
-		totallyWide+=(howWide*144)+1;
-	}
-	$("#scrollyMcScrolls").css("width",totallyWide+"px");
-}
-function buildGrandBabyHTML(kids){
-	var retHTML="<div class='guestTimelineWrapCol'>";
-	for(var i=0,kidLen=kids.length; i<kidLen; i++){
-		retHTML+=$(kids[i]).prop('outerHTML');
-	}
-	return retHTML+="</div>";
+	return totalHTML;
 }

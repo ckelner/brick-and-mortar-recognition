@@ -6,8 +6,10 @@ G_HoursInDay = [{ "hour": "00" },{ "hour": "01" },{ "hour": "02" },{ "hour": "03
 	{ "hour": "18" },{ "hour": "19" },{ "hour": "20" },{ "hour": "21" },{ "hour": "22" },{ "hour": "23" }];
 // Subscribe to 'guests'
 Meteor.subscribe('guests', function(){});
-// Subscribe to 'time'
-Meteor.subscribe('time', function(){});
+Template.timeline.rendered=function(){
+	//var frag=Meteor.render(loadGuestInView());
+	//$("#scrollyMcScrolls").html(frag);
+}
 //determine if concierge view or not
 Template.content.is_concierge=function(){
 	if(getURLParameter("concierge")==="true"){
@@ -31,17 +33,11 @@ function getURLParameter(name){
 Template.timeline.hours=function(){
 	return G_HoursInDay;
 }
-var lastGuestFindExecuteCount=0;
 Template.timeline.guests=function(gHour){
 	gHour=gHour+":";
-	var col=Guests.find({"arrivaldate": moment().format('YYYY-MM-DD'),
+	return Guests.find({"arrivaldate": moment().format('YYYY-MM-DD'),
 		"arrivaltime":{$regex: gHour}});
-	lastGuestFindExecuteCount=col.count();
-	return col;
 }
-Handlebars.registerHelper('areThereAnyGuests',function(){
-	return lastGuestFindExecuteCount;
-});
 //helper function to see if guest time matches the column time
 Handlebars.registerHelper('ifTimeMatches',function(gTime, guestTime){
 	if(gTime===guestTime.substring(0,2)) {

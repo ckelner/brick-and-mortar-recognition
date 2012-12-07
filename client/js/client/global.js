@@ -96,6 +96,97 @@ function cssHacks(){
 	}
 }
 
+function slowLoad(){
+	var frag=Meteor.render(function(){
+		var todaysDate=moment().format('YYYY-MM-DD');
+		var guestsCursor=Guests.find({"arrivaldate":todaysDate});
+		var guestsByTimeArr=[[],[],[],[],[],[],[],[],[],
+			[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+		//for(var i=0,guests=guestsArr.length; i<guests; i++){
+		guestsCursor.forEach(function (guest){
+			var time=guest.arrivaltime.substring(0,2);
+			if(time.substring(0,1)==="0"){//trim leading 0
+				time=time.substring(1,2);
+			}
+			time=time*1;//make a #
+			guestsByTimeArr[time].push(guest);
+		});
+		var totalWidth=0;
+		var totalHTML="";
+		for(var x=0,guestyArr=guestsByTimeArr.length; x<guestyArr; x++){
+			var insideHTML="";
+			var beforeHTML="";
+			var hr=x;
+			if(hr<10){
+				hr="0"+hr;
+			}else{
+				hr+="";
+			}
+			if(hr===moment().format('HH')){
+				beforeHTML+='<div id="timelineGuestHour'+hr+'" class="centerText '+
+					'timeLineGuestRow currentHour ';
+			}else{
+				beforeHTML+='<div id="timelineGuestHour'+hr+'" class="centerText '+
+					'timeLineGuestRow ';
+			}
+			if(hr==="00"){
+				beforeHTML+='zeroZero"';
+			}else{
+				beforeHTML+='"';
+			}
+			var widthCount=1;
+			for(var i=0,gsts=guestsByTimeArr[x].length; i<gsts; i++){
+				if(i%6===0){
+					if(i>0){
+						insideHTML+="</div>";
+						widthCount++;
+					}
+					insideHTML+="<div class='guestTimelineWrapCol'>";
+				}
+				insideHTML+='<div class="guestTimelineEnclosure img-rounded"><div>';
+				//mr, ms or none
+				var sexy="<div class='guestTimelineName'>";
+				if(guestsByTimeArr[x][i].sex==="m"){
+					sexy+="Mr. ";
+				}else if(guestsByTimeArr[x][i].sex==="f"){
+					sexy+="Ms. ";
+				}
+				insideHTML+=sexy+guestsByTimeArr[x][i].lname+"</div></div>";
+				insideHTML+='<div class="guestThumbEnclosure"><center>'+
+					'<div class="guestThumbTimeline"><img src="';
+				insideHTML+=guestsByTimeArr[x][i].img;
+				insideHTML+='"class="img-rounded img-PadBottom"/></div></center>'+
+					'</div></div>';
+			}
+			totalWidth+=(widthCount*144);
+			if(guestsByTimeArr[x].length>=1){
+				insideHTML+="</div>"
+			}
+			if(hr===moment().format('HH')){
+				insideHTML+='<div id="timelineHour'+hr+'" class="centerText '+
+					'rightBorderTimeRow currentHour" style="width:'+widthCount*144+'">';
+			}else{
+				insideHTML+='<div id="timelineHour'+hr+'" class="centerText '+
+					'rightBorderTimeRow" style="width:'+widthCount*144+'px">';
+			}
+			insideHTML+=hr+":00</div></div>";
+			beforeHTML+="style='width:"+widthCount*144+"px'>";
+			totalHTML+=beforeHTML+insideHTML;
+		}
+		$("#scrollyMcScrolls").css("width",totalWidth*144);
+		setTimeout(setImgThumbNail,1000);
+		return totalHTML;
+	});
+	/*var todaysDate=moment().format('YYYY-MM-DD');
+	var frag=Meteor.renderList(
+  		Guests.find({"arrivaldate":todaysDate}),
+  		function(result){
+  			loadGuestInView(result);
+  		});*/
+	//$("#scrollyMcScrolls").css("width",g_totalWidth*144);
+	$("#scrollyMcScrolls").html(frag);
+}
+
 Meteor.startup(function(){
 	//global
 	getDOMHandlers();
@@ -110,9 +201,11 @@ Meteor.startup(function(){
 	//timeline shizzle
 	// chris kelner - had to be slowed down for page to load
 	// annoying...
-	setTimeout(setupTimeline,2000);
+	setTimeout(setupTimeline,1500);
 	//re-arrange the timeline to make horizontal scroll work...
-    setTimeout(reArrangeGuestsTimeline,2000);
+    //setTimeout(someMeteorTimelineMagic,2000);
+    setTimeout(slowLoad,2000);
+    setTimeout(setImgThumbNail,3000);
 	//end-timeline shizzle
 	
 	//date
@@ -125,3 +218,6 @@ Meteor.startup(function(){
 	//Seting up Filepicker.io with your api key
     filepicker.setKey('AcQbwQS8TU6hk8ebqsR2Uz');
 });
+/*jQuery(document).ready(function() {
+    jQuery('.guestThumbTimeline').nailthumb();
+});*/
