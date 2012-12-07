@@ -31,18 +31,6 @@ function getURLParameter(name) {
 Template.timeline.hours = function() {
 	return G_HoursInDay;
 }
-
-Template.timeline.guests = function() {
-	return Guests.find({"arrivaldate": moment().format('YYYY-MM-DD')});
-}
-//helper function to see if guest time matches the column time
-Handlebars.registerHelper('ifTimeMatches', function(gTime, guestTime) {
-	if(gTime===guestTime.substring(0,2)) {
-		return true;
-	}else{
-		return false;
-	}
-});
 //helper function to see if guest time matches the column time
 Handlebars.registerHelper('ifNumMatches', function(num1, num2) {
 	if(num1===num2) {

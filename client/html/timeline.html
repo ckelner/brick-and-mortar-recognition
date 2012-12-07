@@ -62,37 +62,6 @@
 						class="centerText timeLineGuestRow clearfix">
 					{{/if}}
 				{{/if}}
-					<center>
-						{{#each guests}}
-							{{#if ifTimeMatches ...hour this.arrivaltime}}
-								<div class="guestTimelineEnclosure img-rounded">
-									<div>
-										{{this.lname}}
-									</div>
-									<div class="guestThumbEnclosure">
-										<center>
-											<div class="guestThumbTimeline">
-												<img src="{{this.img}}" 
-													class="img-rounded img-PadBottom"/>
-											</div>
-										</center>
-									</div>
-								</div>
-							{{/if}}
-						{{/each}}
-						&nbsp;
-					</center>
-				</div>
-			{{/each}}
-		</div>
-		<div class="whatHourRow clearfix">
-			{{#each hours}}
-				{{#if ifTimeMatchesCurrentHr hour}}
-					<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow currentHour"> <!-- {{hour}} -->
-				{{else}}
-					<div id="timelineHour{{hour}}" class="centerText rightBorderTimeRow"> <!-- {{hour}} -->
-				{{/if}}
-					{{hour}}:00
 				</div>
 			{{/each}}
 		</div>

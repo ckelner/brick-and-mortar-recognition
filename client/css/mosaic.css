@@ -113,7 +113,7 @@ html, body {
 .centerText {
 	text-align: center;
 }
-.whatHourRow {
+/*.whatHourRow {
 	line-height: 30px;
 	vertical-align: bottom;
 	border-top: 1px solid #232521;
@@ -123,11 +123,14 @@ html, body {
 	padding-left: 1px;
 	bottom: -20px;
 	position: absolute;
-}
+}*/
 .rightBorderTimeRow {
-	border-right: 1px solid #232521;
+	/*border-right: 1px solid #232521;*/
 	float: left;
 	width: 144px; /*due to border*/
+	position: absolute;
+	bottom: -20px;
+	border-top: 1px solid black;
 }
 .timeLineGuestRow {
 	font-family: 'Ubuntu', sans-serif;
@@ -166,19 +169,19 @@ html, body {
 	-webkit-user-select: none;
 	user-select: none;
 }
-/* removed in favor of header
-#theTimelineDate {
-	padding-top: 13px;
-	padding-left: 5px;
-}
-*/
 .guestThumbTimeline {
 	width: 50px;
 }
 .guestTimelineEnclosure{
 	border: 1px solid #232521;
-	width: 70px;
+	width: 130px;
 	margin: 3px;
+	padding: 0px !important;
+	padding-left: 6px !important;
+}
+.guestTimelineWrapCol{
+	float: left;
+	margin-bottom: 14px;
 }
 .img-PadBottom{
 	padding-bottom: 3px;

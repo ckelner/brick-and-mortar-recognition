@@ -114,12 +114,10 @@ Meteor.startup(function(){
 	//date
 	updateDate();
 	//end-date
-	
-	// didn't need it for some reason...
-	// odd, the API said we did.
-	//guest photos
-	//setImgThumbNail();
-	//end-guest photos
+
+	//load guests
+	// need to wait... why?
+	setTimeout(loadGuestInView,1000);
 
 	//css...hacks
 	cssHacks();
