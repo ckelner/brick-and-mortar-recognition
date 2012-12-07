@@ -4,7 +4,7 @@
 var global_Secs="0";
 var global_Mins="0";
 var global_Hours="0";
-var global_dateSyncFrequency=600000; //10mins
+var global_dateSyncFrequency=60000; //1min
 var global_syncFrequency=30000; //30seconds
 var global_showFrequency=5000; //5seconds
 var global_updateFrequency=1000; //1second
@@ -49,6 +49,10 @@ function setUpTimers(){
 	setInterval(updateTime,global_updateFrequency);
 	setInterval(updateDate,global_dateSyncFrequency);
 }
+
+window.addEventListener('load', function() {
+    new FastClick(document.body);
+}, false);
 
 function getDOMHandlers(){
 	//time
@@ -97,6 +101,7 @@ function cssHacks(){
 }
 
 function slowLoad(){
+	var modalHTML="";
 	var frag=Meteor.render(function(){
 		var todaysDate=moment().format('YYYY-MM-DD');
 		var guestsCursor=Guests.find({"arrivaldate":todaysDate});
@@ -135,6 +140,7 @@ function slowLoad(){
 				beforeHTML+='"';
 			}
 			var widthCount=1;
+			// THESE THEM GUESTS YO
 			for(var i=0,gsts=guestsByTimeArr[x].length; i<gsts; i++){
 				if(i%6===0){
 					if(i>0){
@@ -143,7 +149,10 @@ function slowLoad(){
 					}
 					insideHTML+="<div class='guestTimelineWrapCol'>";
 				}
-				insideHTML+='<div class="guestTimelineEnclosure img-rounded"><div>';
+				// START GUEST
+				var guestModalName="guestModal-"+x+"-"+i;
+				insideHTML+='<div class="guestTimelineEnclosure img-rounded"'+
+					'data-toggle="modal" data-target="#'+guestModalName+'"><div>';
 				//mr, ms or none
 				var sexy="<div class='guestTimelineName'>";
 				if(guestsByTimeArr[x][i].sex==="m"){
@@ -155,8 +164,81 @@ function slowLoad(){
 				insideHTML+='<div class="guestThumbEnclosure"><center>'+
 					'<div class="guestThumbTimeline"><img src="';
 				insideHTML+=guestsByTimeArr[x][i].img;
-				insideHTML+='"class="img-rounded img-PadBottom"/></div></center>'+
+				insideHTML+='"class="img-rounded"/></div></center>'+
 					'</div></div>';
+				modalHTML+='<div class="modal hide fade" id="'+guestModalName+'" tabindex="-1"'+ 
+					'role="dialog" aria-labelledby="'+guestModalName+'" aria-hidden="true">'+
+  					'<div class="modal-header">'+
+    				'<button type="button" class="close" data-dismiss="modal"'+
+    				'aria-hidden="true">×</button>'+
+    				'<h3 id="timeLineModalLabel">'+
+    				sexy+
+    				guestsByTimeArr[x][i].fname+
+    				'&nbsp;'+
+    				guestsByTimeArr[x][i].lname+
+    				'</h3></div>'+
+  					'<div class="modal-body">'+
+    				'<p>'+
+    				'<div class="guestThumbTimelineModal"><img src="'+
+					guestsByTimeArr[x][i].img+
+					'"class="img-rounded" /></div>';
+					// IMPORTANT
+					if((guestsByTimeArr[x][i].important!==null||
+						guestsByTimeArr[x][i].important!=="")&&
+						guestsByTimeArr[x][i].important===true){
+						modalHTML+='<span class="label label-important">Important</span><br>';
+					}
+					// PCR NUMBER
+					if(guestsByTimeArr[x][i].pcr!==null||
+						guestsByTimeArr[x][i].pcr!==""){
+						modalHTML+='PCR#: '+guestsByTimeArr[x][i].pcr+'<br>';
+					}
+					// PCR STATUS
+					if(guestsByTimeArr[x][i].pcrStatus!==null||
+						guestsByTimeArr[x][i].pcrStatus!==""){
+						modalHTML+='PCR Status: <span class="badge';
+						switch(guestsByTimeArr[x][i].pcrStatus.toLowerCase()){
+							case "club":
+								modalHTML+=' badge-info">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "gold":
+								modalHTML+=' badge-warning">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "platinum":
+								modalHTML+='">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "ambassador":
+								modalHTML+=' badge-success">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+						}
+						modalHTML+='</span><br>';
+					}
+					// ARRIVAL TIME
+					if(guestsByTimeArr[x][i].arrivaltime!==null||
+						guestsByTimeArr[x][i].arrivaltime!==""){
+						modalHTML+='Est Arrival Time: '+
+							guestsByTimeArr[x][i].arrivaltime+'<br>';
+					}
+					// Guest Notes
+					var notesLength=guestsByTimeArr[x][i].notes[0].length;
+					if(notesLength>1){
+						modalHTML+='Notes: ';
+						for(var y=0; y<notesLength; y++){
+							if(y===notesLength-1){
+								modalHTML+=guestsByTimeArr[x][i].notes[0][y];
+							}else{
+								modalHTML+=guestsByTimeArr[x][i].notes[0][y]+', ';
+							}
+						}
+					}
+    				modalHTML+='</p>'+
+  					'</div><div class="modal-footer">'+
+    				'<button class="btn" data-dismiss="modal" aria-hidden="true"'+
+    				'>Close</button></div></div>';
 			}
 			totalWidth+=(widthCount*144);
 			if(guestsByTimeArr[x].length>=1){
@@ -185,6 +267,7 @@ function slowLoad(){
   		});*/
 	//$("#scrollyMcScrolls").css("width",g_totalWidth*144);
 	$("#scrollyMcScrolls").html(frag);
+	$("#timelineGuestModals").html(modalHTML);
 }
 
 Meteor.startup(function(){

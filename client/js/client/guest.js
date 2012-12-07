@@ -3,6 +3,7 @@
 function setImgThumbNail(){
 	jQuery.fn.nailthumb.defaults.method = 'resize';
 	jQuery('.guestThumbTimeline').nailthumb();
+	jQuery('.guestThumbTimelineModal').nailthumb({fitDirection:'top left'});
 }
 //reset no guest image
 function setNoGuestImg(){
@@ -41,7 +42,7 @@ function guestDBSave(photoUrl){
 		fname: firstname,
 		lname: lastname,
 		pcr: pcrNum,
-		pctStatus: pcStat,
+		pcrStatus: pcStat,
 		arrivaltime: aTime,
 		arrivaldate: aDate,
 		sex: sexY,

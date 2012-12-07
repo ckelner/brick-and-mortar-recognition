@@ -224,3 +224,12 @@ img {
     text-overflow: ellipsis;
     overflow: hidden;
 }
+.modal-header, .modal-body{
+	color: black;
+}
+.guestThumbTimelineModal{
+	width: 200px;
+	height: 200px;
+	float: left;
+	margin-right: 10px;
+}
