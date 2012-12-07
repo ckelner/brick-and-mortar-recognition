@@ -233,3 +233,12 @@ img {
 	float: left;
 	margin-right: 10px;
 }
+.guestTimelineAmbassador{
+	background-color: #B5A46E;
+	color: black;
+}
+.badge-ambassador{
+	background-color: #B5A46E;
+	color: black;
+	text-shadow: 0 0 0 !important;
+}

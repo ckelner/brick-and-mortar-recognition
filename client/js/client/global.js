@@ -151,8 +151,23 @@ function slowLoad(){
 				}
 				// START GUEST
 				var guestModalName="guestModal-"+x+"-"+i;
-				insideHTML+='<div class="guestTimelineEnclosure img-rounded"'+
-					'data-toggle="modal" data-target="#'+guestModalName+'"><div>';
+				insideHTML+='<div class="guestTimelineEnclosure ';
+				// SHOW GUEST SPECIAL
+				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
+					insideHTML+='guestTimelineAmbassador ';
+				}
+				insideHTML+='img-rounded" data-toggle="modal" data-target="#'
+					+guestModalName+'"><div>';
+				if((guestsByTimeArr[x][i].important!==null||
+					guestsByTimeArr[x][i].important!=="")&&
+					guestsByTimeArr[x][i].important===true){
+					insideHTML+='<i class="icon-exclamation-sign ';
+					if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
+						insideHTML+=' pull-left"> </i>';
+					}else{
+						insideHTML+='icon-white pull-left"> </i>';
+					}
+				}
 				//mr, ms or none
 				var sexy="<div class='guestTimelineName'>";
 				if(guestsByTimeArr[x][i].sex==="m"){
@@ -211,7 +226,7 @@ function slowLoad(){
 									guestsByTimeArr[x][i].pcrStatus;
 							break;
 							case "ambassador":
-								modalHTML+=' badge-success">'+
+								modalHTML+=' badge-ambassador">'+
 									guestsByTimeArr[x][i].pcrStatus;
 							break;
 						}
