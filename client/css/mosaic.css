@@ -199,7 +199,7 @@ html, body {
 	background-color: #50524c;
 	height: 100%;
 }
-#adminAddGuest{
+#adminAddGuest, #adminFindGuest{
 	margin-top: 10px;
 	color: black;
 }
@@ -241,4 +241,9 @@ img {
 	background-color: #B5A46E;
 	color: black;
 	text-shadow: 0 0 0 !important;
+}
+.guestTimelineImportantStarIcon{
+	background-image: url("/img/icon_star.png") !important;
+	background-position: 0 0px !important;
+}
 }

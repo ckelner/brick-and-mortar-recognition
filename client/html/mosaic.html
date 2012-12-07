@@ -17,7 +17,11 @@
 	{{else}}
 		{{#if is_admin}}
 			<div id="adminContainer">
-				{{> adminAddGuest}}
+				{{#if find_guest}}
+					{{> adminFindGuest}}
+				{{else}}
+					{{> adminAddGuest}}
+				{{/if}}
 			</div>
 		{{else}}
 			{{> timelineContainer}}

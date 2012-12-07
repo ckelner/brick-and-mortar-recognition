@@ -151,15 +151,44 @@
 	</div>
 </template>
 
+<template name="adminFindGuest">
+	{{> navbar}}
+	<div id="adminFindGuest" class="hero-unit clearfix">
+		<form class="form">
+			<div class="control-group">
+				<label class="control-label" for="guestDaySearch">
+					Arrival Day (YYYY-MM-DD)
+				</label>
+				<div class="input-append">
+  					<input class="span3" id="guestDaySearch" 
+  						size="30" type="text"
+  						placeholder="ex: 2012-12-15">
+					<button class="btn" type="button" onClick="getGuests()">
+						<i class="icon-search"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+		<div id="adminGuestsFound"></div>
+	</div>
+</template>
+
 <template name="navbar">
 	<div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="navbar-inner">
-			  <a class="brand" href="#">Super Secret M Project</a>
-			  <ul class="nav">
-				  <li class="active"><a href="#">Add Guest</a></li>
-				  <li><a href="#">Find Guest(s)</a></li>
-				  <li><a href="#">View Guest(s)</a></li>
-			  </ul>
+			  	<a class="brand" href="#">Super Secret M Project</a>
+			  	<ul class="nav">
+				  	<li id="adminNavAddGuest">
+						<a href="#" onClick="clickAddGuest()">
+							Add Guest
+						</a>
+					</li>
+				  	<li id="adminNavListGuest">
+				  		<a href="#"  onClick="clickListGuest()">
+				  			List Guests
+				  		</a>
+				  	</li>
+			  	</ul>
 		  </div>
 	  </div>
 </template>

@@ -161,12 +161,8 @@ function slowLoad(){
 				if((guestsByTimeArr[x][i].important!==null||
 					guestsByTimeArr[x][i].important!=="")&&
 					guestsByTimeArr[x][i].important===true){
-					insideHTML+='<i class="icon-exclamation-sign ';
-					if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
-						insideHTML+=' pull-left"> </i>';
-					}else{
-						insideHTML+='icon-white pull-left"> </i>';
-					}
+					insideHTML+='<i class="icon-exclamation-sign '+
+						'guestTimelineImportantStarIcon pull-left"> </i>';
 				}
 				//mr, ms or none
 				var sexy="<div class='guestTimelineName'>";
@@ -315,6 +311,10 @@ Meteor.startup(function(){
 
 	//Seting up Filepicker.io with your api key
     filepicker.setKey('AcQbwQS8TU6hk8ebqsR2Uz');
+
+    //admin
+    navBarSet();
+    adminLoad();
 });
 /*jQuery(document).ready(function() {
     jQuery('.guestThumbTimeline').nailthumb();
