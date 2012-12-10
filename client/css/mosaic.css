@@ -158,6 +158,7 @@ html, body {
 }
 #scrollTimeline{
 	height: 99.8%;
+	width: 3500px;
 }
 .lighterTextTimelineHint{
 	font-family: 'Ubuntu', sans-serif;

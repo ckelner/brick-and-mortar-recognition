@@ -295,10 +295,10 @@ Meteor.startup(function(){
 	//timeline shizzle
 	// chris kelner - had to be slowed down for page to load
 	// annoying...
-	setTimeout(setupTimeline,1500);
+	setTimeout(setupTimeline,2000);
 	//re-arrange the timeline to make horizontal scroll work...
     //setTimeout(someMeteorTimelineMagic,2000);
-    setTimeout(slowLoad,2000);
+    setTimeout(slowLoad,1000);
     setTimeout(setImgThumbNail,3000);
 	//end-timeline shizzle
 	
@@ -319,3 +319,7 @@ Meteor.startup(function(){
 /*jQuery(document).ready(function() {
     jQuery('.guestThumbTimeline').nailthumb();
 });*/
+jQuery.expr.filters.offscreen = function(el) {
+  return (((el.offsetLeft + el.offsetWidth) < 200)
+         || (el.offsetLeft > window.innerWidth - 200));
+};

@@ -1,18 +1,38 @@
 //144px blocks... use this to advantage...
 function setupTimeline(){
-	$('#scrollTimeline').draggable({ axis: "x" });
+	$('#scrollTimeline').draggable({ axis: "x"});
 	watchDraggable();
 	centerTimelineOnCurrentHr();
 }
 function watchDraggable(){
-	$("#scrollTimeline").bind("dragstop",function(event, ui){});
+	$("#scrollTimeline").bind("dragstop",function(event, ui){
+		if($('#scrollTimeline').is(':offscreen')){
+			var divJ=$('#scrollTimeline');
+			var width=divJ[0].offsetWidth;
+			var left=divJ[0].offsetLeft;
+			if(width+left<200){
+				// went left
+			}else{
+				//assume we went right
+			}
+		}
+	});
 }
 function centerTimelineOnCurrentHr(newHr){
 	var hr=(newHr)?newHr:global_Hours;
+	var hrColDivs=$('#scrollTimeline')[0].children[0].children;
 	//window width minus padding
 	var ww=$('#scrollTimeline').parent().width()/2;
+	var width=0;
+	for(var i=0,colArrLen=hrColDivs.length; i<colArrLen; i++){
+		width+=hrColDivs[i].offsetWidth;
+	}
+	var offsetW=0;
+	for(var i=hr,colArrLen=hrColDivs.length; i<colArrLen; i++){
+		offsetW+=hrColDivs[i].offsetWidth;
+	}
 	// set up current time
-	$('#scrollTimeline').css("left", (-1*((hr)*144)+(ww-144/2)-20));
+	$('#scrollTimeline').css("left", (-1*(width)+(ww-144/2)+offsetW));
 }
 // Chris Kelner - THIS BREAK FUCKING METEOR'S COOL SHIT (DB BINDING)
 //for each hour in the day need to build out the guests in the view...
