@@ -6,27 +6,36 @@ function setupTimeline(){
 }
 function watchDraggable(){
 	$("#scrollTimeline").bind("dragstop",function(event, ui){
-		if($('#scrollTimeline').is(':offscreen')){
+		var scrollyDiv=$('#scrollTimeline');
+		if(scrollyDiv.is(':offscreen')){
 			var divJ=$('#scrollTimeline');
-			var width=divJ[0].offsetWidth;
+			var width=calcRealWidthTimeline();
+			//var width=divJ[0].offsetWidth;
 			var left=divJ[0].offsetLeft;
 			if(width+left<200){
-				// went left
+				var curL=parseInt(scrollyDiv.css("left"));
+				scrollyDiv.css("left", curL+(curL-(-width-200))+"px");
 			}else{
-				//assume we went right
+				var curR=parseInt(scrollyDiv.css("left"));
+				scrollyDiv.css("left", (curR-200)+"px");
 			}
 		}
 	});
+}
+function calcRealWidthTimeline(){
+	var hrColDivs=$('#scrollTimeline')[0].children[0].children;
+	var width=0;
+	for(var i=0,colArrLen=hrColDivs.length; i<colArrLen; i++){
+		width+=hrColDivs[i].offsetWidth;
+	}
+	return width;
 }
 function centerTimelineOnCurrentHr(newHr){
 	var hr=(newHr)?newHr:global_Hours;
 	var hrColDivs=$('#scrollTimeline')[0].children[0].children;
 	//window width minus padding
 	var ww=$('#scrollTimeline').parent().width()/2;
-	var width=0;
-	for(var i=0,colArrLen=hrColDivs.length; i<colArrLen; i++){
-		width+=hrColDivs[i].offsetWidth;
-	}
+	var width=calcRealWidthTimeline();
 	var offsetW=0;
 	for(var i=hr,colArrLen=hrColDivs.length; i<colArrLen; i++){
 		offsetW+=hrColDivs[i].offsetWidth;
