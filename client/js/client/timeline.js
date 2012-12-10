@@ -1,9 +1,53 @@
 //144px blocks... use this to advantage...
+var scroll_start = {};
+var scroll_dim = {};
+var content_dim = {};
 function setupTimeline(){
-	$('#scrollTimeline').draggable({ axis: "x"});
+	var theDiv=$('#scrollTimeline');
+	theDiv.draggable({ axis: "x"});
+	/*var hammer=theDiv.hammer({
+		prevent_default: false,
+        drag_vertical: false
+	});
+	hammer.ondragstart=function(){
+		scroll_start = getScrollPosition();
+		scroll_start.time = new Date().getTime();
+		scroll_dim = getDimensions(theDiv);
+        content_dim = getDimensions(theDiv.children[0]);
+	};
+	hammer.ondrag=function(ev){
+		if(ev.direction == 'left') {
+			ev.distance = 0-ev.distance;
+		}
+		var delta = 1;
+		var left = scroll_start.left + ev.distance * delta;
+		theDiv.css({ left: left });
+	};
+	hammer.ondragend=function(ev){
+		var scroll=getScrollPosition();
+		var corrections={};
+		if(scroll.left > 0) {
+			corrections.left=0;
+		}else if(scroll.left <-(content_dim.left - scroll_dim.left)) {
+			corrections.left =-(content_dim.left - scroll_dim.left);
+		}
+		theDiv.animate(corrections, 400);
+	};*/
 	watchDraggable();
 	centerTimelineOnCurrentHr();
 }
+/*function getScrollPosition(){
+	return {
+		top: parseInt($("#scrollTimeline").css('top'), 10),
+		left: parseInt($("#scrollTimeline").css('left'), 10)
+	};
+}
+function getDimensions(el){
+	return{
+		width: el.outerWidth(),
+		height: el.outerHeight()
+	};
+}*/
 function watchDraggable(){
 	$("#scrollTimeline").bind("dragstop",function(event, ui){
 		var scrollyDiv=$('#scrollTimeline');
