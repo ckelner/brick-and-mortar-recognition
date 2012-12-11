@@ -3,6 +3,7 @@ html, body {
 	height: 100%;
     width: 100%;
     position: absolute;
+    overflow: hidden;
 }
 .container-fluid{ 
 	height: inherit;
@@ -114,23 +115,12 @@ html, body {
 .centerText {
 	text-align: center;
 }
-/*.whatHourRow {
-	line-height: 30px;
-	vertical-align: bottom;
-	border-top: 1px solid #232521;
-	font-family: 'Ubuntu', sans-serif;
-	width: 3480px;
-	margin-top: 10px;
-	padding-left: 1px;
-	bottom: -20px;
-	position: absolute;
-}*/
 .rightBorderTimeRow {
 	/*border-right: 1px solid #232521;*/
 	float: left;
 	width: 144px; /*due to border*/
 	position: absolute;
-	bottom: -20px;
+	bottom: -16px;
 	border-top: 1px solid black;
 }
 .timeLineGuestRow {
