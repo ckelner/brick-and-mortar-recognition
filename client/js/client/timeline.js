@@ -91,7 +91,7 @@ function loadGuestInView(){
 		}
 		var widthCount=1;
 		for(var i=0,gsts=guestsByTimeArr[x].length; i<gsts; i++){
-			if(i%8===0){
+			if(i%10===0){
 				if(i>0){
 					insideHTML+="</div>";
 					widthCount++;
