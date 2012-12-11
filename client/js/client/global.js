@@ -142,7 +142,7 @@ function slowLoad(){
 			var widthCount=1;
 			// THESE THEM GUESTS YO
 			for(var i=0,gsts=guestsByTimeArr[x].length; i<gsts; i++){
-				if(i%10===0){
+				if(i%9===0){
 					if(i>0){
 						insideHTML+="</div>";
 						widthCount++;
