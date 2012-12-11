@@ -300,6 +300,7 @@ Meteor.startup(function(){
     //setTimeout(someMeteorTimelineMagic,2000);
     setTimeout(slowLoad,1000);
     setTimeout(setImgThumbNail,3000);
+    setTimeout(touchInit,2500);
 	//end-timeline shizzle
 	
 	//date
