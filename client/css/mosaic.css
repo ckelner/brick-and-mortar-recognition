@@ -76,6 +76,7 @@ html, body {
 	top: 0;
 	bottom: 0;
 	position: relative;
+	height: 85%;
 }
 #guest-left {
 	text-align: center;
@@ -157,7 +158,7 @@ html, body {
 	margin-top: -20px;
 }
 #scrollTimeline{
-	height: 99.8%;
+	height: 103%;
 	width: 3500px;
 }
 .lighterTextTimelineHint{

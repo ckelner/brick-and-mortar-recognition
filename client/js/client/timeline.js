@@ -91,7 +91,7 @@ function loadGuestInView(){
 		}
 		var widthCount=1;
 		for(var i=0,gsts=guestsByTimeArr[x].length; i<gsts; i++){
-			if(i%6===0){
+			if(i%8===0){
 				if(i>0){
 					insideHTML+="</div>";
 					widthCount++;
@@ -138,7 +138,7 @@ function touchHandler(event){
 
 	switch(event.type){
 		case "touchstart": type = "mousedown"; break;
-		case "touchmove":  type="mousemove"; break;        
+		case "touchmove":  type="mousemove"; break;
 		case "touchend":   type="mouseup"; break;
 		default: return;
 	}
