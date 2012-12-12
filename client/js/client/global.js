@@ -275,40 +275,49 @@ function slowLoad(){
 }
 
 Meteor.startup(function(){
-	//global
-	getDOMHandlers();
-	setUpTimers();
-	//end-global
+	var admin=false;
+	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
+		admin=true;
+	}
+	if(!admin){
+		//global
+		getDOMHandlers();
+		setUpTimers();
+		//end-global
 
-	//time
-	setTime();
-	showTime();
-	//end-time
-	
-	//timeline shizzle
-	// chris kelner - had to be slowed down for page to load
-	// annoying...
-	setTimeout(setupTimeline,2000);
-	//re-arrange the timeline to make horizontal scroll work...
-    //setTimeout(someMeteorTimelineMagic,2000);
-    setTimeout(slowLoad,1000);
-    setTimeout(setImgThumbNail,3000);
-    setTimeout(touchInit,2500);
-	//end-timeline shizzle
-	
-	//date
-	updateDate();
-	//end-date
+		//time
+		setTime();
+		showTime();
+		//end-time
+		
+		//timeline shizzle
+		// chris kelner - had to be slowed down for page to load
+		// annoying...
+		setTimeout(setupTimeline,2000);
+		//re-arrange the timeline to make horizontal scroll work...
+	    //setTimeout(someMeteorTimelineMagic,2000);
+	    setTimeout(slowLoad,1000);
+	    setTimeout(setImgThumbNail,3000);
+	    setTimeout(touchInit,2500);
+		//end-timeline shizzle
 
-	//css...hacks
-	cssHacks();
+		//date
+		updateDate();
+		//end-date
 
-	//Seting up Filepicker.io with your api key
-    filepicker.setKey('AcQbwQS8TU6hk8ebqsR2Uz');
+		//css...hacks
+		cssHacks();
 
-    //admin
-    navBarSet();
-    adminLoad();
+		//Seting up Filepicker.io with your api key
+	    filepicker.setKey('AcQbwQS8TU6hk8ebqsR2Uz');
+	}else{
+	    //admin
+	    navBarSet();
+	    adminLoad();
+
+	    //mock ajax
+	    mockAjaxSetup();
+	}
 });
 /*jQuery(document).ready(function() {
     jQuery('.guestThumbTimeline').nailthumb();

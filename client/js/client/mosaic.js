@@ -65,3 +65,97 @@ Handlebars.registerHelper('ifTimeMatchesCurrentHr',function(gTime){
 		return false;
 	}
 });
+function mockAjaxSetup(){
+	$.mockjax({
+	    url: '/save/fname',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var nfn=data.data.value;
+	        Guests.update({timestamp: parseInt(ts)},{$set: {fname: nfn}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
+	    url: '/save/lname',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var nln=data.data.value;
+	        Guests.update({timestamp: parseInt(ts)},{$set: {lname: nln}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
+	    url: '/save/pcr',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var npcr=data.data.value;
+	        Guests.update({timestamp: parseInt(ts)},{$set: {pcr: npcr}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
+	    url: '/save/pcrStatus',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var npcs=data.data.value;
+	        Guests.update({timestamp: parseInt(ts)},{$set: {pcrStatus: npcs}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
+	    url: '/save/arrivaldate',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var nad=data.data.value;
+	        Guests.update({timestamp: parseInt(ts)},{$set: {arrivaldate: nad}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
+	    url: '/save/arrivaltime',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var nat=data.data.value;
+	        Guests.update({timestamp: parseInt(ts)},{$set: {arrivaltime: nat}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
+	    url: '/save/sex',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var ns=data.data.value;
+	        Guests.update({timestamp: parseInt(ts)},{$set: {sex: ns}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
+	    url: '/save/important',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var ni=data.data.value;
+	        Guests.update({timestamp: parseInt(ts)},{$set: {important: ni}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
+	    url: '/save/notes',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var ni=data.data.value.split(',');
+	        ni=ni ? [ni] : [];
+	        Guests.update({timestamp: parseInt(ts)},{$set: {notes: ni}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+}
+

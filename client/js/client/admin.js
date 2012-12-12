@@ -15,6 +15,7 @@ function navBarSet(){
 }
 function adminLoad(){
 	$("#guestDaySearch").val(moment().format('YYYY-MM-DD'));
+	$("body").css("overflow","scroll");
 }
 function getGuests(){
 	var day=$("#guestDaySearch").val();
@@ -26,17 +27,43 @@ function getGuests(){
 	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Important</th>'+
 	'<th>Notes</th><th>Delete?</th><tbody>';
 	daGs.forEach(function(guest){
-		gHTMLzYo+='<tr><td>'+guest.fname+'</td>'+
-			'<td>'+guest.lname+'</td>'+
-			'<td>'+guest.pcr+'</td>'+
-			'<td>'+guest.pcrStatus+'</td>'+
-			'<td>'+guest.arrivaldate+'</td>'+
-			'<td>'+guest.arrivaltime+'</td>'+
-			'<td>'+guest.sex+'</td>'+
-			'<td>'+guest.important+'</td>';
+		gHTMLzYo+='<tr><td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/fname" class="adminEditable" '+
+			'data-original-title="Enter First Name">'+guest.fname+'</a></td>'+
+
+			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/lname" class="adminEditable" '+
+			'data-original-title="Enter Last Name">'+guest.lname+'</td>'+
+
+			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/pcr" class="adminEditable" '+
+			'data-original-title="Enter PCR# (9 digits starting w/ #9)">'+guest.pcr+'</td>'+
+
+			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/pcrStatus" class="adminEditable" '+
+			'data-original-title="Enter PCR Status (Club, Gold, Platinum, Ambassador)">'+guest.pcrStatus+'</td>'+
+
+			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/arrivaldate" class="adminEditable" '+
+			'data-original-title="Enter Arrival Date (YYYY-MM-DD)">'+guest.arrivaldate+'</td>'+
+
+			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/arrivaltime" class="adminEditable" '+
+			'data-original-title="Enter Arrival Time (HH:MM)">'+guest.arrivaltime+'</td>'+
+
+			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/sex" class="adminEditable" '+
+			'data-original-title="Enter Sex (male,female,unknown)">'+guest.sex+'</td>'+
+
+			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/important" class="adminEditable" '+
+			'data-original-title="Enter Important (true/false)">'+guest.important+'</td>';
+
 		var notesArr=_.toArray(guest.notes);
 		var notesLen=notesArr.length;
-		gHTMLzYo+="<td>";
+		gHTMLzYo+='<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/notes" class="adminEditable" '+
+			'data-original-title="Enter Notes (Comma seperated list w/o spaces)">';
 		for(var i=0; i<notesLen; i++){
 			gHTMLzYo+=''+
 				notesArr[i]+','				
@@ -47,6 +74,7 @@ function getGuests(){
 	gHTMLzYo+='</tbody></table>';
 	gDiv.html(gHTMLzYo);
 	adminSortTableGuest();
+	$('.adminEditable').editable();
 }
 function adminSortTableGuest(){
 	$("#guestListTableGrid").tablecloth({

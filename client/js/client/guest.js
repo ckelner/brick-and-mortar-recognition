@@ -50,7 +50,7 @@ function guestDBSave(photoUrl){
 		important: imp,
 		notes: note ? [note] : [],
 		img: photo,
-		timestamp: (new Date()).getTime()
+		timestamp: (new Date()).getTime()+Meteor.uuid()
     });
 	$("#guestAddPhotoUploadPlsWait").hide();
 	$("#guestAddPhotoUploadGoodMsg").show();
@@ -68,5 +68,7 @@ function getGuestSex(){
 function getGuestImportant(){
 	if($("#addGuestImportantCheck").is(':checked')){
 		return true;
+	}else{
+		return false;
 	}
 }

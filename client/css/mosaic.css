@@ -194,6 +194,8 @@ html, body {
 #adminAddGuest, #adminFindGuest{
 	margin-top: 10px;
 	color: black;
+	margin-right: 100px;
+	margin-left: 100px;
 }
 #addGuestRight{
 	margin-left: 40px;

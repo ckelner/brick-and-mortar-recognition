@@ -10,28 +10,34 @@ function setupTimeline(){
 }
 function watchDraggable(){
 	$("#scrollTimeline").bind("dragstop",function(event, ui){
-		var scrollyDiv=$('#scrollTimeline');
-		if(scrollyDiv.is(':offscreen')){
-			var divJ=$('#scrollTimeline');
-			var width=calcRealWidthTimeline();
-			//var width=divJ[0].offsetWidth;
-			var left=divJ[0].offsetLeft;
-			if(width+left<200){
-				var curL=parseInt(scrollyDiv.css("left"));
-				scrollyDiv.css("left", curL+(curL-(-width-200))+"px");
-			}else{
-				var curR=parseInt(scrollyDiv.css("left"));
-				scrollyDiv.css("left", (curR-200)+"px");
-			}
-		}
+		makeSureStayOnScreen();
 	});
 	$("#scrollTimeline").bind("drag",function(event,ui){
 		$("#scrollTimeline").css("left", (ui.offset.left)+"px");
 	});
 }
+function makeSureStayOnScreen(){
+	var scrollyDiv=$('#scrollTimeline');
+	if(scrollyDiv.is(':offscreen')){
+		var width=calcRealWidthTimeline();
+		var diffLen=$('#scrollTimeline')[0].children[0].children.length;
+		var diff=$('#scrollTimeline')[0].children[0].children[diffLen-1].offsetWidth;
+		width-=diff;
+		//var width=divJ[0].offsetWidth;
+		var left=scrollyDiv[0].offsetLeft;
+		if(width+left<200){
+			var curL=parseInt(scrollyDiv.css("left"));
+			scrollyDiv.css("left", curL+(curL-(-width-200))+"px");
+		}else{
+			var curR=parseInt(scrollyDiv.css("left"));
+			scrollyDiv.css("left", (curR-200)+"px");
+		}
+	}
+}
 function calcRealWidthTimeline(){
 	var hrColDivs=$('#scrollTimeline')[0].children[0].children;
 	var width=0;
+	// minus 1 because of modals
 	for(var i=0,colArrLen=hrColDivs.length; i<colArrLen; i++){
 		width+=hrColDivs[i].offsetWidth;
 	}
@@ -75,4 +81,18 @@ function touchInit(){
 	document.addEventListener("touchmove", touchHandler, true);
 	document.addEventListener("touchend", touchHandler, true);
 	document.addEventListener("touchcancel", touchHandler, true);    
+}
+function timelineMoveLeft(){
+	var val=$("#scrollTimeline").css("left");
+	val=parseInt(val.substring(0,val.length-2));
+	val+=150;
+	$("#scrollTimeline").css("left",val+"px");
+	makeSureStayOnScreen();
+}
+function timelineMoveRight(){
+	var val=$("#scrollTimeline").css("left");
+	val=parseInt(val.substring(0,val.length-2));
+	val-=150;
+	$("#scrollTimeline").css("left",val+"px");
+	makeSureStayOnScreen();
 }
