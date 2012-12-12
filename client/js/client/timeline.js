@@ -88,7 +88,7 @@ function touchInit(){
 	el.addEventListener('tap', tapDidOccur, false); 
 }
 function tapDidOccur(e){
-    e.target.click();
+    //e.target.click();
 }
 function timelineMoveLeft(){
 	var val=$("#scrollTimeline").css("left");
