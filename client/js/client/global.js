@@ -101,7 +101,6 @@ function cssHacks(){
 }
 
 function slowLoad(){
-	var modalHTML="";
 	var frag=Meteor.render(function(){
 		var todaysDate=moment().format('YYYY-MM-DD');
 		var guestsCursor=Guests.find({"arrivaldate":todaysDate});
@@ -118,6 +117,7 @@ function slowLoad(){
 		});
 		var totalWidth=0;
 		var totalHTML="";
+		var modalHTML="<div class='timelineGuestModals'>";
 		for(var x=0,guestyArr=guestsByTimeArr.length; x<guestyArr; x++){
 			var insideHTML="";
 			var beforeHTML="";
@@ -266,19 +266,12 @@ function slowLoad(){
 			beforeHTML+="style='width:"+widthCount*144+"px'>";
 			totalHTML+=beforeHTML+insideHTML;
 		}
+		modalHTML+="</div>";
 		$("#scrollyMcScrolls").css("width",totalWidth*144);
 		setTimeout(setImgThumbNail,1000);
-		return totalHTML;
+		return totalHTML+modalHTML;
 	});
-	/*var todaysDate=moment().format('YYYY-MM-DD');
-	var frag=Meteor.renderList(
-  		Guests.find({"arrivaldate":todaysDate}),
-  		function(result){
-  			loadGuestInView(result);
-  		});*/
-	//$("#scrollyMcScrolls").css("width",g_totalWidth*144);
 	$("#scrollyMcScrolls").html(frag);
-	$("#timelineGuestModals").html(modalHTML);
 }
 
 Meteor.startup(function(){
