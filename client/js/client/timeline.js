@@ -56,7 +56,6 @@ function centerTimelineOnCurrentHr(newHr){
 	// set up current time
 	$('#scrollTimeline').css("left", (-1*(width)+(ww-144/2)+offsetW));
 }
-/*
 function touchHandler(event){
 	var touches = event.changedTouches,
 	first = touches[0],
@@ -72,23 +71,16 @@ function touchHandler(event){
 	simulatedEvent.initMouseEvent(type, true, true, window, 1,
 		first.screenX, first.screenY,
 		first.clientX, first.clientY, false,
-		false, false, false, 0, null);
+		false, false, false, 0/*left*/, null);
 
 	first.target.dispatchEvent(simulatedEvent);
 	event.preventDefault();
 }
-*/
 function touchInit(){
-	//document.addEventListener("touchstart", touchHandler, true);
-	//document.addEventListener("touchmove", touchHandler, true);
-	//document.addEventListener("touchend", touchHandler, true);
-	//document.addEventListener("touchcancel", touchHandler, true);
-	var el = $("body")[0];
-    var tapTap = new Tap(el);
-	el.addEventListener('tap', tapDidOccur, false); 
-}
-function tapDidOccur(e){
-    //e.target.click();
+	document.addEventListener("touchstart", touchHandler, true);
+	document.addEventListener("touchmove", touchHandler, true);
+	document.addEventListener("touchend", touchHandler, true);
+	document.addEventListener("touchcancel", touchHandler, true);
 }
 function timelineMoveLeft(){
 	var val=$("#scrollTimeline").css("left");
