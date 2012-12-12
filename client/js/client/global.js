@@ -257,7 +257,7 @@ function slowLoad(){
 			}
 			if(hr===moment().format('HH')){
 				insideHTML+='<div id="timelineHour'+hr+'" class="centerText '+
-					'rightBorderTimeRow currentHour" style="width:'+widthCount*144+'">';
+					'rightBorderTimeRow currentHour" style="width:'+widthCount*144+'px">';
 			}else{
 				insideHTML+='<div id="timelineHour'+hr+'" class="centerText '+
 					'rightBorderTimeRow" style="width:'+widthCount*144+'px">';
