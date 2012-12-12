@@ -63,35 +63,30 @@ function touchHandler(event){
 
 	switch(event.type){
 		case "touchstart": type = "mousedown"; break;
-		case "touchmove":
-			//if finger moves more than 10px flag to cancel
-		    //code.google.com/mobile/articles/fast_buttons.html
-		    if (Math.abs(e.touches[0].clientX - startX) > 10 ||
-		        Math.abs(e.touches[0].clientY - startY) > 10) {
-		            type="mousemove"; 
-		    }else{
-		    	type="mouseup";
-		    }
-		break;
+		case "touchmove":  type="mousemove"; break;
 		case "touchend":   type="mouseup"; break;
 		default: return;
 	}
-	if(type!==""){
-		var simulatedEvent = document.createEvent("MouseEvent");
-		simulatedEvent.initMouseEvent(type, true, true, window, 1,
-			first.screenX, first.screenY,
-			first.clientX, first.clientY, false,
-			false, false, false, 0/*left*/, null);
+	var simulatedEvent = document.createEvent("MouseEvent");
+	simulatedEvent.initMouseEvent(type, true, true, window, 1,
+		first.screenX, first.screenY,
+		first.clientX, first.clientY, false,
+		false, false, false, 0/*left*/, null);
 
-		first.target.dispatchEvent(simulatedEvent);
-	}
+	first.target.dispatchEvent(simulatedEvent);
 	event.preventDefault();
 }
 function touchInit(){
 	document.addEventListener("touchstart", touchHandler, true);
 	document.addEventListener("touchmove", touchHandler, true);
 	document.addEventListener("touchend", touchHandler, true);
-	document.addEventListener("touchcancel", touchHandler, true);    
+	document.addEventListener("touchcancel", touchHandler, true);
+	var el = $("body")[0];
+    var tapTap = new Tap(el);
+	el.addEventListener('tap', tapDidOccur, false); 
+}
+function tapDidOccur(e){
+    e.target.click();
 }
 function timelineMoveLeft(){
 	var val=$("#scrollTimeline").css("left");
