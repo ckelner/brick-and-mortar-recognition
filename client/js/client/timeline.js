@@ -69,6 +69,8 @@ function touchHandler(event){
 		    if (Math.abs(e.touches[0].clientX - startX) > 10 ||
 		        Math.abs(e.touches[0].clientY - startY) > 10) {
 		            type="mousemove"; 
+		    }else{
+		    	type="mouseup";
 		    }
 		break;
 		case "touchend":   type="mouseup"; break;
