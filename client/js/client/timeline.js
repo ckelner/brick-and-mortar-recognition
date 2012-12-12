@@ -4,7 +4,7 @@ var scroll_dim = {};
 var content_dim = {};
 function setupTimeline(){
 	var theDiv=$('#scrollTimeline');
-	theDiv.draggable({ axis: "x"});
+	theDiv.draggable({ axis: "x", distance: 10});
 	watchDraggable();
 	centerTimelineOnCurrentHr();
 }
