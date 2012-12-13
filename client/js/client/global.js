@@ -212,6 +212,10 @@ function slowLoad(){
 						guestsByTimeArr[x][i].pcrStatus!==""){
 						modalHTML+='PCR Status: <span class="badge';
 						switch(guestsByTimeArr[x][i].pcrStatus.toLowerCase()){
+							case "not-a-member":
+								modalHTML+=' badge-inverse">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
 							case "club":
 								modalHTML+=' badge-info">'+
 									guestsByTimeArr[x][i].pcrStatus;
