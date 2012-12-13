@@ -25,7 +25,7 @@ function getGuests(){
 	var gHTMLzYo='<table id="guestListTableGrid" class="table table-striped">'+
 	'<thead><tr><th>First Name</th><th>Last Name</th><th>PCR#</th><th>PCR Status</th>'+
 	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Important</th>'+
-	'<th>Notes</th><th>Delete?</th><tbody>';
+	'<th>Photo URL</th><th>Notes</th><th>Delete?</th><tbody>';
 	daGs.forEach(function(guest){
 		gHTMLzYo+='<tr><td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/fname" class="adminEditable" '+
@@ -33,31 +33,35 @@ function getGuests(){
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/lname" class="adminEditable" '+
-			'data-original-title="Enter Last Name">'+guest.lname+'</td>'+
+			'data-original-title="Enter Last Name">'+guest.lname+'</a></td>'+
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/pcr" class="adminEditable" '+
-			'data-original-title="Enter PCR# (9 digits starting w/ #9)">'+guest.pcr+'</td>'+
+			'data-original-title="Enter PCR# (9 digits starting w/ #9)">'+guest.pcr+'</a></td>'+
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/pcrStatus" class="adminEditable" '+
-			'data-original-title="Enter PCR Status (Club, Gold, Platinum, Ambassador)">'+guest.pcrStatus+'</td>'+
+			'data-original-title="Enter PCR Status (Club, Gold, Platinum, Ambassador)">'+guest.pcrStatus+'</a></td>'+
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/arrivaldate" class="adminEditable" '+
-			'data-original-title="Enter Arrival Date (YYYY-MM-DD)">'+guest.arrivaldate+'</td>'+
+			'data-original-title="Enter Arrival Date (YYYY-MM-DD)">'+guest.arrivaldate+'</a></td>'+
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/arrivaltime" class="adminEditable" '+
-			'data-original-title="Enter Arrival Time (HH:MM)">'+guest.arrivaltime+'</td>'+
+			'data-original-title="Enter Arrival Time (HH:MM)">'+guest.arrivaltime+'</a></td>'+
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/sex" class="adminEditable" '+
-			'data-original-title="Enter Sex (male,female,unknown)">'+guest.sex+'</td>'+
+			'data-original-title="Enter Sex (male,female,unknown)">'+guest.sex+'</a></td>'+
+
+			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
+			'data-pk="1" data-url="/save/img" class="adminEditable" '+
+			'data-original-title="Enter Photo URL">'+guest.img+'</a></td>';
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/important" class="adminEditable" '+
-			'data-original-title="Enter Important (true/false)">'+guest.important+'</td>';
+			'data-original-title="Enter Important (true/false)">'+guest.important+'</a></td>';
 
 		var notesArr=_.toArray(guest.notes);
 		var notesLen=notesArr.length;

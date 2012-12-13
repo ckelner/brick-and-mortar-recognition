@@ -147,6 +147,17 @@ function mockAjaxSetup(){
 	    }
 	});
 	$.mockjax({
+	    url: '/save/img',
+	    response: function(data) {
+	    	$(".modal").modal('hide');
+	        var ts=data.data.name;
+	        var nimg=data.data.value;
+	        ni=ni ? [ni] : [];
+	        Guests.update({timestamp: parseInt(ts)},{$set: {img: nimg}},{multi:false})
+	        return "{'success'}";
+	    }
+	});
+	$.mockjax({
 	    url: '/save/notes',
 	    response: function(data) {
 	    	$(".modal").modal('hide');

@@ -152,12 +152,16 @@ function slowLoad(){
 				// START GUEST
 				var guestModalName="guestModal-"+x+"-"+i;
 				insideHTML+='<div class="guestTimelineEnclosure ';
-				// SHOW GUEST SPECIAL
+				// SHOW GUEST AMBASSADOR
 				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
 					insideHTML+='guestTimelineAmbassador ';
 				}
+				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="royal ambassador"){
+					insideHTML+='guestTimelineRoyalAmbassador ';
+				}
 				insideHTML+='img-rounded" data-toggle="modal" data-target="#'
 					+guestModalName+'"><div>';
+				// show guest special (star)
 				if((guestsByTimeArr[x][i].important!==null||
 					guestsByTimeArr[x][i].important!=="")&&
 					guestsByTimeArr[x][i].important===true){
@@ -233,7 +237,7 @@ function slowLoad(){
 									guestsByTimeArr[x][i].pcrStatus;
 							break;
 							case "royal ambassador":
-								modalHTML+=' badge-ambassador">'+
+								modalHTML+=' badge-royal">'+
 									guestsByTimeArr[x][i].pcrStatus;
 							break;
 						}
