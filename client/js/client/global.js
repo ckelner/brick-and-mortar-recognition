@@ -194,18 +194,21 @@ function slowLoad(){
 					guestsByTimeArr[x][i].img+
 					'"class="img-rounded" /></div>';
 					// IMPORTANT
-					if((guestsByTimeArr[x][i].important!==null||
-						guestsByTimeArr[x][i].important!=="")&&
+					if(guestsByTimeArr[x][i].important!==undefined&&
+						guestsByTimeArr[x][i].important!==null&&
+						guestsByTimeArr[x][i].important!==""&&
 						guestsByTimeArr[x][i].important===true){
 						modalHTML+='<span class="label label-important">Important</span><br>';
 					}
 					// PCR NUMBER
-					if(guestsByTimeArr[x][i].pcr!==null||
+					if(guestsByTimeArr[x][i].pcr!==undefined&&
+						guestsByTimeArr[x][i].pcr!==null&&
 						guestsByTimeArr[x][i].pcr!==""){
 						modalHTML+='PCR#: '+guestsByTimeArr[x][i].pcr+'<br>';
 					}
 					// PCR STATUS
-					if(guestsByTimeArr[x][i].pcrStatus!==null||
+					if(guestsByTimeArr[x][i].pcrStatus!==undefined&&
+						guestsByTimeArr[x][i].pcrStatus!==null&&
 						guestsByTimeArr[x][i].pcrStatus!==""){
 						modalHTML+='PCR Status: <span class="badge';
 						switch(guestsByTimeArr[x][i].pcrStatus.toLowerCase()){
@@ -222,6 +225,10 @@ function slowLoad(){
 									guestsByTimeArr[x][i].pcrStatus;
 							break;
 							case "ambassador":
+								modalHTML+=' badge-ambassador">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "royal ambassador":
 								modalHTML+=' badge-ambassador">'+
 									guestsByTimeArr[x][i].pcrStatus;
 							break;
@@ -307,10 +314,10 @@ Meteor.startup(function(){
 
 		//css...hacks
 		cssHacks();
-
+	}else{
 		//Seting up Filepicker.io with your api key
 	    filepicker.setKey('AcQbwQS8TU6hk8ebqsR2Uz');
-	}else{
+
 	    //admin
 	    navBarSet();
 	    adminLoad();
