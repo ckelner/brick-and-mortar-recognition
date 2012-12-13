@@ -72,7 +72,7 @@ function mockAjaxSetup(){
 	    	$(".modal").modal('hide');
 	        var ts=data.data.name;
 	        var nfn=data.data.value;
-	        Guests.update({timestamp: parseInt(ts)},{$set: {fname: nfn}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {fname: nfn}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -82,7 +82,7 @@ function mockAjaxSetup(){
 	    	$(".modal").modal('hide');
 	        var ts=data.data.name;
 	        var nln=data.data.value;
-	        Guests.update({timestamp: parseInt(ts)},{$set: {lname: nln}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {lname: nln}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -92,7 +92,7 @@ function mockAjaxSetup(){
 	    	$(".modal").modal('hide');
 	        var ts=data.data.name;
 	        var npcr=data.data.value;
-	        Guests.update({timestamp: parseInt(ts)},{$set: {pcr: npcr}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {pcr: npcr}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -102,7 +102,7 @@ function mockAjaxSetup(){
 	    	$(".modal").modal('hide');
 	        var ts=data.data.name;
 	        var npcs=data.data.value;
-	        Guests.update({timestamp: parseInt(ts)},{$set: {pcrStatus: npcs}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {pcrStatus: npcs}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -112,7 +112,7 @@ function mockAjaxSetup(){
 	    	$(".modal").modal('hide');
 	        var ts=data.data.name;
 	        var nad=data.data.value;
-	        Guests.update({timestamp: parseInt(ts)},{$set: {arrivaldate: nad}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {arrivaldate: nad}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -122,7 +122,7 @@ function mockAjaxSetup(){
 	    	$(".modal").modal('hide');
 	        var ts=data.data.name;
 	        var nat=data.data.value;
-	        Guests.update({timestamp: parseInt(ts)},{$set: {arrivaltime: nat}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {arrivaltime: nat}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -132,7 +132,7 @@ function mockAjaxSetup(){
 	    	$(".modal").modal('hide');
 	        var ts=data.data.name;
 	        var ns=data.data.value;
-	        Guests.update({timestamp: parseInt(ts)},{$set: {sex: ns}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {sex: ns}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -142,7 +142,7 @@ function mockAjaxSetup(){
 	    	$(".modal").modal('hide');
 	        var ts=data.data.name;
 	        var ni=data.data.value;
-	        Guests.update({timestamp: parseInt(ts)},{$set: {important: ni}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {important: ni}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -153,7 +153,7 @@ function mockAjaxSetup(){
 	        var ts=data.data.name;
 	        var nimg=data.data.value;
 	        ni=ni ? [ni] : [];
-	        Guests.update({timestamp: parseInt(ts)},{$set: {img: nimg}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {img: nimg}},{multi:false})
 	        return "{'success'}";
 	    }
 	});
@@ -164,7 +164,7 @@ function mockAjaxSetup(){
 	        var ts=data.data.name;
 	        var ni=data.data.value.split(',');
 	        ni=ni ? [ni] : [];
-	        Guests.update({timestamp: parseInt(ts)},{$set: {notes: ni}},{multi:false})
+	        Guests.update({timestamp: ts},{$set: {notes: ni}},{multi:false})
 	        return "{'success'}";
 	    }
 	});

@@ -24,8 +24,8 @@ function getGuests(){
 	var gDiv=$("#adminGuestsFound");
 	var gHTMLzYo='<table id="guestListTableGrid" class="table table-striped">'+
 	'<thead><tr><th>First Name</th><th>Last Name</th><th>PCR#</th><th>PCR Status</th>'+
-	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Important</th>'+
-	'<th>Photo URL</th><th>Notes</th><th>Delete?</th><tbody>';
+	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Photo URL</th>'+
+	'<th>Important</th><th>Notes</th><th>Delete?</th><tbody>';
 	daGs.forEach(function(guest){
 		gHTMLzYo+='<tr><td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/fname" class="adminEditable" '+
@@ -57,7 +57,7 @@ function getGuests(){
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/img" class="adminEditable" '+
-			'data-original-title="Enter Photo URL">'+guest.img+'</a></td>';
+			'data-original-title="Enter Photo URL">'+guest.img+'</a></td>'+
 
 			'<td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/important" class="adminEditable" '+
