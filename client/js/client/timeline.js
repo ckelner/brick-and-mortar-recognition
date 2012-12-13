@@ -56,15 +56,24 @@ function centerTimelineOnCurrentHr(newHr){
 	// set up current time
 	$('#scrollTimeline').css("left", (-1*(width)+(ww-144/2)+offsetW));
 }
+var g_LastTouchEventFiredTime=0;
+var g_LastTouchEventFiredVal="";
 function touchHandler(event){
 	var touches = event.changedTouches,
 	first = touches[0],
 	type = "";
 
+	if(event.type==="touchstart"){
+		g_LastTouchEventFiredTime=new Date().getTime();
+		g_LastTouchEventFiredVal=event.type;
+		setTimeout(function(){compareTouchEventTimes(event.type,first.target)},250);
+	}
+
 	switch(event.type){
 		case "touchstart": type = "mousedown"; break;
 		case "touchmove":  type="mousemove"; break;
 		case "touchend":   type="mouseup"; break;
+		case "touchcancel":   type="mouseup"; break;
 		default: return;
 	}
 	var simulatedEvent = document.createEvent("MouseEvent");
@@ -74,13 +83,27 @@ function touchHandler(event){
 		false, false, false, 0/*left*/, null);
 
 	first.target.dispatchEvent(simulatedEvent);
-	event.preventDefault();
+	//event.preventDefault();
+}
+function compareTouchEventTimes(type,tgt){
+	var nowTime=new Date().getTime();
+	if(nowTime-g_LastTouchEventFiredTime>=249){
+		if(g_LastTouchEventFiredVal===type){
+			// no touch in last 500ms
+			$(tgt).click();
+		}
+	}
 }
 function touchInit(){
 	document.addEventListener("touchstart", touchHandler, true);
 	document.addEventListener("touchmove", touchHandler, true);
 	document.addEventListener("touchend", touchHandler, true);
 	document.addEventListener("touchcancel", touchHandler, true);
+	$("body").hammer({
+        transform: false
+   }).bind("tap",function(ev) {
+        touchHandler(ev);
+   });
 }
 function timelineMoveLeft(){
 	var val=$("#scrollTimeline").css("left");
