@@ -59,9 +59,13 @@ function centerTimelineOnCurrentHr(newHr){
 var g_LastTouchEventFiredTime=0;
 var g_LastTouchEventFiredVal="";
 function touchHandler(event){
-	var touches = event.changedTouches,
-	first = touches[0],
-	type = "";
+	var touches = event.changedTouches;
+	try{
+		var first = touches[0];
+	}catch(e){
+		return;
+	}
+	var type = "";
 
 	if(event.type==="touchstart"){
 		g_LastTouchEventFiredTime=new Date().getTime();

@@ -251,7 +251,7 @@ function slowLoad(){
 					}
 					// Guest Notes
 					var notesLength=guestsByTimeArr[x][i].notes[0].length;
-					if(notesLength>1){
+					if(notesLength>=1){
 						modalHTML+='Notes: ';
 						for(var y=0; y<notesLength; y++){
 							if(y===notesLength-1){
