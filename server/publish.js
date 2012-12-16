@@ -1,10 +1,24 @@
-var g_isProd=true;
-if(location.href.indexOf("mosaic-qa")!==-1){
-	g_isProd=false;
-}
-if(g_isProd){
+MeteorEnv = function(options) {
+
+  // Don't do anything if there's a Meteor.env already for some reason
+  if (!Meteor.env) {
+    Meteor.env = {};
+
+    var path = __meteor_bootstrap__.require('path');
+    var pathToConfig = process.env.HOME + '/.meteor.cfg';
+
+    var configExists = path.existsSync(pathToConfig);
+    Meteor.env.isDevelopment = configExists;
+    Meteor.env.isProduction = !configExists;
+
+  }  
+};
+
+if(MeteorEnv.isProduction){
+	console.log("is prod");
 	Guests = new Meteor.Collection("guests_prod");
 }else{
+	console.log("is dev");
 	Guests = new Meteor.Collection("guests");
 }
 
