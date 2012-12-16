@@ -1,4 +1,12 @@
-Guests = new Meteor.Collection("guests");
+var g_isProd=true;
+if(location.href.indexOf("mosaic-qa")!==-1){
+	g_isProd=false;
+}
+if(g_isProd){
+	Guests = new Meteor.Collection("guests_prod");
+}else{
+	Guests = new Meteor.Collection("guests");
+}
 Time = new Meteor.Collection("time");
 G_HoursInDay = [{ "hour": "00" },{ "hour": "01" },{ "hour": "02" },{ "hour": "03" },{ "hour": "04" },{ "hour": "05" },
 	{ "hour": "06" },{ "hour": "07" },{ "hour": "08" },{ "hour": "09" },{ "hour": "10" },{ "hour": "11" },
@@ -35,7 +43,8 @@ Template.content.find_guest=function(){
 	}
 }
 function getURLParameter(name){
-    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + 
+    	'([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
 //hours & guests in the day
 Template.timeline.hours=function(){
