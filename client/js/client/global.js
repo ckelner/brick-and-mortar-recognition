@@ -250,17 +250,7 @@ function slowLoad(){
 							guestsByTimeArr[x][i].arrivaltime+'<br>';
 					}
 					// Guest Notes
-					var notesLength=guestsByTimeArr[x][i].notes[0].length;
-					if(notesLength>=1){
-						modalHTML+='Notes: ';
-						for(var y=0; y<notesLength; y++){
-							if(y===notesLength-1){
-								modalHTML+=guestsByTimeArr[x][i].notes[0][y];
-							}else{
-								modalHTML+=guestsByTimeArr[x][i].notes[0][y]+', ';
-							}
-						}
-					}
+					modalHTML+='Notes: '+guestsByTimeArr[x][i].notes;
     				modalHTML+='</p>'+
   					'</div><div class="modal-footer">'+
     				'<button class="btn" data-dismiss="modal" aria-hidden="true"'+

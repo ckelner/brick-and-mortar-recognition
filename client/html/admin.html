@@ -2,132 +2,143 @@
 <template name="adminAddGuest">
 	{{> navbar}}
 	<div id="adminAddGuest" class="hero-unit clearfix">
-		<form class="form">
-			<div id="addGuestLeft" class="pull-left">
-				<div class="control-group">
-					<label class="control-label" for="addGuestFname">
-						First Name
-					</label>
-					<div class="controls">
-						<input type="text" id="addGuestFname" placeholder="First">
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="addGuestLname">
-						Last Name
-					</label>
-					<div class="controls">
-						<input type="text" id="addGuestLname" placeholder="Last">
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="addGuestPCR">
-						PCR # (9 digits, starts with 9)
-					</label>
-					<div class="controls">
-						<input type="text" id="addGuestPCR" placeholder="900000000">
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="addGuestPCR">
-						PCR Status (Club, Gold, Platinum...)
-					</label>
-					<div class="controls">
-						<select id="addGuestPCRStatusSelect">
-							<option>Not-A-Member</option>
-							<option>Club</option>
-							<option>Gold</option>
-							<option>Platinum</option>
-							<option>Ambassador</option>
-							<option>Royal Ambassador</option>
-						</select>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="addGuestATime">
-						Arrival Time (HH:MM) - 24hr format
-					</label>
-					<div class="controls">
-						<input type="text" id="addGuestATime" placeholder="13:30">
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="addGuestADate">
-						Arrival Date (YYYY-MM-DD)
-					</label>
-					<div class="controls">
-						<input type="text" id="addGuestADate" placeholder="2012-12-15">
-					</div>
+		{{> addGuestForm}}
+		<!-- guest modal -->
+		{{> addGuestModal}}
+	</div>
+</template>
+
+<template name="addGuestForm">
+	<form class="form">
+		<div id="addGuestLeft" class="pull-left">
+			<div class="control-group">
+				<label class="control-label" for="addGuestFname">
+					First Name
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestFname" 
+						placeholder="EXAMPLE: Firstname">
 				</div>
 			</div>
-			<div id="addGuestRight" class="pull-left">
-				<div class="control-group">
-					<label class="control-label" for="addGuestPhoto">
-						Guest Photo
-					</label>
-					<div class="fileupload fileupload-new" data-provides="fileupload">
-						<div class="fileupload-preview thumbnail" id="addGuestPhoto" 
-							style="width: 200px; height: 150px;">
-							<img src="/guests_photos/no_image.gif" />
-						</div>
-						<div>
-							<span class="btn btn-file">
-								<span class="fileupload-new">
-									Select image
-								</span>
-							<span class="fileupload-exists">
-								Change
-							</span>
-							<input type="file" id="guestPhotoInput" /></span>
-							<a href="#" class="btn fileupload-exists" data-dismiss="fileupload" 
-								onClick="setTimeout(setNoGuestImg,500)">
-								Remove
-							</a>
-						</div>
+			<div class="control-group">
+				<label class="control-label" for="addGuestLname">
+					Last Name
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestLname" 
+						placeholder="EXAMPLE: Lastname">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="addGuestPCR">
+					PCR # (9 digits, starts with 9)
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestPCR" 
+						placeholder="EXAMPLE: 900000000">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="addGuestPCRStatusSelect">
+					PCR Status
+				</label>
+				<div class="controls">
+					<select id="addGuestPCRStatusSelect">
+						<option>Not-A-Member</option>
+						<option>Club</option>
+						<option>Gold</option>
+						<option>Platinum</option>
+						<option>Ambassador</option>
+						<option>Royal Ambassador</option>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="addGuestATime">
+					Arrival Time (HH:MM) - 24hr format
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestATime" 
+						placeholder="EXAMPLE: 01:00">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="addGuestADate">
+					Arrival Date (YYYY-MM-DD)
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestADate" 
+						placeholder="EXAMPLE: 1990-01-01">
+				</div>
+			</div>
+		</div>
+		<div id="addGuestRight" class="pull-left">
+			<div class="control-group">
+				<label class="control-label" for="addGuestPhoto">
+					Guest Photo
+				</label>
+				<div class="fileupload fileupload-new" data-provides="fileupload">
+					<div class="fileupload-preview thumbnail" id="addGuestPhoto" 
+						style="width: 200px; height: 150px;">
+						<img id="guestPhotoImg" src="/guests_photos/no_image.gif" />
 					</div>
-				</div>
-				<br/>
-				<div class="control-group">
-					<label class="radio inline">
-						<input type="radio" name="guestAddSexRadio" id="guestAddSexMale" value="male" checked>
-						Male
-					</label>
-					<label class="radio inline">
-						<input type="radio" name="guestAddSexRadio" id="guestAddSexFemale" value="female">
-						Female
-					</label>
-					<label class="radio inline">
-						<input type="radio" name="guestAddSexRadio" id="guestAddSexUnknown" value="unknown">
-						Unknown
-					</label>
-				</div>
-				<br/>
-				<div class="control-group">
-					<label class="checkbox">
-						<input id="addGuestImportantCheck" type="checkbox" value="">
-						Is this an important guest? (note why below)
-					</label>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="addGuestNotes">
-						Guest Notes (Comma seperated)
-					</label>
-					<textarea id="addGuestNotes" rows="3"
-						placeholder="Travel Blogger, Loves Scotch, Dislikes seafood"></textarea>
-				</div>
-				<br/>
-				<div id="addGuestButton" class="control-group pull-left">
-					<div class="controls">
-						<a class="btn btn-primary" onClick="guestPhotoUpload()">
-							Add Guest
+					<div>
+						<span class="btn btn-file">
+							<span class="fileupload-new">
+								Select image
+							</span>
+						<span class="fileupload-exists">
+							Change
+						</span>
+						<input type="file" id="guestPhotoInput" /></span>
+						<a href="#" class="btn fileupload-exists" data-dismiss="fileupload" 
+							onClick="setTimeout(setNoGuestImg,500)">
+							Remove
 						</a>
 					</div>
 				</div>
 			</div>
-		</form>
-		<!-- guest modal -->
-		{{> addGuestModal}}
-	</div>
+			<div class="control-group">
+				<label class="radio inline">
+					<input type="radio" name="guestAddSexRadio" id="guestAddSexMale" value="male">
+					Male
+				</label>
+				<label class="radio inline">
+					<input type="radio" name="guestAddSexRadio" id="guestAddSexFemale" value="female">
+					Female
+				</label>
+				<label class="radio inline">
+					<input type="radio" name="guestAddSexRadio" id="guestAddSexUnknown" value="unknown" checked>
+					Unknown
+				</label>
+			</div>
+			<div class="control-group">
+				<label class="checkbox">
+					<input id="addGuestImportantCheck" type="checkbox" value="">
+					Is this an important guest?
+					<br/>If so, detail why in notes field.
+					<br/>Guest will be flagged with red star
+					<br/>on timeline.
+				</label>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="addGuestNotes">
+					Guest Notes
+				</label>
+				<textarea id="addGuestNotes" rows="3"
+					placeholder="EXAMPLE: Travel Blogger, Loves Scotch, Dislikes seafood"></textarea>
+			</div>
+			<br/>
+			<div id="addGuestButton" class="control-group pull-left">
+				<div class="controls">
+					<a id="guestAddBtn" class="btn btn-primary" onClick="guestPhotoUpload()">
+						Add Guest
+					</a>
+				</div>
+			</div>
+		</div>
+	</form>
+	{{> addGuestModal}}
 </template>
 
 <template name="addGuestModal">
@@ -175,10 +186,17 @@
 	</div>
 </template>
 
+<template name="adminEditGuest">
+	{{> navbar}}
+	<div id="adminEditGuest" class="hero-unit clearfix">
+		{{> addGuestForm}}
+	</div>
+</template>
+
 <template name="navbar">
 	<div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
 		  <div class="navbar-inner">
-			  	<a class="brand" href="#">Super Secret M Project</a>
+			  	<a class="brand" href="#">Guest Timeline Admin</a>
 			  	<ul class="nav">
 				  	<li id="adminNavAddGuest">
 						<a href="#" onClick="clickAddGuest()">

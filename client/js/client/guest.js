@@ -37,7 +37,7 @@ function guestDBSave(photoUrl){
 	var sexY=getGuestSex();
 	var imp=getGuestImportant();
 	var photo=photoUrl;
-	var note=$("#addGuestNotes").val().split(', ');
+	var note=$("#addGuestNotes").val();
 	Guests.insert({
 		fname: firstname,
 		lname: lastname,
@@ -48,7 +48,7 @@ function guestDBSave(photoUrl){
 		sex: sexY,
 		arrive: false,
 		important: imp,
-		notes: note ? [note] : [],
+		notes: note,
 		img: photo,
 		timestamp: (new Date()).getTime()+Meteor.uuid()
     });
@@ -70,5 +70,60 @@ function getGuestImportant(){
 		return true;
 	}else{
 		return false;
+	}
+}
+function editGuestData(gImg){
+	$('#addGuestModalDiv').modal();
+	$("#guestAddPhotoUploadPlsWait").show();
+	$("#guestAddPhotoUploadBadMsg").hide();
+	$("#guestAddPhotoUploadGoodMsg").hide();
+	$("#guestAddPhotoUploadProgressBar").css("width","0%");
+	if($("#guestPhotoInput")[0].files.length>0){
+		filepicker.store($("#guestPhotoInput")[0], function(FPFile){
+	            guestEditDBSave(FPFile.url,true);
+	        }, function(FPError){
+	        	$("#guestAddPhotoUploadPlsWait").hide();
+	        	$("#guestAddPhotoUploadBadMsg").show();
+	            $("#guestAddPhotoUploadBadMsg").html("Something went wrong!  Alert a dev: "+FPError);
+	        }, function(progress){
+	        	$("#guestAddPhotoUploadProgressBar").css("width",progress+"%");
+	        }
+	   );
+	}else{
+		$("#guestAddPhotoUploadPlsWait").html("Please wait while we  "+
+			"save changes to the database");
+		guestEditDBSave(gImg,false);
+	}
+}
+function guestEditDBSave(photoUrl,uploaded){
+	var firstname=$("#addGuestFname").val();
+	var lastname=$("#addGuestLname").val();
+	var pcrNum=$("#addGuestPCR").val();
+	var pcStat=$("#addGuestPCRStatusSelect").val();
+	var aTime=$("#addGuestATime").val();
+	var aDate=$("#addGuestADate").val();
+	var sexY=getGuestSex();
+	var imp=getGuestImportant();
+	var photo=photoUrl;
+	var note=$("#addGuestNotes").val();
+	Guests.update({timestamp: getURLParameter("ts")},{$set:{
+		fname: firstname,
+		lname: lastname,
+		pcr: pcrNum,
+		pcrStatus: pcStat,
+		arrivaltime: aTime,
+		arrivaldate: aDate,
+		sex: sexY,
+		important: imp,
+		notes: note,
+		img: photo,
+    }});
+	$("#guestAddPhotoUploadPlsWait").hide();
+	$("#guestAddPhotoUploadGoodMsg").show();
+	if(uploaded){
+		$("#guestAddPhotoUploadGoodMsg").html("Upload & save successful!");
+	}else{
+		$("#guestAddPhotoUploadProgressBar").css("width","100%");
+		$("#guestAddPhotoUploadGoodMsg").html("Save successful!");
 	}
 }

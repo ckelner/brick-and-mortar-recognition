@@ -1,6 +1,9 @@
 function clickAddGuest(){
 	location.search="admin=br@ndinn0v@ti0n";
 }
+function editGuest(ts){
+	location.search="admin=br@ndinn0v@ti0n&edit=true&ts="+ts;
+}
 function clickListGuest(){
 	location.search="admin=br@ndinn0v@ti0n&fg=true";
 }
@@ -9,13 +12,75 @@ function navBarSet(){
 		$("#adminNavAddGuest").removeClass("active");
 		$("#adminNavListGuest").addClass("active");
 	}else{
-		$("#adminNavListGuest").removeClass("active");
-		$("#adminNavAddGuest").addClass("active");
+		if(getURLParameter("edit")===true||getURLParameter("edit")==="true"){
+			$("#adminNavAddGuest").removeClass("active");
+			$("#adminNavListGuest").removeClass("active");
+		}else{
+			$("#adminNavListGuest").removeClass("active");
+			$("#adminNavAddGuest").addClass("active");
+		}
 	}
 }
 function adminLoad(){
 	$("#guestDaySearch").val(moment().format('YYYY-MM-DD'));
 	$("body").css("overflow","scroll");
+	document.title = "Guest Timeline Admin";
+	fixForms();
+	editGuestLoad();
+}
+function editGuestLoad(){
+	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
+		if(getURLParameter("edit")==="true"){
+			setTimeout(editGuestSlowLoad,1500);
+			var guestBtn=$("#guestAddBtn");
+			guestBtn.html("Edit Guest");
+			guestBtn[0].onclick=function(){};
+		}
+	}
+}
+function editGuestSlowLoad(){
+	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
+		if(getURLParameter("edit")==="true"){
+			// load up the data
+			var ts=getURLParameter("ts");
+			var guest=Guests.findOne({timestamp:ts});
+			$("#addGuestFname").val(guest.fname);
+			$("#addGuestLname").val(guest.lname);
+			$("#addGuestPCR").val(guest.pcr);
+			$("#addGuestPCRStatusSelect").val(guest.pcrStatus);
+			$("#addGuestATime").val(guest.arrivaltime);
+			$("#addGuestADate").val(guest.arrivaldate);
+			$("#guestPhotoImg")[0].src=guest.img;
+			$("#addGuestNotes").val(guest.notes);
+			switch(guest.sex){
+				case "m":
+					$("#guestAddSexMale")[0].checked=true;
+				break;
+				case "f":
+					$("#guestAddSexFemale")[0].checked=true;
+				break;
+				case "u":
+					$("#guestAddSexUnknown")[0].checked=true;
+				break;
+			}
+			if(guest.important){
+				$("#addGuestImportantCheck")[0].checked=true;
+			}else{
+				$("#addGuestImportantCheck")[0].checked=false;
+			}
+			$("#guestAddBtn")[0].onclick=function(){
+				editGuestData(guest.img);
+			}
+		}
+	}
+}
+function fixForms(){
+	$('.form').live('keypress', function(e){
+	    if(e.keyCode===13&&e.target.type!=="textarea"){
+	        getGuests();
+	        e.preventDefault();
+	    }
+	});
 }
 function getGuests(){
 	var day=$("#guestDaySearch").val();
@@ -24,9 +89,10 @@ function getGuests(){
 	var gDiv=$("#adminGuestsFound");
 	var gHTMLzYo='<table id="guestListTableGrid" class="table table-striped">'+
 	'<thead><tr><th>First Name</th><th>Last Name</th><th>PCR#</th><th>PCR Status</th>'+
-	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Photo URL</th>'+
-	'<th>Important</th><th>Notes</th><th>Delete?</th><tbody>';
+	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Photo</th>'+
+	'<th>Important</th><th>Notes</th><th>Edit Guest</th><th>Delete Guest</th><tbody>';
 	daGs.forEach(function(guest){
+		/* inline editing removed
 		gHTMLzYo+='<tr><td><a href="#" id="'+guest.timestamp+'" data-type="text"'+
 			'data-pk="1" data-url="/save/fname" class="adminEditable" '+
 			'data-original-title="Enter First Name">'+guest.fname+'</a></td>'+
@@ -74,6 +140,36 @@ function getGuests(){
 		}
 		gHTMLzYo+='<td onClick="killGuest(\''+guest._id+'\')">'+
 			'<i class="icon-minus-sign"></i></td></td></tr>';
+		*/
+		gHTMLzYo+='<tr><td>'+guest.fname+'</td>'+
+
+			'<td>'+guest.lname+'</td>'+
+
+			'<td>'+guest.pcr+'</td>'+
+
+			'<td>'+guest.pcrStatus+'</td>'+
+
+			'<td>'+guest.arrivaldate+'</td>'+
+
+			'<td>'+guest.arrivaltime+'</td>'+
+
+			'<td>'+guest.sex+'</td>'+
+
+			'<td><img src="'+guest.img+'"/></td>'+
+
+			'<td>'+guest.important+'</td>'+
+
+			'<td>'+guest.notes+'</td>';
+        
+		gHTMLzYo+='<td class="edit center" onClick="'+
+			'editGuest(\''+guest.timestamp+'\')">'+
+			'<button class="btn btn-success"><i class="icon-pencil icon-white">'+
+			'</i></button></td>';
+
+		gHTMLzYo+='<td class="delete center" onClick="'+
+			'killGuest(\''+guest.timestamp+'\', this)">'+
+			'<button class="btn btn-danger"><i class="icon-minus-sign icon-white">'+
+			'</i></button></td></tr>';
 	});
 	gHTMLzYo+='</tbody></table>';
 	gDiv.html(gHTMLzYo);
@@ -87,11 +183,12 @@ function adminSortTableGuest(){
 		sortable: true
 	});
 }
-function killGuest(gId){
-	if(gId!==undefined&&gId!==null){
+function killGuest(ts, obj){
+	if(ts!==undefined&&ts!==null){
 		var r=confirm("Are you sure you want to delete me?");
 		if (r==true){
-			Guests.remove({"_id": gId});
+			Guests.remove({"timestamp": ts});
+			$(obj.parentElement).remove();
 		}
 	}
 }

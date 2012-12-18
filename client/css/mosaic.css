@@ -191,7 +191,7 @@ html, body {
 	background-color: #50524c;
 	height: 100%;
 }
-#adminAddGuest, #adminFindGuest{
+#adminAddGuest, #adminFindGuest, #adminEditGuest{
 	margin-top: 10px;
 	color: black;
 	margin-right: 100px;
@@ -245,4 +245,15 @@ img {
 }
 .badge-royal{
 	background-color: #9933FF;
+}
+#guestListTableGrid{
+	table-layout:fixed
+}
+#guestListTableGrid td, th{
+	word-wrap: break-word;
+	vertical-align: middle;
+	text-align: center;
+}
+#guestListTableGrid tr:hover td{
+	background-color: #99CCFF;
 }
