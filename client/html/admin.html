@@ -11,34 +11,68 @@
 <template name="addGuestForm">
 	<form class="form">
 		<div id="addGuestLeft" class="pull-left">
-			<div class="control-group">
+			<div class="control-group bumpDown" id="addGuestFNameControlGrp">
 				<label class="control-label" for="addGuestFname">
-					First Name
+					First Name (Limit: 30 characters)
 				</label>
 				<div class="controls">
 					<input type="text" id="addGuestFname" 
 						placeholder="EXAMPLE: Firstname">
+					<span id="addGuestFNameHelpErrBlank" class="help hidden">
+						First Name cannot be blank
+					</span>
+					<span id="addGuestFNameHelpErrTooLong" class="help hidden">
+						First Name cannot be more<br> than 30 characters
+					</span>
+					<span id="addGuestFNameHelpErrBad" class="help hidden">
+						First Name cannot contain special
+						<br>characters (letters, 
+						<br>apostrophe and dashes only)
+					</span>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group bumpDown" id="addGuestLNameControlGrp">
 				<label class="control-label" for="addGuestLname">
-					Last Name
+					Last Name (Limit: 30 characters)
 				</label>
 				<div class="controls">
 					<input type="text" id="addGuestLname" 
 						placeholder="EXAMPLE: Lastname">
+					<span id="addGuestLNameHelpErrBlank" class="help hidden">
+						Last Name cannot be blank
+					</span>
+					<span id="addGuestLNameHelpErrTooLong" class="help hidden">
+						Last Name cannot be more<br> than 30 characters
+					</span>
+					<span id="addGuestLNameHelpErrBad" class="help hidden">
+						Last Name can only contain
+						<br>letters, apostrophe and 
+						<br>dashes only
+					</span>
 				</div>
 			</div>
-			<div class="control-group">
+			<!--<div class="control-group" id="addGuestPCRControlGrp">
 				<label class="control-label" for="addGuestPCR">
 					PCR # (9 digits, starts with 9)
 				</label>
 				<div class="controls">
 					<input type="text" id="addGuestPCR" 
 						placeholder="EXAMPLE: 900000000">
+					<span id="addGuestPCRHelpErrBad" class="help hidden">
+						PCR can be numbers only (0-9)
+					</span>
+					<span id="addGuestPCRHelpErrShort" class="help hidden">
+						PCR too short.  Must be 9 numbers exactly
+					</span>
+					<span id="addGuestPCRHelpErrLong" class="help hidden">
+						PCR too long.  Must be 9 numbers exactly
+					</span>
+					<span id="addGuestPCRHelpErrStart" class="help hidden">
+						PCR must start with number 9
+					</span>
 				</div>
-			</div>
-			<div class="control-group">
+			</div>-->
+			<div class="control-group bumpDown">
 				<label class="control-label" for="addGuestPCRStatusSelect">
 					PCR Status
 				</label>
@@ -53,27 +87,24 @@
 					</select>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" id="addGuestATimeControlGrp">
 				<label class="control-label" for="addGuestATime">
-					Arrival Time (HH:MM) - 24hr format
+					Arrival Time (HH:MM TT)
 				</label>
-				<div class="controls">
-					<input type="text" id="addGuestATime" 
-						placeholder="EXAMPLE: 01:00">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="addGuestADate">
-					Arrival Date (YYYY-MM-DD)
-				</label>
-				<div class="controls">
-					<input type="text" id="addGuestADate" 
-						placeholder="EXAMPLE: 1990-01-01">
+				<div class="controls" >
+  					<input class="input" 
+  						id="addGuestATime" type="text"
+  						placeholder="EXAMPLE: 01:00 pm">
+  					<span id="addGuestATimeHelpErrFormat" class="help hidden">
+						Time is not in HH:MM tt format.
+						<br>Please use the provided tool
+						<br>to set the arrival time.
+					</span>
 				</div>
 			</div>
 		</div>
 		<div id="addGuestRight" class="pull-left">
-			<div class="control-group">
+			<div class="control-group" id="addGuestPhotoControlGrp">
 				<label class="control-label" for="addGuestPhoto">
 					Guest Photo
 				</label>
@@ -91,28 +122,53 @@
 							Change
 						</span>
 						<input type="file" id="guestPhotoInput" /></span>
-						<a href="#" class="btn fileupload-exists" data-dismiss="fileupload" 
+						<a href="#" class="btn fileupload-exists" 
+							data-dismiss="fileupload" 
 							onClick="setTimeout(setNoGuestImg,500)">
 							Remove
 						</a>
+						<span id="addGuestPhotoHelpErr" class="help hidden">
+							Photo missing or upload error.  <br>
+							Please double check that a photo <br>
+							has been selected and try again.
+						</span>
 					</div>
 				</div>
 			</div>
-			<div class="control-group">
+			<div class="control-group" id="addGuestADateControlGrp">
+				<label class="control-label" for="addGuestADate">
+					Arrival Date (YYYY-MM-DD)
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestADate" 
+						placeholder="EXAMPLE: 1990-01-01">
+					<span id="addGuestADateHelpErrFormat" class="help hidden">
+						Date is not in YYYY-MM-DD format.
+						<br>Please use the provided tool
+						<br>to set the arrival date.
+					</span>
+				</div>
+			</div>
+		</div>
+		<div id="addGuestRightRight" class="pull-left">
+			<div class="control-group bumpyBumps">
 				<label class="radio inline">
-					<input type="radio" name="guestAddSexRadio" id="guestAddSexMale" value="male">
+					<input type="radio" name="guestAddSexRadio" 
+						id="guestAddSexMale" value="male">
 					Male
 				</label>
 				<label class="radio inline">
-					<input type="radio" name="guestAddSexRadio" id="guestAddSexFemale" value="female">
+					<input type="radio" name="guestAddSexRadio" 
+						id="guestAddSexFemale" value="female">
 					Female
 				</label>
 				<label class="radio inline">
-					<input type="radio" name="guestAddSexRadio" id="guestAddSexUnknown" value="unknown" checked>
+					<input type="radio" name="guestAddSexRadio" 
+						id="guestAddSexUnknown" value="unknown" checked>
 					Unknown
 				</label>
 			</div>
-			<div class="control-group">
+			<div class="control-group bumpyBumps">
 				<label class="checkbox">
 					<input id="addGuestImportantCheck" type="checkbox" value="">
 					Is this an important guest?
@@ -121,21 +177,25 @@
 					<br/>on timeline.
 				</label>
 			</div>
-			<div class="control-group">
+			<div class="control-group" id="addGuestNotesControlGrp">
 				<label class="control-label" for="addGuestNotes">
-					Guest Notes
+					Guest Notes - limited to 200 characters
 				</label>
+				<span id="addGuestNotesHelpErr" class="help hidden">
+					Notes over 200 characters.<br>
+					Please reduce characters to continue.
+				</span>
 				<textarea id="addGuestNotes" rows="3"
-					placeholder="EXAMPLE: Travel Blogger, Loves Scotch, Dislikes seafood"></textarea>
+					placeholder="EXAMPLE: Travel Blogger, Loves Scotch, "+
+					"Dislikes seafood"></textarea>
 			</div>
 			<br/>
-			<div id="addGuestButton" class="control-group pull-left">
-				<div class="controls">
-					<a id="guestAddBtn" class="btn btn-primary" onClick="guestPhotoUpload()">
-						Add Guest
-					</a>
-				</div>
-			</div>
+		</div>
+		<div id="addGuestButton" class="clearfix">
+			<a id="guestAddBtn" class="btn btn-primary" 
+				onClick="guestPhotoUpload()">
+				Add Guest
+			</a>
 		</div>
 	</form>
 	{{> addGuestModal}}
@@ -160,6 +220,20 @@
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+</template>
+
+<template name="editGuestModal">
+	<div class="modal hide fade" id="editGuestModalDiv" tabindex="-1" 
+		role="dialog" aria-labelledby="addGuestModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<h3 id="addGuestModalLabel">Loading Guest</h3>
+		</div>
+		<div class="modal-body">
+			<div id="guestAddPhotoUploadPlsWait">
+				<p>Please wait while we load guest data</p>
+			</div>
 		</div>
 	</div>
 </template>
@@ -190,6 +264,7 @@
 	{{> navbar}}
 	<div id="adminEditGuest" class="hero-unit clearfix">
 		{{> addGuestForm}}
+		{{> editGuestModal}}
 	</div>
 </template>
 

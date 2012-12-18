@@ -27,11 +27,15 @@ function adminLoad(){
 	document.title = "Guest Timeline Admin";
 	fixForms();
 	editGuestLoad();
+	setTimeTool();
+	setDateTool();
+	setOnFocusOutFields();
 }
 function editGuestLoad(){
 	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
 		if(getURLParameter("edit")==="true"){
-			setTimeout(editGuestSlowLoad,1500);
+			$("#editGuestModalDiv").modal();
+			setTimeout(editGuestSlowLoad,4000);
 			var guestBtn=$("#guestAddBtn");
 			guestBtn.html("Edit Guest");
 			guestBtn[0].onclick=function(){};
@@ -46,9 +50,11 @@ function editGuestSlowLoad(){
 			var guest=Guests.findOne({timestamp:ts});
 			$("#addGuestFname").val(guest.fname);
 			$("#addGuestLname").val(guest.lname);
-			$("#addGuestPCR").val(guest.pcr);
 			$("#addGuestPCRStatusSelect").val(guest.pcrStatus);
-			$("#addGuestATime").val(guest.arrivaltime);
+			$("#addGuestATime").val(moment([1990,1,14,
+					parseInt(guest.arrivaltime.substring(0,2)),
+					parseInt(guest.arrivaltime.substring(3,5)),
+					00,125]).format("hh:mm a"));
 			$("#addGuestADate").val(guest.arrivaldate);
 			$("#guestPhotoImg")[0].src=guest.img;
 			$("#addGuestNotes").val(guest.notes);
@@ -71,6 +77,7 @@ function editGuestSlowLoad(){
 			$("#guestAddBtn")[0].onclick=function(){
 				editGuestData(guest.img);
 			}
+			$("#editGuestModalDiv").modal('hide');
 		}
 	}
 }
@@ -88,7 +95,7 @@ function getGuests(){
 	var numOfGuests=daGs.length;
 	var gDiv=$("#adminGuestsFound");
 	var gHTMLzYo='<table id="guestListTableGrid" class="table table-striped">'+
-	'<thead><tr><th>First Name</th><th>Last Name</th><th>PCR#</th><th>PCR Status</th>'+
+	'<thead><tr><th>First Name</th><th>Last Name</th><th>PCR Status</th>'+
 	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Photo</th>'+
 	'<th>Important</th><th>Notes</th><th>Edit Guest</th><th>Delete Guest</th><tbody>';
 	daGs.forEach(function(guest){
@@ -145,8 +152,6 @@ function getGuests(){
 
 			'<td>'+guest.lname+'</td>'+
 
-			'<td>'+guest.pcr+'</td>'+
-
 			'<td>'+guest.pcrStatus+'</td>'+
 
 			'<td>'+guest.arrivaldate+'</td>'+
@@ -191,4 +196,49 @@ function killGuest(ts, obj){
 			$(obj.parentElement).remove();
 		}
 	}
+}
+function setTimeTool(){
+	$('#addGuestATime').timepicker({
+		hourGrid: 4,
+		minuteGrid: 10,
+		timeFormat: 'hh:mm tt',
+		onClose: function(){
+			if($("#addGuestATime").val()===""){
+				$("#addGuestATime").val("12:00 am");
+			}
+			hideErrorATime();
+			aTimeDataErrTest();
+		}
+	});
+}
+function setDateTool(){
+	$("#addGuestADate").datepicker({ 
+		dateFormat: "yy-mm-dd",
+		onClose: function(){
+			hideErrorADate();
+			aDateDataErrTest();
+		}
+	});
+}
+function setOnFocusOutFields(){
+	$("#addGuestFname").focusout(function(){
+		hideErrorFName();
+		firstNameDataErrTest();
+	});
+	$("#addGuestLname").focusout(function(){
+		hideErrorLName();
+		lastNameDataErrTest();
+	});
+	$("#addGuestATime").focusout(function(){
+		hideErrorATime();
+		aTimeDataErrTest();
+	});
+	$("#addGuestADate").focusout(function(){
+		hideErrorADate();
+		aDateDataErrTest();
+	});
+	$("#addGuestNotes").focusout(function(){
+		hideErrorNotes();
+		noteDataErrTest();
+	});
 }
