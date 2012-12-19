@@ -16,11 +16,7 @@ function guestPhotoUpload(){
 		console.log("there was an error - abort");
 		return;
 	}else{
-		$('#addGuestModalDiv').modal();
-		$("#guestAddPhotoUploadPlsWait").show();
-		$("#guestAddPhotoUploadBadMsg").hide();
-		$("#guestAddPhotoUploadGoodMsg").hide();
-		$("#guestAddPhotoUploadProgressBar").css("width","0%");
+		addGuestModalSetup();
 		filepicker.store($("#guestPhotoInput")[0], function(FPFile){
 	            guestDBSave(FPFile.url);
 	        }, function(FPError){
@@ -33,6 +29,32 @@ function guestPhotoUpload(){
 	        }
 	   );
 	}
+}
+function addGuestModalSetup(){
+	$('#addGuestModalDiv').modal();
+	$("#guestAddPhotoUploadPlsWait").show();
+	$("#guestAddPhotoUploadBadMsg").hide();
+	$("#guestAddPhotoUploadGoodMsg").hide();
+	$("#guestAddPhotoUploadProgressBar").css("width","0%");
+}
+function addGuestSuccesfulModalAction(){
+	$("#guestAddPhotoUploadPlsWait").hide();
+	$("#guestAddPhotoUploadGoodMsg").show();
+	$("#guestAddPhotoUploadGoodMsg").html("Upload & save successful!");
+	$('#addGuestModalDiv').on('hide',function(){
+		addGuestClearData();
+	});
+}
+function addGuestClearData(){
+	$("#addGuestFname").val("");
+	$("#addGuestLname").val("");
+	$("#addGuestPCRStatusSelect").val("");
+	$("#addGuestATime").val("");
+	$("#addGuestADate").val("");
+	$("#guestAddSexMale").val("");
+	$("#addGuestImportantCheck").val("");
+	$("#addGuestNotes").val("");
+	$("#addGuestRemoveImgBtn").trigger('click');
 }
 function guestDBSave(photoUrl){
 	var firstname=$("#addGuestFname").val();
@@ -59,9 +81,7 @@ function guestDBSave(photoUrl){
 		img: photo,
 		timestamp: (new Date()).getTime()+Meteor.uuid()
     });
-	$("#guestAddPhotoUploadPlsWait").hide();
-	$("#guestAddPhotoUploadGoodMsg").show();
-	$("#guestAddPhotoUploadGoodMsg").html("Upload & save successful!");
+    addGuestSuccesfulModalAction();
 }
 function getGuestSex(){
 	if($("#guestAddSexMale").is(':checked')){
