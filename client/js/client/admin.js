@@ -22,14 +22,18 @@ function navBarSet(){
 	}
 }
 function adminLoad(){
-	$("#guestDaySearch").val(moment().format('YYYY-MM-DD'));
 	$("body").css("overflow","scroll");
 	document.title = "Guest Timeline Admin";
 	fixForms();
-	editGuestLoad();
-	setTimeTool();
-	setDateTool();
-	setOnFocusOutFields();
+	if(getURLParameter("fg")==="true"){
+		setupFindGuest();
+	}else if(getURLParameter("edit")==="true"){
+		editGuestLoad();
+	}else{
+		setDateTool();
+		setTimeTool();
+		setOnFocusOutFields();
+	}
 }
 function editGuestLoad(){
 	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
@@ -240,5 +244,15 @@ function setOnFocusOutFields(){
 	$("#addGuestNotes").focusout(function(){
 		hideErrorNotes();
 		noteDataErrTest();
+	});
+}
+function setupFindGuest(){
+	$("#guestDaySearch").val(moment().format('YYYY-MM-DD'));
+	$("#guestDaySearch").datepicker({ 
+		dateFormat: "yy-mm-dd",
+		onClose: function(){
+			hideErrorADate();
+			aDateDataErrTest();
+		}
 	});
 }
