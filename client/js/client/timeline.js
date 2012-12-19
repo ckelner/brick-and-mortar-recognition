@@ -17,6 +17,184 @@ function watchDraggable(){
 		$("#scrollTimeline").css("left", (ui.offset.left)+"px");
 	});
 }
+function slowLoad(){
+	var frag=Meteor.render(function(){
+		var todaysDate=moment().format('YYYY-MM-DD');
+		var guestsCursor=Guests.find({"arrivaldate":todaysDate});
+		var guestsByTimeArr=[[],[],[],[],[],[],[],[],[],
+			[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+		//for(var i=0,guests=guestsArr.length; i<guests; i++){
+		guestsCursor.forEach(function (guest){
+			var time=guest.arrivaltime.substring(0,2);
+			if(time.substring(0,1)==="0"){//trim leading 0
+				time=time.substring(1,2);
+			}
+			time=time*1;//make a #
+			guestsByTimeArr[time].push(guest);
+		});
+		var totalWidth=0;
+		var totalHTML="";
+		var modalHTML="<div class='timelineGuestModals'>";
+		for(var x=0,guestyArr=guestsByTimeArr.length; x<guestyArr; x++){
+			var insideHTML="";
+			var beforeHTML="";
+			var hr=x;
+			if(hr<10){
+				hr="0"+hr;
+			}else{
+				hr+="";
+			}
+			if(hr===moment().format('HH')){
+				beforeHTML+='<div id="timelineGuestHour'+hr+'" class="centerText '+
+					'timeLineGuestRow currentHour ';
+			}else{
+				beforeHTML+='<div id="timelineGuestHour'+hr+'" class="centerText '+
+					'timeLineGuestRow ';
+			}
+			if(hr==="00"){
+				beforeHTML+='zeroZero"';
+			}else{
+				beforeHTML+='"';
+			}
+			var widthCount=1;
+			// THESE THEM GUESTS YO
+			for(var i=0,gsts=guestsByTimeArr[x].length; i<gsts; i++){
+				if(i%8===0){
+					if(i>0){
+						insideHTML+="</div>";
+						widthCount++;
+					}
+					insideHTML+="<div class='guestTimelineWrapCol'>";
+				}
+				// START GUEST
+				var guestModalName="guestModal-"+x+"-"+i;
+				insideHTML+='<div class="guestTimelineEnclosure ';
+				// SHOW GUEST AMBASSADOR
+				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
+					insideHTML+='guestTimelineAmbassador ';
+				}
+				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="royal ambassador"){
+					insideHTML+='guestTimelineRoyalAmbassador ';
+				}
+				insideHTML+='img-rounded" data-toggle="modal" data-target="#'
+					+guestModalName+'"><div>';
+				// show guest special (star)
+				if((guestsByTimeArr[x][i].important!==null||
+					guestsByTimeArr[x][i].important!=="")&&
+					guestsByTimeArr[x][i].important===true){
+					insideHTML+='<i class="icon-exclamation-sign '+
+						'guestTimelineImportantStarIcon pull-left"> </i>';
+				}
+				//mr, ms or none
+				var sexy="<div class='guestTimelineName'>";
+				if(guestsByTimeArr[x][i].sex==="m"){
+					sexy+="Mr. ";
+				}else if(guestsByTimeArr[x][i].sex==="f"){
+					sexy+="Ms. ";
+				}
+				insideHTML+=sexy+guestsByTimeArr[x][i].lname+"</div></div>";
+				insideHTML+='<div class="guestThumbEnclosure"><center>'+
+					'<div class="guestThumbTimeline"><img src="';
+				insideHTML+=guestsByTimeArr[x][i].img;
+				insideHTML+='"class="img-rounded"/></div></center>'+
+					'</div></div>';
+				modalHTML+='<div class="modal hide fade" id="'+guestModalName+'" tabindex="-1"'+ 
+					'role="dialog" aria-labelledby="'+guestModalName+'" aria-hidden="true">'+
+  					'<div class="modal-header">'+
+    				'<button type="button" class="close" data-dismiss="modal"'+
+    				'aria-hidden="true">×</button>'+
+    				'<h3 id="timeLineModalLabel">'+
+    				sexy+
+    				guestsByTimeArr[x][i].fname+
+    				'&nbsp;'+
+    				guestsByTimeArr[x][i].lname+
+    				'</h3></div>'+
+  					'<div class="modal-body">'+
+    				'<p>'+
+    				'<div class="guestThumbTimelineModal"><img src="'+
+					guestsByTimeArr[x][i].img+
+					'"class="img-rounded" /></div>';
+					// IMPORTANT
+					if(guestsByTimeArr[x][i].important!==undefined&&
+						guestsByTimeArr[x][i].important!==null&&
+						guestsByTimeArr[x][i].important!==""&&
+						guestsByTimeArr[x][i].important===true){
+						modalHTML+='<span class="label label-important">Important</span><br>';
+					}
+					// PCR NUMBER
+					if(guestsByTimeArr[x][i].pcr!==undefined&&
+						guestsByTimeArr[x][i].pcr!==null&&
+						guestsByTimeArr[x][i].pcr!==""){
+						modalHTML+='PCR#: '+guestsByTimeArr[x][i].pcr+'<br>';
+					}
+					// PCR STATUS
+					if(guestsByTimeArr[x][i].pcrStatus!==undefined&&
+						guestsByTimeArr[x][i].pcrStatus!==null&&
+						guestsByTimeArr[x][i].pcrStatus!==""){
+						modalHTML+='PCR Status: <span class="badge';
+						switch(guestsByTimeArr[x][i].pcrStatus.toLowerCase()){
+							case "not a member":
+								modalHTML+=' badge-inverse">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "club":
+								modalHTML+=' badge-info">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "gold":
+								modalHTML+=' badge-warning">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "platinum":
+								modalHTML+='">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "ambassador":
+								modalHTML+=' badge-ambassador">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+							case "royal ambassador":
+								modalHTML+=' badge-royal">'+
+									guestsByTimeArr[x][i].pcrStatus;
+							break;
+						}
+						modalHTML+='</span><br>';
+					}
+					// ARRIVAL TIME
+					if(guestsByTimeArr[x][i].arrivaltime!==null||
+						guestsByTimeArr[x][i].arrivaltime!==""){
+						modalHTML+='Est Arrival Time: '+
+							guestsByTimeArr[x][i].arrivaltime+'<br>';
+					}
+					// Guest Notes
+					modalHTML+='Notes: '+guestsByTimeArr[x][i].notes;
+    				modalHTML+='</p>'+
+  					'</div><div class="modal-footer">'+
+    				'<button class="btn" data-dismiss="modal" aria-hidden="true"'+
+    				'>Close</button></div></div>';
+			}
+			totalWidth+=(widthCount*144);
+			if(guestsByTimeArr[x].length>=1){
+				insideHTML+="</div>"
+			}
+			if(hr===moment().format('HH')){
+				insideHTML+='<div id="timelineHour'+hr+'" class="centerText '+
+					'rightBorderTimeRow currentHour" style="width:'+widthCount*144+'px">';
+			}else{
+				insideHTML+='<div id="timelineHour'+hr+'" class="centerText '+
+					'rightBorderTimeRow" style="width:'+widthCount*144+'px">';
+			}
+			insideHTML+=hr+":00</div></div>";
+			beforeHTML+="style='width:"+widthCount*144+"px'>";
+			totalHTML+=beforeHTML+insideHTML;
+		}
+		modalHTML+="</div>";
+		$("#scrollyMcScrolls").css("width",totalWidth*144);
+		setTimeout(setImgThumbNail,1000);
+		return totalHTML+modalHTML;
+	});
+	$("#scrollyMcScrolls").html(frag);
+}
 function makeSureStayOnScreen(){
 	var scrollyDiv=$('#scrollTimeline');
 	if(scrollyDiv.is(':offscreen')){

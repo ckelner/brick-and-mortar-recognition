@@ -184,6 +184,10 @@ function isErrorWithGuestData(isEditMode){
 	if(isErrCur===true){
 		isErr=isErrCur;
 	}
+	isErrCur=pcrStatusDataErrTest();
+	if(isErrCur===true){
+		isErr=isErrCur;
+	}
 	/*if(pcrNum.length>9){
 		pcrNumErr('toolong');
 		isErr=true;
@@ -278,6 +282,18 @@ function noteDataErrTest(){
 	}
 	return isErr;
 }
+function pcrStatusDataErrTest(){
+	var pcStat=$("#addGuestPCRStatusSelect").val();
+	var isErr=false;
+	if(pcStat==="Not selected"){
+		pcStatErr('notselected');
+		isErr=true;
+	}
+	if(isErr===false){
+		hideErrorPcStat();
+	}
+	return isErr;
+}
 function hideErrorFName(){
 	$('#addGuestFNameControlGrp').removeClass('error');
 	$('#addGuestFNameHelpErrBlank').hide();
@@ -302,12 +318,17 @@ function hideErrorNotes(){
 	$('#addGuestNotesControlGrp').removeClass('error');
 	$('#addGuestNotesHelpErr').hide();
 }
+function hideErrorPcStat(){
+	$('#addGuestPcStatControlGrp').removeClass('error');
+	$('#addGuestPcStatHelpErr').hide();
+}
 function hideAllErrorMsg(){
 	hideErrorFName();
 	hideErrorLName();
 	hideErrorATime();
 	hideErrorADate();
 	hideErrorNotes();
+	hideErrorPcStat
 	$('#addGuestPhotoControlGrp').removeClass('error');
 	//$('#addGuestPCRControlGrp').removeClass('error');
 	$('#addGuestPhotoHelpErr').hide();
@@ -390,6 +411,14 @@ function NotesErr(err){
 	$('#addGuestNotesControlGrp').addClass('error');
 	if(err==='toolong'){
 		var helpDiv=$('#addGuestNotesHelpErr');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}
+}
+function pcStatErr(err){
+	$('#addGuestPcStatControlGrp').addClass('error');
+	if(err==='notselected'){
+		var helpDiv=$('#addGuestPcStatHelpErr');
 		helpDiv.css('display','block');
 		helpDiv.css('visibility','visible');
 	}

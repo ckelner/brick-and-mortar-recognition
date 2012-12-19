@@ -41,7 +41,7 @@ function editGuestLoad(){
 			$("#editGuestModalDiv").modal();
 			setTimeout(editGuestSlowLoad,4000);
 			var guestBtn=$("#guestAddBtn");
-			guestBtn.html("Edit Guest");
+			guestBtn.html("Edit Existing Guest");
 			guestBtn[0].onclick=function(){};
 		}
 	}
@@ -194,7 +194,7 @@ function adminSortTableGuest(){
 }
 function killGuest(ts, obj){
 	if(ts!==undefined&&ts!==null){
-		var r=confirm("Are you sure you want to delete me?");
+		var r=confirm("Are you sure you want to delete this guest?");
 		if (r==true){
 			Guests.remove({"timestamp": ts});
 			$(obj.parentElement).remove();
