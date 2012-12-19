@@ -191,20 +191,38 @@ html, body {
 	background-color: #50524c;
 	height: 100%;
 }
-#adminAddGuest, #adminFindGuest{
+#adminAddGuest, #adminFindGuest, #adminEditGuest{
 	margin-top: 10px;
 	color: black;
 	margin-right: 100px;
 	margin-left: 100px;
 }
 #addGuestRight{
-	margin-left: 40px;
+	margin-left: 60px;
+}
+#addGuestRightRight{
+	margin-left: 60px;
 }
 .control-group{
 	margin-bottom: 30px;
 }
 #addGuestButton{
-	margin-left: -60px;
+	clear: both;
+	padding-top: 25px;
+}
+#addGuestATime{
+	background-color: white;
+	border: 1px solid #CCC;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+	-o-transition: border linear 0.2s, box-shadow linear 0.2s;
+	transition: border linear 0.2s, box-shadow linear 0.2s;
+	height: 21px;
+	/*color: #999;*/
+	/*font-weight: 400;*/
 }
 img {
   width: auto;
@@ -245,4 +263,31 @@ img {
 }
 .badge-royal{
 	background-color: #9933FF;
+}
+#guestListTableGrid{
+	table-layout:fixed
+}
+#guestListTableGrid td, th{
+	word-wrap: break-word;
+	vertical-align: middle;
+	text-align: center;
+}
+#guestListTableGrid tr:hover td{
+	background-color: #99CCFF;
+}
+.help{
+	color: #B94A48;
+	font-weight: bold;
+	font-size: 80%;
+}
+.ui-datepicker{
+	border: 1px solid black;
+	width: 400px;
+	background-color: #DDD;
+}
+.bumpDown{
+	margin-bottom: 18px;
+}
+.bumpyBumps{
+	margin-bottom: 41px;
 }

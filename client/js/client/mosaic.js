@@ -1,5 +1,6 @@
 var g_isProd=true;
-if(location.href.indexOf("mosaic-qa")!==-1){
+if(location.href.indexOf("mosaic-qa")!==-1||
+	location.href.indexOf("localhost")!==-1){
 	g_isProd=false;
 }
 if(g_isProd){
@@ -22,7 +23,7 @@ Template.content.is_concierge=function(){
 		return false;
 	}
 }
-//determine if concierge view or not
+//determine if admin view or not
 Template.content.is_admin=function(){
 	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
 		return true;
@@ -30,10 +31,22 @@ Template.content.is_admin=function(){
 		return false;
 	}
 }
-//determine if concierge view or not
+//determine if find guest view or not
 Template.content.find_guest=function(){
 	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
 		if(getURLParameter("fg")==="true"){
+			return true;
+		}else{
+			return false;
+		}
+	}else{
+		return false;
+	}
+}
+//determine if guest edit view or not
+Template.content.edit_guest=function(){
+	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
+		if(getURLParameter("edit")==="true"){
 			return true;
 		}else{
 			return false;

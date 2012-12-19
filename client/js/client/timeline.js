@@ -7,6 +7,7 @@ function setupTimeline(){
 	theDiv.draggable({ axis: "x", distance: 10});
 	watchDraggable();
 	centerTimelineOnCurrentHr();
+	watchForChange();
 }
 function watchDraggable(){
 	$("#scrollTimeline").bind("dragstop",function(event, ui){
@@ -122,4 +123,14 @@ function timelineMoveRight(){
 	val-=150;
 	$("#scrollTimeline").css("left",val+"px");
 	makeSureStayOnScreen();
+}
+function watchForChange(){
+	$('#scrollyMcScrolls').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
+    	try{
+			$(".modal-backdrop").hide();
+			$(".modal").hide();
+		}catch(e){
+			//nada
+		}
+	});
 }
