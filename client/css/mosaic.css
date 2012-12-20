@@ -164,13 +164,18 @@ html, body {
 .guestThumbTimeline {
 	width: 70px;
 	height: 70px;
+	margin-bottom: 20px;
 }
 .guestTimelineEnclosure{
-	border: 1px solid #232521;
+	/*border: 1px solid #232521;*/
 	width: 130px;
 	margin: 3px;
 	padding: 0px !important;
-	padding-left: 6px !important;
+	padding-left: 4px !important;
+	padding-right: 4px !important;
+	background-color: #232521;
+	padding-bottom: 1px !important;
+	padding-top: 1px !important;
 }
 .guestTimelineWrapCol{
 	float: left;
@@ -233,8 +238,14 @@ img {
   -ms-interpolation-mode: bicubic;
 }
 .guestTimelineName{
-    text-overflow: ellipsis;
     overflow: hidden;
+    word-break: break-all;
+    -webkit-hyphens: auto;
+   	-moz-hyphens: auto;
+    hyphens: auto;
+    width: 100%;
+    line-height: 1.2em;
+    font-size: .85em;
 }
 .modal-header, .modal-body{
 	color: black;
@@ -245,32 +256,67 @@ img {
 	float: left;
 	margin-right: 10px;
 }
+.guestTimelineGold{
+	background-color: #5C5037;
+	color: white;
+}
+.guestTimelinePlatinum{
+	background-color: #CCC;
+	color: black;
+}
 .guestTimelineAmbassador{
-	background-color: #B5A46E;
+	background-color: #A39463;
 	color: black;
 }
 .guestTimelineRoyalAmbassador{
-	background-color: #9933FF;
+	background-color: #9F5FDF;
+	color: black;
 }
 .badge-ambassador{
-	background-color: #B5A46E;
+	background-color: #A39463;
 	color: black;
 	text-shadow: 0 0 0 !important;
 }
 .guestTimelineImportantStarIcon{
 	background-image: url("/img/icon_star.png") !important;
 	background-position: 0 0px !important;
+	/*position: absolute;
+	margin-top: 25px;*/
+	float: left;
 }
 .badge-royal{
-	background-color: #9933FF;
+	background-color: #9F5FDF;
+}
+.badge-gold{
+	background-color: #5C5037;
+}
+.pcrChevronIcon{
+	float: left;
+	position: absolute;
+	margin-top: -20px;
+	background-color: #000099;
+}
+.IClogo{
+	float: left;
+	position: absolute;
+	margin-top: -30px;
+	background-image: url("/img/ic_icon.png") !important;
+	background-position: 0 0px !important;
+	width: 20px;
+	height: 29px;
+}
+.clubLevelText{
+	font-size: .6em;
+	float: right;
+	margin-top: -26px;
 }
 #guestListTableGrid{
 	table-layout:fixed
 }
-#guestListTableGrid td, th{
+#guestListTableGrid td, #guestListTableGrid th{
 	word-wrap: break-word;
 	vertical-align: middle;
-	text-align: center;
+	text-align: center !important;
 }
 #guestListTableGrid tr:hover td{
 	background-color: #99CCFF;

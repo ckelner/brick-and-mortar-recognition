@@ -29,6 +29,8 @@ function adminLoad(){
 		setupFindGuest();
 	}else if(getURLParameter("edit")==="true"){
 		editGuestLoad();
+		setDateTool();
+		setTimeTool();
 	}else{
 		setDateTool();
 		setTimeTool();
@@ -202,6 +204,7 @@ function killGuest(ts, obj){
 	}
 }
 function setTimeTool(){
+	$('#addGuestATime').timepicker("destroy");
 	$('#addGuestATime').timepicker({
 		hourGrid: 4,
 		minuteGrid: 10,
@@ -216,6 +219,7 @@ function setTimeTool(){
 	});
 }
 function setDateTool(){
+	$("#addGuestADate").datepicker("destroy");
 	$("#addGuestADate").datepicker({ 
 		dateFormat: "yy-mm-dd",
 		onClose: function(){

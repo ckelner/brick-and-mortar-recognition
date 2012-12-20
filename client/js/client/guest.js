@@ -55,6 +55,12 @@ function addGuestClearData(){
 	$("#addGuestImportantCheck").val("");
 	$("#addGuestNotes").val("");
 	$("#addGuestRemoveImgBtn").trigger('click');
+	$("#guestAddSexUnknown")[0].checked=true;
+	$("#guestAddSexMale")[0].checked=false;
+	$("#guestAddSexFemale")[0].checked=false;
+	$("#addGuestImportantCheck")[0].checked=false;
+	setDateTool();
+	setTimeTool();
 }
 function guestDBSave(photoUrl){
 	var firstname=$("#addGuestFname").val();

@@ -23,15 +23,73 @@ function slowLoad(){
 		var guestsCursor=Guests.find({"arrivaldate":todaysDate});
 		var guestsByTimeArr=[[],[],[],[],[],[],[],[],[],
 			[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
-		//for(var i=0,guests=guestsArr.length; i<guests; i++){
-		guestsCursor.forEach(function (guest){
+		var guestsByTimeArrTemp=[[],[],[],[],[],[],[],[],[],
+			[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+		guestsCursor.forEach(function(guest){
 			var time=guest.arrivaltime.substring(0,2);
 			if(time.substring(0,1)==="0"){//trim leading 0
 				time=time.substring(1,2);
 			}
 			time=time*1;//make a #
-			guestsByTimeArr[time].push(guest);
+			guestsByTimeArrTemp[time].push(guest);
 		});
+		// sort guests
+		for(var q=0,guestyArr=guestsByTimeArrTemp.length; q<guestyArr; q++){
+			var royalAs=[];
+			var regAs=[];
+			var platGs=[];
+			var goldGs=[];
+			var clubGs=[];
+			var plainGs=[];
+			for(var p=0,gsts=guestsByTimeArrTemp[q].length; p<gsts; p++){
+				/*
+					<option>Not a member</option>
+					<option>Club</option>
+					<option>Gold</option>
+					<option>Platinum</option>
+					<option>Ambassador</option>
+					<option>Royal Ambassador</option>
+				*/
+				switch(guestsByTimeArrTemp[q][p].pcrStatus.toLowerCase()){
+					case "royal ambassador":
+						royalAs.push(guestsByTimeArrTemp[q][p]);
+					break;
+					case "ambassador":
+						regAs.push(guestsByTimeArrTemp[q][p]);
+					break;
+					case "platinum":
+						platGs.push(guestsByTimeArrTemp[q][p]);
+					break;
+					case "gold":
+						goldGs.push(guestsByTimeArrTemp[q][p]);
+					break;
+					case "club":
+						clubGs.push(guestsByTimeArrTemp[q][p]);
+					break;
+					case "not a member":
+						plainGs.push(guestsByTimeArrTemp[q][p]);
+					break;
+				}
+			}
+			for(var z=0,arrLen=royalAs.length; z<arrLen; z++){
+				guestsByTimeArr[q].push(royalAs[z]);
+			}
+			for(var z=0,arrLen=regAs.length; z<arrLen; z++){
+				guestsByTimeArr[q].push(regAs[z]);
+			}
+			for(var z=0,arrLen=platGs.length; z<arrLen; z++){
+				guestsByTimeArr[q].push(platGs[z]);
+			}
+			for(var z=0,arrLen=goldGs.length; z<arrLen; z++){
+				guestsByTimeArr[q].push(goldGs[z]);
+			}
+			for(var z=0,arrLen=clubGs.length; z<arrLen; z++){
+				guestsByTimeArr[q].push(clubGs[z]);
+			}
+			for(var z=0,arrLen=plainGs.length; z<arrLen; z++){
+				guestsByTimeArr[q].push(plainGs[z]);
+			}
+		}
 		var totalWidth=0;
 		var totalHTML="";
 		var modalHTML="<div class='timelineGuestModals'>";
@@ -72,19 +130,19 @@ function slowLoad(){
 				// SHOW GUEST AMBASSADOR
 				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
 					insideHTML+='guestTimelineAmbassador ';
-				}
-				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="royal ambassador"){
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="royal ambassador"){
 					insideHTML+='guestTimelineRoyalAmbassador ';
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="gold"){
+					insideHTML+='guestTimelineGold ';
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="platinum"){
+					insideHTML+='guestTimelinePlatinum ';
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="club"){
+					insideHTML+='guestTimelineClub ';
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="not a member"){
+					insideHTML+='guestTimelinePlain ';
 				}
 				insideHTML+='img-rounded" data-toggle="modal" data-target="#'
 					+guestModalName+'"><div>';
-				// show guest special (star)
-				if((guestsByTimeArr[x][i].important!==null||
-					guestsByTimeArr[x][i].important!=="")&&
-					guestsByTimeArr[x][i].important===true){
-					insideHTML+='<i class="icon-exclamation-sign '+
-						'guestTimelineImportantStarIcon pull-left"> </i>';
-				}
 				//mr, ms or none
 				var sexy="<div class='guestTimelineName'>";
 				if(guestsByTimeArr[x][i].sex==="m"){
@@ -93,11 +151,39 @@ function slowLoad(){
 					sexy+="Ms. ";
 				}
 				insideHTML+=sexy+guestsByTimeArr[x][i].lname+"</div></div>";
+				// show guest special (star)
+				if((guestsByTimeArr[x][i].important!==null||
+					guestsByTimeArr[x][i].important!=="")&&
+					guestsByTimeArr[x][i].important===true){
+					insideHTML+='<i class="icon-exclamation-sign '+
+						'guestTimelineImportantStarIcon pull-left"> </i>';
+				}
 				insideHTML+='<div class="guestThumbEnclosure"><center>'+
 					'<div class="guestThumbTimeline"><img src="';
 				insideHTML+=guestsByTimeArr[x][i].img;
 				insideHTML+='"class="img-rounded"/></div></center>'+
-					'</div></div>';
+					'</div>';
+				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
+					insideHTML+='<i class="IClogo"></i>'+
+						'<span class="clubLevelText">Ambassador</span>';
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="royal ambassador"){
+					insideHTML+='<i class="IClogo"></i>'+
+						'<span class="clubLevelText">Royal Ambassador</span>';
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="gold"){
+					insideHTML+='<i class="icon-chevron-right icon-white'+
+						' pcrChevronIcon"></i>'+
+						'<span class="clubLevelText">Gold</span>';
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="platinum"){
+					insideHTML+='<i class="icon-chevron-right icon-white'+
+						' pcrChevronIcon"></i>'+
+						'<span class="clubLevelText">Platinum</span>';
+				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="club"){
+					insideHTML+='<i class="icon-chevron-right icon-white'+
+						' pcrChevronIcon"></i>';
+				}
+				insideHTML+='</div>';
+				// MODAL MODAL MODAL
+				// MODAL MODAL MODAL
 				modalHTML+='<div class="modal hide fade" id="'+guestModalName+'" tabindex="-1"'+ 
 					'role="dialog" aria-labelledby="'+guestModalName+'" aria-hidden="true">'+
   					'<div class="modal-header">'+
@@ -122,11 +208,11 @@ function slowLoad(){
 						modalHTML+='<span class="label label-important">Important</span><br>';
 					}
 					// PCR NUMBER
-					if(guestsByTimeArr[x][i].pcr!==undefined&&
+					/*if(guestsByTimeArr[x][i].pcr!==undefined&&
 						guestsByTimeArr[x][i].pcr!==null&&
 						guestsByTimeArr[x][i].pcr!==""){
 						modalHTML+='PCR#: '+guestsByTimeArr[x][i].pcr+'<br>';
-					}
+					}*/
 					// PCR STATUS
 					if(guestsByTimeArr[x][i].pcrStatus!==undefined&&
 						guestsByTimeArr[x][i].pcrStatus!==null&&
@@ -142,7 +228,7 @@ function slowLoad(){
 									guestsByTimeArr[x][i].pcrStatus;
 							break;
 							case "gold":
-								modalHTML+=' badge-warning">'+
+								modalHTML+=' badge-gold">'+
 									guestsByTimeArr[x][i].pcrStatus;
 							break;
 							case "platinum":
