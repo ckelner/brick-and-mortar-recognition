@@ -337,3 +337,7 @@ img {
 .bumpyBumps{
 	margin-bottom: 41px;
 }
+#addGuestADate, #addGuestATime{
+	cursor: default;
+	background-color: #fff !important;
+}
