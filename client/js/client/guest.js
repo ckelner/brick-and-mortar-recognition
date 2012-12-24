@@ -275,7 +275,10 @@ function lastNameDataErrTest(){
 function aTimeDataErrTest(){
 	var aTime=$("#addGuestATime").val();
 	var isErr=false;
-	if(!(/^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/.test(aTime))){
+	if(aTime===""){
+		ArrivalTimeErr('blank');
+		isErr=true;
+	}else if(!(/^(0?[1-9]|1[012])(:[0-5]\d) [APap][mM]$/.test(aTime))){
 		ArrivalTimeErr('format');
 		isErr=true;
 	}
@@ -287,7 +290,10 @@ function aTimeDataErrTest(){
 function aDateDataErrTest(){
 	var aDate=$("#addGuestADate").val();
 	var isErr=false;
-	if(!(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/.test(aDate))){
+	if(aDate===""){
+		ArrivalDateErr('blank');
+		isErr=true;
+	}else if(!(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/.test(aDate))){
 		ArrivalDateErr('format');
 		isErr=true;
 	}
@@ -335,10 +341,12 @@ function hideErrorLName(){
 function hideErrorATime(){
 	$('#addGuestATimeControlGrp').removeClass('error');
 	$('#addGuestATimeHelpErrFormat').hide();
+	$('#addGuestATimeHelpErrBlank').hide();
 }
 function hideErrorADate(){
 	$('#addGuestADateControlGrp').removeClass('error');
 	$('#addGuestADateHelpErrFormat').hide();
+	$('#addGuestADateHelpErrBlank').hide();
 }
 function hideErrorNotes(){
 	$('#addGuestNotesControlGrp').removeClass('error');
@@ -424,11 +432,21 @@ function ArrivalTimeErr(err){
 		helpDiv.css('display','block');
 		helpDiv.css('visibility','visible');
 	}
+	if(err==='blank'){
+		var helpDiv=$('#addGuestATimeHelpErrBlank');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}
 }
 function ArrivalDateErr(err){
 	$('#addGuestADateControlGrp').addClass('error');
 	if(err==='format'){
 		var helpDiv=$('#addGuestADateHelpErrFormat');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}
+	if(err==='blank'){
+		var helpDiv=$('#addGuestADateHelpErrBlank');
 		helpDiv.css('display','block');
 		helpDiv.css('visibility','visible');
 	}
