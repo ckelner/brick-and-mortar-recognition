@@ -29,6 +29,8 @@ function adminLoad(){
 		setupFindGuest();
 	}else if(getURLParameter("edit")==="true"){
 		editGuestLoad();
+		setDateTool();
+		setTimeTool();
 	}else{
 		setDateTool();
 		setTimeTool();
@@ -41,7 +43,7 @@ function editGuestLoad(){
 			$("#editGuestModalDiv").modal();
 			setTimeout(editGuestSlowLoad,4000);
 			var guestBtn=$("#guestAddBtn");
-			guestBtn.html("Edit Guest");
+			guestBtn.html("Edit Existing Guest");
 			guestBtn[0].onclick=function(){};
 		}
 	}
@@ -194,7 +196,7 @@ function adminSortTableGuest(){
 }
 function killGuest(ts, obj){
 	if(ts!==undefined&&ts!==null){
-		var r=confirm("Are you sure you want to delete me?");
+		var r=confirm("Are you sure you want to delete this guest?");
 		if (r==true){
 			Guests.remove({"timestamp": ts});
 			$(obj.parentElement).remove();
@@ -202,6 +204,7 @@ function killGuest(ts, obj){
 	}
 }
 function setTimeTool(){
+	$('#addGuestATime').timepicker("destroy");
 	$('#addGuestATime').timepicker({
 		hourGrid: 4,
 		minuteGrid: 10,
@@ -216,6 +219,7 @@ function setTimeTool(){
 	});
 }
 function setDateTool(){
+	$("#addGuestADate").datepicker("destroy");
 	$("#addGuestADate").datepicker({ 
 		dateFormat: "yy-mm-dd",
 		onClose: function(){

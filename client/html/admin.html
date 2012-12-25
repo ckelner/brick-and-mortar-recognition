@@ -13,51 +13,46 @@
 		<div id="addGuestLeft" class="pull-left">
 			<div class="control-group bumpDown" id="addGuestFNameControlGrp">
 				<label class="control-label" for="addGuestFname">
-					First Name (Limit: 30 characters)
+					First Name
 				</label>
 				<div class="controls">
-					<input type="text" id="addGuestFname" 
-						placeholder="EXAMPLE: Firstname">
+					<input type="text" id="addGuestFname">
 					<span id="addGuestFNameHelpErrBlank" class="help hidden">
-						First Name cannot be blank
+						Please enter a first name
 					</span>
 					<span id="addGuestFNameHelpErrTooLong" class="help hidden">
-						First Name cannot be more<br> than 30 characters
+						Exceeded 30 character limit
 					</span>
 					<span id="addGuestFNameHelpErrBad" class="help hidden">
-						First Name cannot contain special
-						<br>characters (letters, 
-						<br>apostrophe and dashes only)
+						Only letters, apostrophes,
+						<br>or dashes are allowed
 					</span>
 				</div>
 			</div>
 			<div class="control-group bumpDown" id="addGuestLNameControlGrp">
 				<label class="control-label" for="addGuestLname">
-					Last Name (Limit: 30 characters)
+					Last Name
 				</label>
 				<div class="controls">
-					<input type="text" id="addGuestLname" 
-						placeholder="EXAMPLE: Lastname">
+					<input type="text" id="addGuestLname">
 					<span id="addGuestLNameHelpErrBlank" class="help hidden">
-						Last Name cannot be blank
+						Please enter a last name
 					</span>
 					<span id="addGuestLNameHelpErrTooLong" class="help hidden">
-						Last Name cannot be more<br> than 30 characters
+						Exceeded 30 character limit
 					</span>
 					<span id="addGuestLNameHelpErrBad" class="help hidden">
-						Last Name can only contain
-						<br>letters, apostrophe and 
-						<br>dashes only
+						Only letters, apostrophes,
+						<br>or dashes are allowed
 					</span>
 				</div>
 			</div>
-			<!--<div class="control-group" id="addGuestPCRControlGrp">
+			<!-- <div class="control-group" id="addGuestPCRControlGrp">
 				<label class="control-label" for="addGuestPCR">
 					PCR # (9 digits, starts with 9)
 				</label>
 				<div class="controls">
-					<input type="text" id="addGuestPCR" 
-						placeholder="EXAMPLE: 900000000">
+					<input type="text" id="addGuestPCR">
 					<span id="addGuestPCRHelpErrBad" class="help hidden">
 						PCR can be numbers only (0-9)
 					</span>
@@ -71,34 +66,37 @@
 						PCR must start with number 9
 					</span>
 				</div>
-			</div>-->
-			<div class="control-group bumpDown">
-				<label class="control-label" for="addGuestPCRStatusSelect">
-					PCR Status
+			</div> -->
+			<div class="control-group bumpDown" id="addGuestADateControlGrp">
+				<label class="control-label" for="addGuestADate">
+					Arrival Date
 				</label>
 				<div class="controls">
-					<select id="addGuestPCRStatusSelect">
-						<option>Not-A-Member</option>
-						<option>Club</option>
-						<option>Gold</option>
-						<option>Platinum</option>
-						<option>Ambassador</option>
-						<option>Royal Ambassador</option>
-					</select>
+					<input type="text" readonly="readonly" id="addGuestADate">
+					<span id="addGuestADateHelpErrFormat" class="help hidden">
+						Date is not in YYYY-MM-DD format.
+						<br>Please use the provided tool
+						<br>to set the arrival date.
+					</span>
+					<span id="addGuestADateHelpErrBlank" class="help hidden">
+						Date cannot be blank.
+					</span>
 				</div>
 			</div>
-			<div class="control-group" id="addGuestATimeControlGrp">
+			<div class="control-group bumpDown" id="addGuestATimeControlGrp">
 				<label class="control-label" for="addGuestATime">
-					Arrival Time (HH:MM TT)
+					Arrival Time
 				</label>
 				<div class="controls" >
   					<input class="input" 
-  						id="addGuestATime" type="text"
-  						placeholder="EXAMPLE: 01:00 pm">
+  						id="addGuestATime" readonly="readonly" type="text">
   					<span id="addGuestATimeHelpErrFormat" class="help hidden">
 						Time is not in HH:MM tt format.
 						<br>Please use the provided tool
 						<br>to set the arrival time.
+					</span>
+					<span id="addGuestATimeHelpErrBlank" class="help hidden">
+						Time cannot be bank.
 					</span>
 				</div>
 			</div>
@@ -124,35 +122,42 @@
 						<input type="file" id="guestPhotoInput" /></span>
 						<a href="#" class="btn fileupload-exists" 
 							data-dismiss="fileupload" 
-							onClick="setTimeout(setNoGuestImg,500)">
+							onClick="setTimeout(setNoGuestImg,500)"
+							id="addGuestRemoveImgBtn">
 							Remove
 						</a>
 						<span id="addGuestPhotoHelpErr" class="help hidden">
-							Photo missing or upload error.  <br>
-							Please double check that a photo <br>
-							has been selected and try again.
+							Please upload a photo
 						</span>
 					</div>
 				</div>
 			</div>
-			<div class="control-group" id="addGuestADateControlGrp">
-				<label class="control-label" for="addGuestADate">
-					Arrival Date (YYYY-MM-DD)
+			<div class="control-group bumpDown" id="addGuestPcStatControlGrp">
+				<label class="control-label" for="addGuestPCRStatusSelect">
+					PCR Status
 				</label>
+				<span id="addGuestPcStatHelpErr" class="help hidden">
+					Please select a PCR level
+				</span>
 				<div class="controls">
-					<input type="text" id="addGuestADate" 
-						placeholder="EXAMPLE: 1990-01-01">
-					<span id="addGuestADateHelpErrFormat" class="help hidden">
-						Date is not in YYYY-MM-DD format.
-						<br>Please use the provided tool
-						<br>to set the arrival date.
-					</span>
+					<select id="addGuestPCRStatusSelect">
+						<option>Not selected</option>
+						<option>Not a member</option>
+						<option>Club</option>
+						<option>Gold</option>
+						<option>Platinum</option>
+						<option>Ambassador</option>
+						<option>Royal Ambassador</option>
+					</select>
 				</div>
 			</div>
 		</div>
 		<div id="addGuestRightRight" class="pull-left">
 			<div class="control-group bumpyBumps">
-				<label class="radio inline">
+				<label class="control-label" for="addGuestGenderRadio">
+					Gender
+				</label>
+				<label class="radio inline" id="addGuestGenderRadio">
 					<input type="radio" name="guestAddSexRadio" 
 						id="guestAddSexMale" value="male">
 					Male
@@ -171,30 +176,24 @@
 			<div class="control-group bumpyBumps">
 				<label class="checkbox">
 					<input id="addGuestImportantCheck" type="checkbox" value="">
-					Is this an important guest?
-					<br/>If so, detail why in notes field.
-					<br/>Guest will be flagged with red star
-					<br/>on timeline.
+					VIP (flags guest with a star if checked)
 				</label>
 			</div>
 			<div class="control-group" id="addGuestNotesControlGrp">
 				<label class="control-label" for="addGuestNotes">
-					Guest Notes - limited to 200 characters
+					Guest Notes (200 characters max)
 				</label>
 				<span id="addGuestNotesHelpErr" class="help hidden">
-					Notes over 200 characters.<br>
-					Please reduce characters to continue.
+					Exceeded 200 character limit
 				</span>
-				<textarea id="addGuestNotes" rows="3"
-					placeholder="EXAMPLE: Travel Blogger, Loves Scotch, "+
-					"Dislikes seafood"></textarea>
+				<textarea id="addGuestNotes" rows="3"></textarea>
 			</div>
 			<br/>
 		</div>
 		<div id="addGuestButton" class="clearfix">
 			<a id="guestAddBtn" class="btn btn-primary" 
 				onClick="guestPhotoUpload()">
-				Add Guest
+				Add New Guest
 			</a>
 		</div>
 	</form>
@@ -248,8 +247,7 @@
 				</label>
 				<div class="input-append">
   					<input class="span3" id="guestDaySearch" 
-  						size="30" type="text"
-  						placeholder="ex: 2012-12-15">
+  						size="30" type="text">
 					<button class="btn" type="button" onClick="getGuests()">
 						<i class="icon-search"></i>
 					</button>
@@ -275,12 +273,12 @@
 			  	<ul class="nav">
 				  	<li id="adminNavAddGuest">
 						<a href="#" onClick="clickAddGuest()">
-							Add Guest
+							Add New Guest
 						</a>
 					</li>
 				  	<li id="adminNavListGuest">
 				  		<a href="#"  onClick="clickListGuest()">
-				  			List Guests
+				  			Find Existing Guest
 				  		</a>
 				  	</li>
 			  	</ul>
