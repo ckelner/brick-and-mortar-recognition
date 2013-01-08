@@ -31,10 +31,30 @@ Template.content.is_admin=function(){
 		return false;
 	}
 }
+//determine if guest tool view or not
+Template.content.is_guest=function(){
+	if(getURLParameter("guestAdd")==="true"){
+		return true;
+	}else{
+		return false;
+	}
+}
 //determine if find guest view or not
 Template.content.find_guest=function(){
 	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
 		if(getURLParameter("fg")==="true"){
+			return true;
+		}else{
+			return false;
+		}
+	}else{
+		return false;
+	}
+}
+//determine if find opt-in guest view or not
+Template.content.find_optin_guest=function(){
+	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
+		if(getURLParameter("opting")==="true"){
 			return true;
 		}else{
 			return false;

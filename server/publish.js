@@ -1,4 +1,4 @@
-var isProd=true;
+var isProd=false;
 
 if(isProd){
 	console.log("is prod");

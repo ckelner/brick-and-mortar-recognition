@@ -85,6 +85,7 @@ function guestDBSave(photoUrl){
 		important: imp,
 		notes: note,
 		img: photo,
+		type: 'complete',
 		timestamp: (new Date()).getTime()+Meteor.uuid()
     });
     addGuestSuccesfulModalAction();

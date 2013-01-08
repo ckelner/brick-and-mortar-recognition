@@ -21,12 +21,20 @@
 					{{#if edit_guest}}
 						{{> adminEditGuest}}
 					{{else}}
-						{{> adminAddGuest}}
+						{{#if find_optin_guest}}
+							{{> adminFindGuest}}
+						{{else}}
+							{{> adminAddGuest}}
+						{{/if}}
 					{{/if}}
 				{{/if}}
 			</div>
 		{{else}}
-			{{> timelineContainer}}
+			{{#if is_guest}}
+				{{> guestAddTool}}
+			{{else}}
+				{{> timelineContainer}}
+			{{/if}}
 		{{/if}}
 	{{/if}}
 </template>

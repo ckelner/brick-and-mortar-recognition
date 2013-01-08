@@ -1,0 +1,139 @@
+<!-- START: GUEST ADD VIEW -->
+<template name="guestAddTool">
+	<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+	<h1 class="guest_header">Welcome Intercontinental Guest</h1>
+	<p class="guest_header_subtext">Please fill in the fields below to be added to the <strong>Guest Recognition System</strong>
+	<div id="adminAddGuestGA" class="hero-unit clearfix">
+		{{> guestAddForm}}
+		<!-- guest modal -->
+		{{> guestAddModal}}
+	</div>
+</template>
+
+<template name="guestAddForm">
+	<form class="form">
+		<div id="addGuestLeft" class="pull-left">
+			<div class="control-group bumpDownTwo" id="addGuestLNameControlGrp">
+				<label class="control-label" for="addGuestLname">
+					Last Name
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestLname">
+					<span id="addGuestLNameHelpErrBlank" class="help helpMod hidden">
+						Please enter a last name
+					</span>
+					<span id="addGuestLNameHelpErrTooLong" class="help helpMod hidden">
+						Exceeded 30 character limit
+					</span>
+					<span id="addGuestLNameHelpErrBad" class="help helpMod hidden">
+						Only letters, apostrophes,
+						<br>and dashes are allowed
+					</span>
+				</div>
+			</div>
+			<div class="control-group bumpDownTwo" id="addGuestPNameControlGrp">
+				<label class="control-label" for="addGuestPname">
+					Last Name Pronunciation
+					<br>(<i>optional</i>)
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestPname">
+					<span id="addGuestLPameHelpErrTooLong" class="help helpMod hidden">
+						Exceeded 50 character limit
+					</span>
+					<span id="addGuestPNameHelpErrBad" class="help helpMod hidden">
+						Only letters, apostrophes,
+						<br>and dashes are allowed
+					</span>
+				</div>
+			</div>
+			<div class="control-group bumpDownTwo" id="addGuestCellPhoneControlGrp">
+				<label class="control-label" for="addGuestPhone">
+					Cell Phone Number
+					<br>(<i>must include country code</i>)
+					<br>(<i>no dashes or parentheses</i>)
+				</label>
+				<div class="controls">
+					<input type="text" id="addGuestPhone">
+					<span id="addGuestPhoneHelpErrBlank" class="help helpMod hidden">
+						Please enter a cell phone number
+					</span>
+					<span id="addGuestPhoneHelpErrTooLong" class="help helpMod hidden">
+						Cannot exceed 15 digits
+						<!-- http://stackoverflow.com/questions/723587/whats-the-longest-possible-worldwide-phone-number-i-should-consider-in-sql-varc -->
+					</span>
+					<span id="addGuestPhoneHelpErrTooShort" class="help helpMod hidden">
+						Must be at least 11 digits
+					</span>
+					<span id="addGuestPhoneHelpErrBad" class="help helpMod hidden">
+						Only numbers allowed
+					</span>
+				</div>
+			</div>
+		</div>
+		<div id="addGuestRight" class="pull-left">
+			<div class="control-group" id="addGuestPhotoControlGrp">
+				<label class="control-label" for="addGuestPhoto">
+					Photo (headshot preferred)
+				</label>
+				<div class="fileupload fileupload-new" data-provides="fileupload">
+					<div class="fileupload-preview thumbnail" id="addGuestPhoto" 
+						style="width: 200px; height: 150px;">
+						<img id="guestPhotoImg" src="/guests_photos/no_image.gif" />
+					</div>
+					<div>
+						<span class="btn btn-file lilTopMarg">
+							<span class="fileupload-new">
+								Select image
+							</span>
+							<span class="fileupload-exists">
+								Change
+							</span>
+							<input type="file" id="guestPhotoInput" /></span>
+							<a href="#" class="btn fileupload-exists lilTopMarg" 
+								data-dismiss="fileupload" 
+								onClick="setTimeout(setNoGuestImg,500)"
+								id="addGuestRemoveImgBtn">
+								Remove
+							</a>
+							<span id="addGuestPhotoHelpErr" class="help helpMod hidden">
+								Please upload a photo
+							</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		<div id="addGuestButtonGA" class="clearfix">
+			<a id="guestAddBtn" class="btn btn-primary btn-large" 
+				onClick="guestPhotoUploadGuestGA()">
+				Add My Data
+			</a>
+		</div>
+	</form>
+	{{> addGuestModal}}
+</template>
+
+<template name="guestAddModal">
+	<div class="modal hide fade" id="addGuestModalDiv" tabindex="-1" 
+		role="dialog" aria-labelledby="addGuestModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="addGuestModalLabel">Adding Guest</h3>
+		</div>
+		<div class="modal-body">
+			<div id="guestAddPhotoUploadPlsWait">
+				<p>Please wait while we upload the guest's photo and save to the database</p>
+			</div>
+			<div id="guestAddPhotoUploadBadMsg" class="alert alert-block alert-error hide"></div>
+			<div id="guestAddPhotoUploadGoodMsg" class="alert alert-block alert-success hide"></div>
+			<div class="progress progress-striped active">
+				<div id="guestAddPhotoUploadProgressBar" class="bar" style="width: 0%;"></div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+</template>
+
+<!-- END: GUEST ADD VIEW -->

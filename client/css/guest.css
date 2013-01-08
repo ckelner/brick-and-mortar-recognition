@@ -1,0 +1,32 @@
+.guest_header{
+	color: #fff !important;
+	font-family: 'Great Vibes', cursive;
+	margin-left: 100px;
+	margin-right: 100px;
+}
+.guest_header_subtext{
+	color: #fff !important;
+	margin-left: 100px;
+	margin-right: 100px;
+	margin-bottom: 30px;
+}
+#adminAddGuestGA{
+	width: 500px !important;
+	margin-top: 10px;
+	color: black;
+	margin-right: 100px;
+	margin-left: 100px;
+}
+.bumpDownTwo{
+	margin-bottom: 0px !important;
+}
+.lilTopMarg{
+	margin-top: 24px !important;
+}
+#addGuestButtonGA{
+	margin-top: 45px !important;
+}
+.helpMod{
+	line-height: 1 !important;
+	padding-bottom: 10px !important;
+}

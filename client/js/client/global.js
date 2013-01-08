@@ -102,10 +102,14 @@ function cssHacks(){
 
 Meteor.startup(function(){
 	var admin=false;
+	var guestAdd=false;
 	if(getURLParameter("admin")==="br@ndinn0v@ti0n"){
 		admin=true;
 	}
-	if(!admin){
+	if(getURLParameter("guestAdd")==="true"){
+		guestAdd=true;
+	}
+	if(!admin&&!guestAdd){
 		//global
 		getDOMHandlers();
 		setUpTimers();

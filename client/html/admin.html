@@ -240,7 +240,7 @@
 <template name="adminFindGuest">
 	{{> navbar}}
 	<div id="adminFindGuest" class="hero-unit clearfix">
-		<form class="form">
+		<form id="findGuestForm" class="form">
 			<div class="control-group">
 				<label class="control-label" for="guestDaySearch">
 					Arrival Day (YYYY-MM-DD)
@@ -279,6 +279,11 @@
 				  	<li id="adminNavListGuest">
 				  		<a href="#"  onClick="clickListGuest()">
 				  			Find Existing Guest
+				  		</a>
+				  	</li>
+				  	<li id="adminNavOptInGuest">
+				  		<a href="#"  onClick="clickListOptInGuest()">
+				  			Find Opt-In Guest
 				  		</a>
 				  	</li>
 			  	</ul>
