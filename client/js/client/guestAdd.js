@@ -81,7 +81,7 @@ function gPhoneDataErrTestGA(){
 	if(gPhone.length<1){
 		gPhoneErrGA('blank');
 		isErr=true;
-	}else if(!(/[0-9,]+/.test(gPhone))){
+	}else if(!(/^\d+$/.test(gPhone))){
 		gPhoneErrGA('badchar');
 		isErr=true;
 	}
