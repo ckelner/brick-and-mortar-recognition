@@ -139,18 +139,15 @@ function slowLoad(){
 				insideHTML+="<div class='guestTimelineName'>"+
 					guestsByTimeArr[x][i].title+' '+
 					guestsByTimeArr[x][i].lname+"</div></div>";
-				// show guest special (star)
-				if((guestsByTimeArr[x][i].important!==null||
+				// show guest special (star) OR
+				// PRONUNCIATION
+				if(((guestsByTimeArr[x][i].important!==null||
 					guestsByTimeArr[x][i].important!=="")&&
-					guestsByTimeArr[x][i].important===true){
+					guestsByTimeArr[x][i].important===true)||
+					guestsByTimeArr[x][i].pname!==null||
+					guestsByTimeArr[x][i].pname!==""){
 					insideHTML+='<i class="icon-exclamation-sign '+
 						'guestTimelineImportantStarIcon pull-left"> </i>';
-				}
-				// PRONUNCIATION
-				if((guestsByTimeArr[x][i].pname!==null||
-					guestsByTimeArr[x][i].pname!=="")){
-					insideHTML+='<i class="icon-exclamation-sign '+
-						'guestTimelinePronounceSpeakerIcon pull-right"> </i>';
 				}
 				// GUEST PHOTO
 				insideHTML+='<div class="guestThumbEnclosure"><center>'+
