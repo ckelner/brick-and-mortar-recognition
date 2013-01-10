@@ -108,6 +108,7 @@ Meteor.startup(function(){
 	}
 	if(getURLParameter("guestAdd")==="true"){
 		guestAdd=true;
+		document.title="Guest Recognition Opt-In";
 	}
 	if(!admin&&!guestAdd){
 		//global

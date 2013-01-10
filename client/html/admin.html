@@ -11,6 +11,25 @@
 <template name="addGuestForm">
 	<form class="form">
 		<div id="addGuestLeft" class="pull-left">
+			<div class="control-group bumpDown" id="addGuestTitleControlGrp">
+				<label class="control-label" for="addGuestTitle">
+					Title
+				</label>
+				<div class="controls">
+					<div class="controls">
+						<select id="addGuestTitle">
+							<option>Not selected</option>
+							<option>Mrs.</option>
+							<option>Ms.</option>
+							<option>Mr.</option>
+							<option>Dr.</option>
+						</select>
+					</div>
+					<span id="addGuestTitleHelpErrBlank" class="help helpMod hidden">
+						Please select a title
+					</span>
+				</div>
+			</div>
 			<div class="control-group bumpDown" id="addGuestFNameControlGrp">
 				<label class="control-label" for="addGuestFname">
 					First Name
@@ -47,56 +66,42 @@
 					</span>
 				</div>
 			</div>
-			<!-- <div class="control-group" id="addGuestPCRControlGrp">
-				<label class="control-label" for="addGuestPCR">
-					PCR # (9 digits, starts with 9)
+			<div class="control-group bumpDown" id="addGPNameControlGrp">
+				<label class="control-label" for="addGPname">
+					Last Name Pronunciation
+					<br>(<i>optional</i>)
 				</label>
 				<div class="controls">
-					<input type="text" id="addGuestPCR">
-					<span id="addGuestPCRHelpErrBad" class="help hidden">
-						PCR can be numbers only (0-9)
+					<input type="text" id="addGPname">
+					<span id="addGPNameHelpErrTooLong" class="help hidden">
+						Exceeded 40 character limit
 					</span>
-					<span id="addGuestPCRHelpErrShort" class="help hidden">
-						PCR too short.  Must be 9 numbers exactly
-					</span>
-					<span id="addGuestPCRHelpErrLong" class="help hidden">
-						PCR too long.  Must be 9 numbers exactly
-					</span>
-					<span id="addGuestPCRHelpErrStart" class="help hidden">
-						PCR must start with number 9
-					</span>
-				</div>
-			</div> -->
-			<div class="control-group bumpDown" id="addGuestADateControlGrp">
-				<label class="control-label" for="addGuestADate">
-					Arrival Date
-				</label>
-				<div class="controls">
-					<input type="text" readonly="readonly" id="addGuestADate">
-					<span id="addGuestADateHelpErrFormat" class="help hidden">
-						Date is not in YYYY-MM-DD format.
-						<br>Please use the provided tool
-						<br>to set the arrival date.
-					</span>
-					<span id="addGuestADateHelpErrBlank" class="help hidden">
-						Date cannot be blank.
+					<span id="addPNameHelpErrBad" class="help hidden">
+						Only letters, apostrophes,
+						<br>and dashes are allowed
 					</span>
 				</div>
 			</div>
-			<div class="control-group bumpDown" id="addGuestATimeControlGrp">
-				<label class="control-label" for="addGuestATime">
-					Arrival Time
+			<div class="control-group bumpDownTwo" id="addGCellPhoneControlGrp">
+				<label class="control-label" for="addGPhone">
+					Cell Phone Number
+					<br>(<i>must include country code</i>)
+					<br>(<i>no dashes or parentheses</i>)
 				</label>
-				<div class="controls" >
-  					<input class="input" 
-  						id="addGuestATime" readonly="readonly" type="text">
-  					<span id="addGuestATimeHelpErrFormat" class="help hidden">
-						Time is not in HH:MM tt format.
-						<br>Please use the provided tool
-						<br>to set the arrival time.
+				<div class="controls">
+					<input type="text" id="addGPhone">
+					<span id="addGPhoneHelpErrBlank" class="help hidden">
+						Please enter a cell phone number
 					</span>
-					<span id="addGuestATimeHelpErrBlank" class="help hidden">
-						Time cannot be bank.
+					<span id="addGPhoneHelpErrTooLong" class="help hidden">
+						Cannot exceed 15 digits
+						<!-- http://stackoverflow.com/questions/723587/whats-the-longest-possible-worldwide-phone-number-i-should-consider-in-sql-varc -->
+					</span>
+					<span id="addGPhoneHelpErrTooShort" class="help hidden">
+						Must be at least 11 digits
+					</span>
+					<span id="addGPhoneHelpErrBad" class="help hidden">
+						Only numbers allowed
 					</span>
 				</div>
 			</div>
@@ -132,6 +137,41 @@
 					</div>
 				</div>
 			</div>
+			<div class="control-group bumpDown" id="addGuestADateControlGrp">
+				<label class="control-label" for="addGuestADate">
+					Arrival Date
+				</label>
+				<div class="controls">
+					<input type="text" readonly="readonly" id="addGuestADate">
+					<span id="addGuestADateHelpErrFormat" class="help hidden">
+						Date is not in YYYY-MM-DD format.
+						<br>Please use the provided tool
+						<br>to set the arrival date.
+					</span>
+					<span id="addGuestADateHelpErrBlank" class="help hidden">
+						Date cannot be blank.
+					</span>
+				</div>
+			</div>
+			<div class="control-group bumpDown" id="addGuestATimeControlGrp">
+				<label class="control-label" for="addGuestATime">
+					Arrival Time
+				</label>
+				<div class="controls" >
+  					<input class="input" 
+  						id="addGuestATime" readonly="readonly" type="text">
+  					<span id="addGuestATimeHelpErrFormat" class="help hidden">
+						Time is not in HH:MM tt format.
+						<br>Please use the provided tool
+						<br>to set the arrival time.
+					</span>
+					<span id="addGuestATimeHelpErrBlank" class="help hidden">
+						Time cannot be bank.
+					</span>
+				</div>
+			</div>
+		</div>
+		<div id="addGuestRightRight" class="pull-left">
 			<div class="control-group bumpDown" id="addGuestPcStatControlGrp">
 				<label class="control-label" for="addGuestPCRStatusSelect">
 					PCR Status
@@ -151,44 +191,22 @@
 					</select>
 				</div>
 			</div>
-		</div>
-		<div id="addGuestRightRight" class="pull-left">
-			<div class="control-group bumpyBumps">
-				<label class="control-label" for="addGuestGenderRadio">
-					Gender
-				</label>
-				<label class="radio inline" id="addGuestGenderRadio">
-					<input type="radio" name="guestAddSexRadio" 
-						id="guestAddSexMale" value="male">
-					Male
-				</label>
-				<label class="radio inline">
-					<input type="radio" name="guestAddSexRadio" 
-						id="guestAddSexFemale" value="female">
-					Female
-				</label>
-				<label class="radio inline">
-					<input type="radio" name="guestAddSexRadio" 
-						id="guestAddSexUnknown" value="unknown" checked>
-					Unknown
-				</label>
-			</div>
-			<div class="control-group bumpyBumps">
+			<div class="control-group bumpDown">
 				<label class="checkbox">
 					<input id="addGuestImportantCheck" type="checkbox" value="">
 					VIP (flags guest with a star if checked)
 				</label>
 			</div>
-			<div class="control-group" id="addGuestNotesControlGrp">
+			<div class="control-group bumpDown" id="addGuestNotesControlGrp">
 				<label class="control-label" for="addGuestNotes">
 					Guest Notes (200 characters max)
 				</label>
 				<span id="addGuestNotesHelpErr" class="help hidden">
 					Exceeded 200 character limit
 				</span>
-				<textarea id="addGuestNotes" rows="3"></textarea>
+				<textarea id="addGuestNotes" rows="6"></textarea>
 			</div>
-			<br/>
+			<br>
 		</div>
 		<div id="addGuestButton" class="clearfix">
 			<a id="guestAddBtn" class="btn btn-primary" 

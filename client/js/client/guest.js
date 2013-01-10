@@ -46,6 +46,9 @@ function addGuestSuccesfulModalAction(){
 	});
 }
 function addGuestClearData(){
+	$("#addGPname").val("");
+	$("#addGPhone").val("");
+	$("#addGuestTitle").val("");
 	$("#addGuestFname").val("");
 	$("#addGuestLname").val("");
 	$("#addGuestPCRStatusSelect").val("");
@@ -69,35 +72,29 @@ function guestDBSave(photoUrl){
 	var aTime=$("#addGuestATime").val();
 	aTime=formatTimeForDB(aTime);
 	var aDate=$("#addGuestADate").val();
-	var sexY=getGuestSex();
 	var imp=getGuestImportant();
 	var photo=photoUrl;
 	var note=$("#addGuestNotes").val();
+	var pronounce=$("#addGPname").val("");
+	var gphone=$("#addGPhone").val("");
+	var gtitle=$("#addGuestTitle").val("");
 	Guests.insert({
 		fname: firstname,
 		lname: lastname,
-		//pcr: pcrNum,
 		pcrStatus: pcStat,
 		arrivaltime: aTime,
 		arrivaldate: aDate,
-		sex: sexY,
 		arrive: false,
 		important: imp,
 		notes: note,
 		img: photo,
+		pname: pronounce,
+		title: gtitle,
+		phone: gphone,
 		type: 'complete',
 		timestamp: (new Date()).getTime()+Meteor.uuid()
     });
     addGuestSuccesfulModalAction();
-}
-function getGuestSex(){
-	if($("#guestAddSexMale").is(':checked')){
-		return "m";
-	}else if($("#guestAddSexFemale").is(':checked')){
-		return "f";
-	}else{
-		return "u";
-	}
 }
 function getGuestImportant(){
 	if($("#addGuestImportantCheck").is(':checked')){
@@ -144,21 +141,24 @@ function guestEditDBSave(photoUrl,uploaded){
 	var aTime=$("#addGuestATime").val();
 	aTime=formatTimeForDB(aTime);
 	var aDate=$("#addGuestADate").val();
-	var sexY=getGuestSex();
+	var pronounce=$("#addGPname").val();
+	var gphone=$("#addGPhone").val();
+	var gtitle=$("#addGuestTitle").val();
 	var imp=getGuestImportant();
 	var photo=photoUrl;
 	var note=$("#addGuestNotes").val();
 	Guests.update({timestamp: getURLParameter("ts")},{$set:{
 		fname: firstname,
 		lname: lastname,
-		//pcr: pcrNum,
 		pcrStatus: pcStat,
 		arrivaltime: aTime,
 		arrivaldate: aDate,
-		sex: sexY,
 		important: imp,
 		notes: note,
 		img: photo,
+		pname: pronounce,
+		title: gtitle,
+		phone: gphone,
     }});
 	$("#guestAddPhotoUploadPlsWait").hide();
 	$("#guestAddPhotoUploadGoodMsg").show();
@@ -215,24 +215,29 @@ function isErrorWithGuestData(isEditMode){
 	if(isErrCur===true){
 		isErr=isErrCur;
 	}
-	/*if(pcrNum.length>9){
-		pcrNumErr('toolong');
-		isErr=true;
-	}else if(pcrNum.length>0&&pcrNum.length<9){
-		pcrNumErr('tooshort');
-		isErr=true;
+	isErrCur=aGTitleDataErrTest();
+	if(isErrCur===true){
+		isErr=isErrCur;
 	}
-	if(!(/^[9]/.test(pcrNum))){
-		pcrNumErr('startnine');
-		isErr=true;
+	isErrCur=pNameDataErrTest();
+	if(isErrCur===true){
+		isErr=isErrCur;
 	}
-	if(!(/^[0-9]+$/.test(pcrNum))){
-		pcrNumErr('badchar');
-		isErr=true;
-	}*/
+	isErrCur=gPhoneDataErrTest();
+	if(isErrCur===true){
+		isErr=isErrCur;
+	}
 	//do this
 	setTimeTool();
-	console.log("is error is : "+isErr);
+	return isErr;
+}
+function aGTitleDataErrTest(){
+	var gTit=$("#addGuestTitle").val();
+	var isErr=false;
+	if(gTit==="Not selected"){
+		gTitErr('blank');
+		isErr=true;
+	}
 	return isErr;
 }
 function firstNameDataErrTest(){
@@ -327,6 +332,10 @@ function pcrStatusDataErrTest(){
 	}
 	return isErr;
 }
+function hideErrorGTit(){
+	$('#addGuestTitleControlGrp').removeClass('error');
+	$('#addGuestTitleHelpErrBlank').hide();
+}
 function hideErrorFName(){
 	$('#addGuestFNameControlGrp').removeClass('error');
 	$('#addGuestFNameHelpErrBlank').hide();
@@ -363,7 +372,9 @@ function hideAllErrorMsg(){
 	hideErrorATime();
 	hideErrorADate();
 	hideErrorNotes();
-	hideErrorPcStat
+	hideErrorGTit();
+	hideErrorPcStat();
+	hideErrorGPhoneGA();
 	$('#addGuestPhotoControlGrp').removeClass('error');
 	//$('#addGuestPCRControlGrp').removeClass('error');
 	$('#addGuestPhotoHelpErr').hide();
@@ -371,6 +382,14 @@ function hideAllErrorMsg(){
 	$('#addGuestPCRHelpErrShort').hide();
 	$('#addGuestPCRHelpErrLong').hide();
 	$('#addGuestPCRHelpErrStart').hide();*/
+}
+function gTitErr(err){
+	$('#addGuestTitleControlGrp').addClass('error');
+	if(err==='blank'){
+		var helpDiv=$('#addGuestTitleHelpErrBlank');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}
 }
 function firstNameErr(err){
 	$('#addGuestFNameControlGrp').addClass('error');
@@ -467,6 +486,92 @@ function pcStatErr(err){
 		helpDiv.css('display','block');
 		helpDiv.css('visibility','visible');
 	}
+}
+function pNameDataErrTest(){
+	var lastnameP=$("#addGPname").val();
+	var isErr=false;
+	if(!(/^[a-zA-Z'-]+$/.test(lastnameP))){
+		if(lastnameP.length>0){
+			pNameErr('badchar');
+			isErr=true;
+		}
+	}
+	if(lastnameP.length>40){
+		pNameErr('toolong');
+		isErr=true;
+	}
+	if(isErr===false){
+		hideErrorPName();
+	}
+	return isErr;
+}
+function pNameErr(err){
+	$('#addGPNameControlGrp').addClass('error');
+	if(err==='toolong'){
+		var helpDiv=$('#addGPNameHelpErrTooLong');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}else{
+		var helpDiv=$('#addGPNameHelpErrBad');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}
+}
+function hideErrorPName(){
+	$('#addGPNameControlGrp').removeClass('error');
+	$('#addGPNameHelpErrBlank').hide();
+	$('#addGPNameHelpErrBad').hide();
+	$('#addGPNameHelpErrTooLong').hide()
+}
+function gPhoneDataErrTest(){
+	var gPhone=$("#addGPhone").val();
+	var isErr=false;
+	if(gPhone.length<1){
+		gPhoneErr('blank');
+		isErr=true;
+	}else if(!(/^\d+$/.test(gPhone))){
+		gPhoneErr('badchar');
+		isErr=true;
+	}
+	if(gPhone.length>15){
+		gPhoneErr('toolong');
+		isErr=true;
+	}
+	if(gPhone.length>1&&gPhone.length<11){
+		gPhoneErr('tooshort');
+		isErr=true;
+	}
+	if(isErr===false){
+		hideErrorGPhone();
+	}
+	return isErr;
+}
+function gPhoneErr(err){
+	$('#addGCellPhoneControlGrp').addClass('error');
+	if(err==='blank'){
+		var helpDiv=$('#addGPhoneHelpErrBlank');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}else if(err==='toolong'){
+		var helpDiv=$('#addGPhoneHelpErrTooLong');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}else if(err==='tooshort'){
+		var helpDiv=$('#addGPhoneHelpErrTooShort');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}else{
+		var helpDiv=$('#addGPhoneHelpErrBad');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}
+}
+function hideErrorGPhone(){
+	$('#addGCellPhoneControlGrp').removeClass('error');
+	$('#addGPhoneHelpErrBlank').hide();
+	$('#addGPhoneHelpErrBad').hide();
+	$('#addGPhoneHelpErrTooLong').hide()
+	$('#addGPhoneHelpErrTooShort').hide()
 }
 function formatTimeForDB(deTime){
 	var mTime=moment(deTime, "hh:mm a");

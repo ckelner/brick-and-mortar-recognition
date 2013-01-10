@@ -47,7 +47,7 @@ function adminLoad(){
 		setupFindOptInGuest();
 	}else{
 		if(getURLParameter("guestAdd")==="true"){
-			document.title = "Guest Recognition Opt-in";
+			document.title="Guest Recognition Opt-in";
 			setOnFocusOutFieldsGuestAdd();
 		}else{
 			setDateTool();
@@ -73,31 +73,25 @@ function editGuestSlowLoad(){
 			// load up the data
 			var ts=getURLParameter("ts");
 			var guest=Guests.findOne({timestamp:ts});
-			$("#addGuestFname").val(guest.fname);
+			$("#addGuestTitle").val(guest.title);
+			$("#addGPhone").val(guest.phone);
+			$("#addGPname").val(guest.pname);
 			$("#addGuestLname").val(guest.lname);
-			$("#addGuestPCRStatusSelect").val(guest.pcrStatus);
-			$("#addGuestATime").val(moment([1990,1,14,
-					parseInt(guest.arrivaltime.substring(0,2)),
-					parseInt(guest.arrivaltime.substring(3,5)),
-					00,125]).format("hh:mm a"));
-			$("#addGuestADate").val(guest.arrivaldate);
 			$("#guestPhotoImg")[0].src=guest.img;
-			$("#addGuestNotes").val(guest.notes);
-			switch(guest.sex){
-				case "m":
-					$("#guestAddSexMale")[0].checked=true;
-				break;
-				case "f":
-					$("#guestAddSexFemale")[0].checked=true;
-				break;
-				case "u":
-					$("#guestAddSexUnknown")[0].checked=true;
-				break;
-			}
-			if(guest.important){
-				$("#addGuestImportantCheck")[0].checked=true;
-			}else{
-				$("#addGuestImportantCheck")[0].checked=false;
+			if(guest.type!=="incomplete"){
+				$("#addGuestFname").val(guest.fname);
+				$("#addGuestPCRStatusSelect").val(guest.pcrStatus);
+				$("#addGuestATime").val(moment([1990,1,14,
+						parseInt(guest.arrivaltime.substring(0,2)),
+						parseInt(guest.arrivaltime.substring(3,5)),
+						00,125]).format("hh:mm a"));
+				$("#addGuestADate").val(guest.arrivaldate);
+				$("#addGuestNotes").val(guest.notes);
+				if(guest.important){
+					$("#addGuestImportantCheck")[0].checked=true;
+				}else{
+					$("#addGuestImportantCheck")[0].checked=false;
+				}
 			}
 			$("#guestAddBtn")[0].onclick=function(){
 				editGuestData(guest.img);
@@ -120,21 +114,26 @@ function getGuests(){
 	var numOfGuests=daGs.length;
 	var gDiv=$("#adminGuestsFound");
 	var gHTMLzYo='<table id="guestListTableGrid" class="table table-striped">'+
-	'<thead><tr><th>First Name</th><th>Last Name</th><th>PCR Status</th>'+
-	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Photo</th>'+
+	'<thead><tr><th>Title</th><th>First Name</th><th>Last Name</th>'+
+	'<th>Last Name Pronunciation</th><th>Cell Phone #</th><th>PCR Status</th>'+
+	'<th>Arrival Date</th><th>Arrival Time</th><th>Photo</th>'+
 	'<th>Important</th><th>Notes</th><th>Edit Guest</th><th>Delete Guest</th><tbody>';
 	daGs.forEach(function(guest){
-		gHTMLzYo+='<tr><td>'+guest.fname+'</td>'+
+		gHTMLzYo+='<tr><td>'+guest.title+'</td>'+
+
+			'<td>'+guest.fname+'</td>'+
 
 			'<td>'+guest.lname+'</td>'+
+
+			'<td>'+guest.pname+'</td>'+
+
+			'<td>'+guest.phone+'</td>'+
 
 			'<td>'+guest.pcrStatus+'</td>'+
 
 			'<td>'+guest.arrivaldate+'</td>'+
 
 			'<td>'+guest.arrivaltime+'</td>'+
-
-			'<td>'+guest.sex+'</td>'+
 
 			'<td><img src="'+guest.img+'"/></td>'+
 
@@ -199,6 +198,10 @@ function setDateTool(){
 	});
 }
 function setOnFocusOutFields(){
+	$("#addGuestTitle").focusout(function(){
+		hideErrorGTit();
+		aGTitleDataErrTest();
+	});
 	$("#addGuestFname").focusout(function(){
 		hideErrorFName();
 		firstNameDataErrTest();
@@ -219,6 +222,14 @@ function setOnFocusOutFields(){
 		hideErrorNotes();
 		noteDataErrTest();
 	});
+	$("#addPname").focusout(function(){
+		hideErrorPName();
+		pNameDataErrTest();
+	});
+	$("#addGPhone").focusout(function(){
+		hideErrorGPhone();
+		gPhoneDataErrTest();
+	});
 }
 function setOnFocusOutFieldsGuestAdd(){
 	$("#addGuestLname").focusout(function(){
@@ -232,6 +243,10 @@ function setOnFocusOutFieldsGuestAdd(){
 	$("#addGuestPhone").focusout(function(){
 		hideErrorGPhoneGA();
 		gPhoneDataErrTestGA();
+	});
+	$("#addGuestTitle").focusout(function(){
+		hideErrorTitleGA();
+		titleDataErrTestGA();
 	});
 }
 function setupFindGuest(){
@@ -254,21 +269,26 @@ function getOptInGuests(){
 	var numOfGuests=daGs.length;
 	var gDiv=$("#adminGuestsFound");
 	var gHTMLzYo='<table id="guestListTableGrid" class="table table-striped">'+
-	'<thead><tr><th>First Name</th><th>Last Name</th><th>PCR Status</th>'+
-	'<th>Arrival Date</th><th>Arrival Time</th><th>Sex</th><th>Photo</th>'+
+	'<thead><tr><th>Title</th><th>First Name</th><th>Last Name</th>'+
+	'<th>Last Name Pronunciation</th><th>Cell Phone #</th><th>PCR Status</th>'+
+	'<th>Arrival Date</th><th>Arrival Time</th><th>Photo</th>'+
 	'<th>Important</th><th>Notes</th><th>Edit Guest</th><th>Delete Guest</th><tbody>';
 	daGs.forEach(function(guest){
-		gHTMLzYo+='<tr><td>'+guest.fname+'</td>'+
+		gHTMLzYo+='<tr><td>'+guest.title+'</td>'+
+
+			'<td>'+guest.fname+'</td>'+
 
 			'<td>'+guest.lname+'</td>'+
+
+			'<td>'+guest.pname+'</td>'+
+
+			'<td>'+guest.phone+'</td>'+
 
 			'<td>'+guest.pcrStatus+'</td>'+
 
 			'<td>'+guest.arrivaldate+'</td>'+
 
 			'<td>'+guest.arrivaltime+'</td>'+
-
-			'<td>'+guest.sex+'</td>'+
 
 			'<td><img src="'+guest.img+'"/></td>'+
 

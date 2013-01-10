@@ -42,14 +42,6 @@ function slowLoad(){
 			var clubGs=[];
 			var plainGs=[];
 			for(var p=0,gsts=guestsByTimeArrTemp[q].length; p<gsts; p++){
-				/*
-					<option>Not a member</option>
-					<option>Club</option>
-					<option>Gold</option>
-					<option>Platinum</option>
-					<option>Ambassador</option>
-					<option>Royal Ambassador</option>
-				*/
 				switch(guestsByTimeArrTemp[q][p].pcrStatus.toLowerCase()){
 					case "royal ambassador":
 						royalAs.push(guestsByTimeArrTemp[q][p]);
@@ -127,7 +119,7 @@ function slowLoad(){
 				// START GUEST
 				var guestModalName="guestModal-"+x+"-"+i;
 				insideHTML+='<div class="guestTimelineEnclosure ';
-				// SHOW GUEST AMBASSADOR
+				// SHOW GUEST PCR STATUS
 				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
 					insideHTML+='guestTimelineAmbassador ';
 				}else if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="royal ambassador"){
@@ -143,14 +135,10 @@ function slowLoad(){
 				}
 				insideHTML+='img-rounded" data-toggle="modal" data-target="#'
 					+guestModalName+'"><div>';
-				//mr, ms or none
-				var sexy="<div class='guestTimelineName'>";
-				if(guestsByTimeArr[x][i].sex==="m"){
-					sexy+="Mr. ";
-				}else if(guestsByTimeArr[x][i].sex==="f"){
-					sexy+="Ms. ";
-				}
-				insideHTML+=sexy+guestsByTimeArr[x][i].lname+"</div></div>";
+				//mr, ms, mrs, etc
+				insideHTML+="<div class='guestTimelineName'>"+
+					guestsByTimeArr[x][i].title+' '+
+					guestsByTimeArr[x][i].lname+"</div></div>";
 				// show guest special (star)
 				if((guestsByTimeArr[x][i].important!==null||
 					guestsByTimeArr[x][i].important!=="")&&
@@ -158,11 +146,19 @@ function slowLoad(){
 					insideHTML+='<i class="icon-exclamation-sign '+
 						'guestTimelineImportantStarIcon pull-left"> </i>';
 				}
+				// PRONUNCIATION
+				if((guestsByTimeArr[x][i].pname!==null||
+					guestsByTimeArr[x][i].pname!=="")){
+					insideHTML+='<i class="icon-exclamation-sign '+
+						'guestTimelinePronounceSpeakerIcon pull-right"> </i>';
+				}
+				// GUEST PHOTO
 				insideHTML+='<div class="guestThumbEnclosure"><center>'+
 					'<div class="guestThumbTimeline"><img src="';
 				insideHTML+=guestsByTimeArr[x][i].img;
 				insideHTML+='"class="img-rounded"/></div></center>'+
 					'</div>';
+				// GUEST PCR LOGO
 				if(guestsByTimeArr[x][i].pcrStatus.toLowerCase()==="ambassador"){
 					insideHTML+='<i class="IClogo"></i>'+
 						'<span class="clubLevelText">Ambassador</span>';
@@ -190,7 +186,7 @@ function slowLoad(){
     				'<button type="button" class="close" data-dismiss="modal"'+
     				'aria-hidden="true">×</button>'+
     				'<h3 id="timeLineModalLabel">'+
-    				sexy+
+    				guestsByTimeArr[x][i].title+' '+
     				guestsByTimeArr[x][i].fname+
     				'&nbsp;'+
     				guestsByTimeArr[x][i].lname+
@@ -207,12 +203,9 @@ function slowLoad(){
 						guestsByTimeArr[x][i].important===true){
 						modalHTML+='<span class="label label-important">Important</span><br>';
 					}
-					// PCR NUMBER
-					/*if(guestsByTimeArr[x][i].pcr!==undefined&&
-						guestsByTimeArr[x][i].pcr!==null&&
-						guestsByTimeArr[x][i].pcr!==""){
-						modalHTML+='PCR#: '+guestsByTimeArr[x][i].pcr+'<br>';
-					}*/
+					modalHTML+='<i class="icon-exclamation-sign '+
+						'guestTimelinePronounceSpeakerIconTwo pull-left"></i>&nbsp; '+
+						guestsByTimeArr[x][i].pname+'<br>';
 					// PCR STATUS
 					if(guestsByTimeArr[x][i].pcrStatus!==undefined&&
 						guestsByTimeArr[x][i].pcrStatus!==null&&

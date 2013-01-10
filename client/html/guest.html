@@ -13,6 +13,25 @@
 <template name="guestAddForm">
 	<form class="form">
 		<div id="addGuestLeft" class="pull-left">
+			<div class="control-group bumpDownTwo" id="addGuestTitleControlGrp">
+				<label class="control-label" for="addGuestTitle">
+					Title
+				</label>
+				<div class="controls">
+					<div class="controls">
+						<select id="addGuestTitle">
+							<option>Not selected</option>
+							<option>Mrs.</option>
+							<option>Ms.</option>
+							<option>Mr.</option>
+							<option>Dr.</option>
+						</select>
+					</div>
+					<span id="addGuestTitleHelpErrBlank" class="help helpMod hidden">
+						Please select a title
+					</span>
+				</div>
+			</div>
 			<div class="control-group bumpDownTwo" id="addGuestLNameControlGrp">
 				<label class="control-label" for="addGuestLname">
 					Last Name

@@ -280,9 +280,20 @@ img {
 .guestTimelineImportantStarIcon{
 	background-image: url("/img/icon_star.png") !important;
 	background-position: 0 0px !important;
-	/*position: absolute;
-	margin-top: 25px;*/
 	float: left;
+}
+.guestTimelinePronounceSpeakerIcon{
+	background-image: url("/img/speaker.png") !important;
+	background-position: 0 0px !important;
+	width: 20px !important;
+	height: 20px !important;
+}
+.guestTimelinePronounceSpeakerIconTwo{
+	background-image: url("/img/speaker.png") !important;
+	background-position: 0 0px !important;
+	width: 20px !important;
+	height: 20px !important;
+	margin-top: 4px;
 }
 .badge-royal{
 	background-color: #9F5FDF;
@@ -311,7 +322,8 @@ img {
 	margin-top: -26px;
 }
 #guestListTableGrid{
-	table-layout:fixed
+	table-layout:fixed;
+	font-size: 0.9em;
 }
 #guestListTableGrid td, #guestListTableGrid th{
 	word-wrap: break-word;

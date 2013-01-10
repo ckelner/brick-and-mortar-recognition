@@ -125,10 +125,35 @@ function hideErrorGPhoneGA(){
 	$('#addGuestPhoneHelpErrTooLong').hide()
 	$('#addGuestPhoneHelpErrTooShort').hide()
 }
+function titleDataErrTestGA(){
+	var gTitle=$("#addGuestTitle").val();
+	var isErr=false;
+	if(gTitle==="Not selected"){
+		titleErrGA('none');
+		isErr=true;
+	}
+	if(isErr===false){
+		hideErrorTitleGA();
+	}
+	return isErr;
+}
+function titleErrGA(err){
+	$('#addGuestTitleControlGrp').addClass('error');
+	if(err==='none'){
+		var helpDiv=$('#addGuestTitleHelpErrBlank');
+		helpDiv.css('display','block');
+		helpDiv.css('visibility','visible');
+	}
+}
+function hideErrorTitleGA(){
+	$('#addGuestTitleControlGrp').removeClass('error');
+	$('#addGuestTitleHelpErrBlank').hide();
+}
 function hideAllErrorMsgGA(){
 	hideErrorLNameGA();
 	hideErrorPNameGA();
 	hideErrorGPhoneGA();
+	hideErrorTitleGA();
 	$('#addGuestPhotoControlGrp').removeClass('error');
 	$('#addGuestPhotoHelpErr').hide();
 }
@@ -194,6 +219,7 @@ function photoMissingOrUploadErrGA(err){
 	helpDiv.css('visibility','visible');
 }
 function guestDBSaveGA(photoUrl){
+	var gTitle=$("#addGuestTitle").val();
 	var lastname=$("#addGuestLname").val();
 	var proName=$("#addGuestPname").val();
 	var gPhone=$("#addGuestPhone").val();
@@ -202,6 +228,8 @@ function guestDBSaveGA(photoUrl){
 		lname: lastname,
 		pname: proName,
 		type: 'incomplete',
+		title: gTitle,
+		phone: gPhone,
 		img: photo,
 		timestamp: (new Date()).getTime()+Meteor.uuid()
     });
@@ -219,5 +247,6 @@ function addGuestClearDataGA(){
 	$("#addGuestLname").val("");
 	$("#addGuestPhone").val("");
 	$("#addGuestPname").val("");
+	$("#addGuestTitle").val("Not selected");
 	$("#addGuestRemoveImgBtn").trigger('click');
 }
