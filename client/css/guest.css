@@ -11,7 +11,7 @@
 	margin-bottom: 30px;
 }
 #adminAddGuestGA{
-	width: 500px !important;
+	width: 670px !important;
 	margin-top: 10px;
 	color: black;
 	margin-right: 100px;
@@ -24,9 +24,12 @@
 	margin-top: 24px !important;
 }
 #addGuestButtonGA{
-	margin-top: 45px !important;
+	margin-top: 105px !important;
 }
 .helpMod{
 	line-height: 1 !important;
 	padding-bottom: 10px !important;
+}
+.guestAddWider{
+	width: 300px;
 }

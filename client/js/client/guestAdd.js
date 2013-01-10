@@ -200,6 +200,10 @@ function isErrorWithGuestDataGA(){
 	if(isErrCur===true){
 		isErr=isErrCur;
 	}
+	isErrCur=titleDataErrTestGA();
+	if(isErrCur===true){
+		isErr=isErrCur;
+	}
 	console.log("is error is : "+isErr);
 	return isErr;
 }

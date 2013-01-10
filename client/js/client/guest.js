@@ -159,6 +159,7 @@ function guestEditDBSave(photoUrl,uploaded){
 		pname: pronounce,
 		title: gtitle,
 		phone: gphone,
+		type: 'complete'
     }});
 	$("#guestAddPhotoUploadPlsWait").hide();
 	$("#guestAddPhotoUploadGoodMsg").show();

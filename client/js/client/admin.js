@@ -33,9 +33,15 @@ function navBarSet(){
 		}
 	}
 }
+function adminTitleLoadSlow(){
+	document.title = "Guest Timeline Admin";
+}
+function guestAddTitleLoadSlow(){
+	document.title="Guest Recognition Opt-in";
+}
 function adminLoad(){
 	$("body").css("overflow","scroll");
-	document.title = "Guest Timeline Admin";
+	setTimeout(adminTitleLoadSlow,2000);
 	fixForms();
 	if(getURLParameter("fg")==="true"){
 		setupFindGuest();
@@ -47,7 +53,7 @@ function adminLoad(){
 		setupFindOptInGuest();
 	}else{
 		if(getURLParameter("guestAdd")==="true"){
-			document.title="Guest Recognition Opt-in";
+			setTimeout(guestAddTitleLoadSlow,3000);
 			setOnFocusOutFieldsGuestAdd();
 		}else{
 			setDateTool();
