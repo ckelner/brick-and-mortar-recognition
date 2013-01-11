@@ -144,8 +144,8 @@ function slowLoad(){
 				if(((guestsByTimeArr[x][i].important!==null||
 					guestsByTimeArr[x][i].important!=="")&&
 					guestsByTimeArr[x][i].important===true)||
-					guestsByTimeArr[x][i].pname!==null||
-					guestsByTimeArr[x][i].pname!==""){
+					(guestsByTimeArr[x][i].pname!==null&&
+					guestsByTimeArr[x][i].pname!=="")){
 					insideHTML+='<i class="icon-exclamation-sign '+
 						'guestTimelineImportantStarIcon pull-left"> </i>';
 				}

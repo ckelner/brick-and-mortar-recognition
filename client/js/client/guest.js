@@ -54,13 +54,9 @@ function addGuestClearData(){
 	$("#addGuestPCRStatusSelect").val("");
 	$("#addGuestATime").val("");
 	$("#addGuestADate").val("");
-	$("#guestAddSexMale").val("");
 	$("#addGuestImportantCheck").val("");
 	$("#addGuestNotes").val("");
 	$("#addGuestRemoveImgBtn").trigger('click');
-	$("#guestAddSexUnknown")[0].checked=true;
-	$("#guestAddSexMale")[0].checked=false;
-	$("#guestAddSexFemale")[0].checked=false;
 	$("#addGuestImportantCheck")[0].checked=false;
 	setDateTool();
 	setTimeTool();
@@ -75,9 +71,9 @@ function guestDBSave(photoUrl){
 	var imp=getGuestImportant();
 	var photo=photoUrl;
 	var note=$("#addGuestNotes").val();
-	var pronounce=$("#addGPname").val("");
-	var gphone=$("#addGPhone").val("");
-	var gtitle=$("#addGuestTitle").val("");
+	var pronounce=$("#addGPname").val();
+	var gphone=$("#addGPhone").val();
+	var gtitle=$("#addGuestTitle").val();
 	Guests.insert({
 		fname: firstname,
 		lname: lastname,
