@@ -200,9 +200,13 @@ function slowLoad(){
 						guestsByTimeArr[x][i].important===true){
 						modalHTML+='<span class="label label-important">Important</span><br>';
 					}
-					modalHTML+='<i class="icon-exclamation-sign '+
-						'guestTimelinePronounceSpeakerIconTwo pull-left"></i>&nbsp; '+
-						guestsByTimeArr[x][i].pname+'<br>';
+					// PRONOUNCE
+					if(guestsByTimeArr[x][i].pname!==null&&
+						guestsByTimeArr[x][i].pname!==""){
+						modalHTML+='<i class="icon-exclamation-sign '+
+							'guestTimelinePronounceSpeakerIconTwo pull-left"></i>&nbsp; '+
+							guestsByTimeArr[x][i].pname+'<br>';
+						}
 					// PCR STATUS
 					if(guestsByTimeArr[x][i].pcrStatus!==undefined&&
 						guestsByTimeArr[x][i].pcrStatus!==null&&
